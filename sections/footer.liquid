@@ -179,36 +179,6 @@
         © {{ 'now' | date: '%Y' }} {{ section.settings.brand_name | default: shop.name }}.
         {%- if is_arabic -%}{{ section.settings.copyright_ar | default: 'جميع الحقوق محفوظة.' }}{%- else -%}{{ section.settings.copyright_en | default: 'All Rights Reserved.' }}{%- endif -%}
       </p>
-
-      <ul class="ds-footer-legal-links">
-        <li>
-          <a href="{{ section.settings.faq_url | default: '/pages/faqs' }}">
-            {%- if is_arabic -%}{{ section.settings.faq_label_ar | default: 'الأسئلة الشائعة' }}{%- else -%}{{ section.settings.faq_label_en | default: 'FAQs' }}{%- endif -%}
-          </a>
-        </li>
-        <li>
-          <a href="{{ section.settings.shipping_url | default: '/pages/shipping' }}">
-            {%- if is_arabic -%}{{ section.settings.shipping_label_ar | default: 'الشحن والتوصيل' }}{%- else -%}{{ section.settings.shipping_label_en | default: 'Shipping & Delivery' }}{%- endif -%}
-          </a>
-        </li>
-        <li>
-          <a href="{{ section.settings.returns_url | default: '/pages/returns' }}">
-            {%- if is_arabic -%}{{ section.settings.returns_label_ar | default: 'الإرجاع والاستبدال' }}{%- else -%}{{ section.settings.returns_label_en | default: 'Returns & Refunds' }}{%- endif -%}
-          </a>
-        </li>
-        <li>
-          <a href="{{ section.settings.privacy_url | default: '/pages/privacy-policy' }}">
-            {%- if is_arabic -%}{{ section.settings.privacy_label_ar | default: 'سياسة الخصوصية' }}{%- else -%}{{ section.settings.privacy_label_en | default: 'Privacy Policy' }}{%- endif -%}
-          </a>
-        </li>
-        {%- if section.settings.terms_url != blank -%}
-          <li>
-            <a href="{{ section.settings.terms_url }}">
-              {%- if is_arabic -%}{{ section.settings.terms_label_ar | default: 'الشروط والأحكام' }}{%- else -%}{{ section.settings.terms_label_en | default: 'Terms & Conditions' }}{%- endif -%}
-            </a>
-          </li>
-        {%- endif -%}
-      </ul>
     </div>
   </div>
 
@@ -441,9 +411,8 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
+    justify-content: center;
+    text-align: center;
   }
 
   .ds-footer-copy {
