@@ -112,9 +112,12 @@
               </li>
             {%- endfor -%}
           {%- else -%}
-            <li><a href="/pages/shipping" class="ds-footer-link">{%- if is_arabic -%}الشحن والتوصيل{%- else -%}Shipping & Delivery{%- endif -%}</a></li>
-            <li><a href="/pages/returns" class="ds-footer-link">{%- if is_arabic -%}الإرجاع والاستبدال{%- else -%}Returns & Refunds{%- endif -%}</a></li>
-            <li><a href="/pages/privacy-policy" class="ds-footer-link">{%- if is_arabic -%}سياسة الخصوصية{%- else -%}Privacy Policy{%- endif -%}</a></li>
+            <li><a href="{{ section.settings.shipping_url | default: '/pages/shipping' }}" class="ds-footer-link">{%- if is_arabic -%}{{ section.settings.shipping_label_ar | default: 'الشحن والتوصيل' }}{%- else -%}{{ section.settings.shipping_label_en | default: 'Shipping & Delivery' }}{%- endif -%}</a></li>
+            <li><a href="{{ section.settings.returns_url | default: '/pages/returns' }}" class="ds-footer-link">{%- if is_arabic -%}{{ section.settings.returns_label_ar | default: 'الإرجاع والاستبدال' }}{%- else -%}{{ section.settings.returns_label_en | default: 'Returns & Refunds' }}{%- endif -%}</a></li>
+            <li><a href="{{ section.settings.privacy_url | default: '/pages/privacy-policy' }}" class="ds-footer-link">{%- if is_arabic -%}{{ section.settings.privacy_label_ar | default: 'سياسة الخصوصية' }}{%- else -%}{{ section.settings.privacy_label_en | default: 'Privacy Policy' }}{%- endif -%}</a></li>
+            {%- if section.settings.terms_url != blank -%}
+              <li><a href="{{ section.settings.terms_url }}" class="ds-footer-link">{%- if is_arabic -%}{{ section.settings.terms_label_ar | default: 'الشروط والأحكام' }}{%- else -%}{{ section.settings.terms_label_en | default: 'Terms & Conditions' }}{%- endif -%}</a></li>
+            {%- endif -%}
           {%- endif -%}
         </ul>
       </div>
@@ -176,6 +179,31 @@
         © {{ 'now' | date: '%Y' }} {{ section.settings.brand_name | default: shop.name }}.
         {%- if is_arabic -%}{{ section.settings.copyright_ar | default: 'جميع الحقوق محفوظة.' }}{%- else -%}{{ section.settings.copyright_en | default: 'All Rights Reserved.' }}{%- endif -%}
       </p>
+
+      <ul class="ds-footer-legal-links">
+        <li>
+          <a href="{{ section.settings.shipping_url | default: '/pages/shipping' }}">
+            {%- if is_arabic -%}{{ section.settings.shipping_label_ar | default: 'الشحن والتوصيل' }}{%- else -%}{{ section.settings.shipping_label_en | default: 'Shipping & Delivery' }}{%- endif -%}
+          </a>
+        </li>
+        <li>
+          <a href="{{ section.settings.returns_url | default: '/pages/returns' }}">
+            {%- if is_arabic -%}{{ section.settings.returns_label_ar | default: 'الإرجاع والاستبدال' }}{%- else -%}{{ section.settings.returns_label_en | default: 'Returns & Refunds' }}{%- endif -%}
+          </a>
+        </li>
+        <li>
+          <a href="{{ section.settings.privacy_url | default: '/pages/privacy-policy' }}">
+            {%- if is_arabic -%}{{ section.settings.privacy_label_ar | default: 'سياسة الخصوصية' }}{%- else -%}{{ section.settings.privacy_label_en | default: 'Privacy Policy' }}{%- endif -%}
+          </a>
+        </li>
+        {%- if section.settings.terms_url != blank -%}
+          <li>
+            <a href="{{ section.settings.terms_url }}">
+              {%- if is_arabic -%}{{ section.settings.terms_label_ar | default: 'الشروط والأحكام' }}{%- else -%}{{ section.settings.terms_label_en | default: 'Terms & Conditions' }}{%- endif -%}
+            </a>
+          </li>
+        {%- endif -%}
+      </ul>
     </div>
   </div>
 
@@ -408,14 +436,38 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
   }
 
   .ds-footer-copy {
     font-family: 'Inter', system-ui, sans-serif;
     font-size: 12px;
-    color: #555555;
+    color: #777777;
     margin: 0;
+  }
+
+  .ds-footer-legal-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .ds-footer-legal-links a {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    color: #888888;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .ds-footer-legal-links a:hover {
+    color: #5cc5cb;
   }
 
   /* Responsive */
@@ -550,6 +602,78 @@
       "id": "care_title_ar",
       "label": "Customer Care Column Title (Arabic)",
       "default": "خدمة العملاء"
+    },
+    {
+      "type": "header",
+      "content": "Legal & Policy Page Links"
+    },
+    {
+      "type": "text",
+      "id": "shipping_label_en",
+      "label": "Shipping & Delivery Label (English)",
+      "default": "Shipping & Delivery"
+    },
+    {
+      "type": "text",
+      "id": "shipping_label_ar",
+      "label": "Shipping & Delivery Label (Arabic)",
+      "default": "الشحن والتوصيل"
+    },
+    {
+      "type": "url",
+      "id": "shipping_url",
+      "label": "Shipping Page Link URL"
+    },
+    {
+      "type": "text",
+      "id": "returns_label_en",
+      "label": "Returns & Refunds Label (English)",
+      "default": "Returns & Refunds"
+    },
+    {
+      "type": "text",
+      "id": "returns_label_ar",
+      "label": "Returns & Refunds Label (Arabic)",
+      "default": "الإرجاع والاستبدال"
+    },
+    {
+      "type": "url",
+      "id": "returns_url",
+      "label": "Returns Page Link URL"
+    },
+    {
+      "type": "text",
+      "id": "privacy_label_en",
+      "label": "Privacy Policy Label (English)",
+      "default": "Privacy Policy"
+    },
+    {
+      "type": "text",
+      "id": "privacy_label_ar",
+      "label": "Privacy Policy Label (Arabic)",
+      "default": "سياسة الخصوصية"
+    },
+    {
+      "type": "url",
+      "id": "privacy_url",
+      "label": "Privacy Policy Page Link URL"
+    },
+    {
+      "type": "text",
+      "id": "terms_label_en",
+      "label": "Terms & Conditions Label (English)",
+      "default": "Terms & Conditions"
+    },
+    {
+      "type": "text",
+      "id": "terms_label_ar",
+      "label": "Terms & Conditions Label (Arabic)",
+      "default": "الشروط والأحكام"
+    },
+    {
+      "type": "url",
+      "id": "terms_url",
+      "label": "Terms & Conditions Page Link URL"
     },
     {
       "type": "header",
