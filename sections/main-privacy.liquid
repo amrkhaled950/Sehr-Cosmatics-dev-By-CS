@@ -8,11 +8,11 @@
 
     <!-- ── Page Header Area ── -->
     <div class="privacy-header">
-      <h1 class="privacy-title">
+      <h1 class="privacy-title" data-reveal="fade-up" data-delay="0">
         {% if is_arabic %}{{ section.settings.title_ar | default: 'سياسة الخصوصية' }}{% else %}{{ section.settings.title_en | default: 'Privacy Policy' }}{% endif %}
       </h1>
-      <div class="privacy-title-line"></div>
-      <p class="privacy-subtitle">
+      <div class="privacy-title-line" data-reveal="scale-x" data-delay="100"></div>
+      <p class="privacy-subtitle" data-reveal="fade-up" data-delay="200">
         {% if is_arabic %}
           في Desura De Sehr، نحن نثمن ثقتك ونلتزم بحماية معلوماتك الشخصية وحقك في الخصوصية.
         {% else %}
@@ -22,10 +22,10 @@
     </div>
 
     <!-- ── Top 5 Pillars Bar (White Card) ── -->
-    <div class="privacy-top-bar">
+    <div class="privacy-top-bar" data-reveal="promise-card" data-delay="100">
       <div class="privacy-top-grid">
         
-        <div class="ptop-item">
+        <div class="ptop-item" data-reveal="fade-up" data-delay="0">
           <div class="ptop-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
@@ -35,7 +35,7 @@
           </div>
         </div>
 
-        <div class="ptop-item">
+        <div class="ptop-item" data-reveal="fade-up" data-delay="80">
           <div class="ptop-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           </div>
@@ -45,7 +45,7 @@
           </div>
         </div>
 
-        <div class="ptop-item">
+        <div class="ptop-item" data-reveal="fade-up" data-delay="160">
           <div class="ptop-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </div>
@@ -55,7 +55,7 @@
           </div>
         </div>
 
-        <div class="ptop-item">
+        <div class="ptop-item" data-reveal="fade-up" data-delay="240">
           <div class="ptop-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           </div>
@@ -65,7 +65,7 @@
           </div>
         </div>
 
-        <div class="ptop-item">
+        <div class="ptop-item" data-reveal="fade-up" data-delay="320">
           <div class="ptop-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           </div>
@@ -73,6 +73,16 @@
             <h3>{% if is_arabic %}معايير عالمية{% else %}Global Standards{% endif %}</h3>
             <p>{% if is_arabic %}تتوافق ممارساتنا مع قوانين ولوائح الخصوصية المعمول بها.{% else %}Our practices comply with applicable privacy laws and regulations.{% endif %}</p>
           </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SECTION 1: Information We Collect ── -->
+    <div class="privacy-section-block">
+      <div class="section-heading-centered" data-reveal="fade-up">
+        <h2 class="sec-title">1. {% if is_arabic %}المعلومات التي نجمعها{% else %}Information We Collect{% endif %}</h2>
+        <div class="sec-title-line" data-reveal="scale-x"></div>    </div>
         </div>
 
       </div>
@@ -772,15 +782,73 @@
     }
   }
 
-  @media (max-width: 540px) {
-    .privacy-top-grid,
-    .sec2-cards-5col,
-    .sec3-cards-4col,
-    .sec4to7-grid-4col {
-      grid-template-columns: 1fr;
-    }
+  /* ── Scroll Animations ── */
+  [data-reveal] {
+    opacity: 0;
+    transition-property: transform, opacity, filter, box-shadow;
+    transition-duration: 0.85s;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+  }
+
+  [data-reveal="fade-up"] {
+    transform: translateY(30px);
+  }
+
+  [data-reveal="scale-x"] {
+    transform: scaleX(0);
+    transform-origin: center;
+  }
+
+  [data-reveal="card-3d"] {
+    transform: perspective(1000px) rotateX(10deg) translateY(30px);
+  }
+
+  [data-reveal="promise-card"] {
+    transform: translateY(35px) scale(0.97);
+  }
+
+  /* Revealed Active States */
+  [data-reveal].is-in-view {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-reveal="scale-x"].is-in-view {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  [data-reveal="promise-card"].is-in-view {
+    transform: translateY(0) scale(1);
+    opacity: 1;
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const revealElements = document.querySelectorAll('#main-privacy-{{ section.id }} [data-reveal]');
+    if (!revealElements.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const delay = el.getAttribute('data-delay') || 0;
+          setTimeout(() => {
+            el.classList.add('is-in-view');
+          }, parseInt(delay));
+          observer.unobserve(el);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealElements.forEach(el => observer.observe(el));
+  });
+</script>
 
 {% schema %}
 {

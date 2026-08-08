@@ -8,11 +8,11 @@
 
     <!-- ── Page Header Area ── -->
     <div class="shipping-header">
-      <h1 class="shipping-title">
+      <h1 class="shipping-title" data-reveal="fade-up" data-delay="0">
         {% if is_arabic %}{{ section.settings.title_ar | default: 'الشحن والتوصيل' }}{% else %}{{ section.settings.title_en | default: 'Shipping & Delivery' }}{% endif %}
       </h1>
-      <div class="shipping-title-line"></div>
-      <p class="shipping-subtitle">
+      <div class="shipping-title-line" data-reveal="scale-x" data-delay="100"></div>
+      <p class="shipping-subtitle" data-reveal="fade-up" data-delay="200">
         {% if is_arabic %}
           نحن ملتزمون بتوصيل منتجات العناية بالبشرة المفضلة لديك بأمان وسرعة وموثوقية عالية.
         {% else %}
@@ -22,10 +22,10 @@
     </div>
 
     <!-- ── Top Guarantees Bar (4 items in a row) ── -->
-    <div class="shipping-top-bar">
+    <div class="shipping-top-bar" data-reveal="promise-card" data-delay="100">
       <div class="shipping-top-grid">
         
-        <div class="top-item">
+        <div class="top-item" data-reveal="fade-up" data-delay="0">
           <div class="top-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
           </div>
@@ -35,7 +35,7 @@
           </div>
         </div>
 
-        <div class="top-item">
+        <div class="top-item" data-reveal="fade-up" data-delay="80">
           <div class="top-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
           </div>
@@ -45,7 +45,7 @@
           </div>
         </div>
 
-        <div class="top-item">
+        <div class="top-item" data-reveal="fade-up" data-delay="160">
           <div class="top-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
@@ -55,7 +55,7 @@
           </div>
         </div>
 
-        <div class="top-item">
+        <div class="top-item" data-reveal="fade-up" data-delay="240">
           <div class="top-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           </div>
@@ -71,17 +71,17 @@
     <!-- ── DELIVERY INFORMATION SECTION ── -->
     <div class="shipping-section-block">
       <div class="section-divider-header">
-        <span class="divider-line"></span>
-        <h2 class="divider-title">
+        <span class="divider-line" data-reveal="scale-x"></span>
+        <h2 class="divider-title" data-reveal="fade-up" data-delay="100">
           {% if is_arabic %}{{ section.settings.deliv_info_ar | default: 'معلومات التوصيل' }}{% else %}{{ section.settings.deliv_info_en | default: 'DELIVERY INFORMATION' }}{% endif %}
         </h2>
-        <span class="divider-line"></span>
+        <span class="divider-line" data-reveal="scale-x"></span>
       </div>
 
       <div class="info-cards-4col">
         
         <!-- Card 1 -->
-        <div class="info-card">
+        <div class="info-card" data-reveal="card-3d" data-delay="0">
           <div class="info-card-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
@@ -91,7 +91,7 @@
         </div>
 
         <!-- Card 2 -->
-        <div class="info-card">
+        <div class="info-card" data-reveal="card-3d" data-delay="100">
           <div class="info-card-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           </div>
@@ -100,7 +100,7 @@
         </div>
 
         <!-- Card 3 -->
-        <div class="info-card">
+        <div class="info-card" data-reveal="card-3d" data-delay="200">
           <div class="info-card-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
@@ -537,14 +537,73 @@
     }
   }
 
-  @media (max-width: 540px) {
-    .info-cards-4col,
-    .returns-grid-4col,
-    .shipping-top-grid {
-      grid-template-columns: 1fr;
-    }
+  /* ── Scroll Animations ── */
+  [data-reveal] {
+    opacity: 0;
+    transition-property: transform, opacity, filter, box-shadow;
+    transition-duration: 0.85s;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+  }
+
+  [data-reveal="fade-up"] {
+    transform: translateY(30px);
+  }
+
+  [data-reveal="scale-x"] {
+    transform: scaleX(0);
+    transform-origin: center;
+  }
+
+  [data-reveal="card-3d"] {
+    transform: perspective(1000px) rotateX(10deg) translateY(30px);
+  }
+
+  [data-reveal="promise-card"] {
+    transform: translateY(35px) scale(0.97);
+  }
+
+  /* Revealed Active States */
+  [data-reveal].is-in-view {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-reveal="scale-x"].is-in-view {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  [data-reveal="promise-card"].is-in-view {
+    transform: translateY(0) scale(1);
+    opacity: 1;
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const revealElements = document.querySelectorAll('#main-shipping-{{ section.id }} [data-reveal]');
+    if (!revealElements.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const delay = el.getAttribute('data-delay') || 0;
+          setTimeout(() => {
+            el.classList.add('is-in-view');
+          }, parseInt(delay));
+          observer.unobserve(el);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealElements.forEach(el => observer.observe(el));
+  });
+</script>
 
 {% schema %}
 {
