@@ -110,7 +110,7 @@
         </div>
 
         <!-- Card 4 -->
-        <div class="info-card">
+        <div class="info-card" data-reveal="card-3d" data-delay="300">
           <div class="info-card-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
           </div>
@@ -125,18 +125,18 @@
     <!-- ── RETURNS & EXCHANGES SECTION ── -->
     <div class="shipping-section-block">
       <div class="section-divider-header">
-        <span class="divider-line"></span>
-        <h2 class="divider-title">
+        <span class="divider-line" data-reveal="scale-x"></span>
+        <h2 class="divider-title" data-reveal="fade-up" data-delay="100">
           {% if is_arabic %}{{ section.settings.returns_title_ar | default: 'الإرجاع والاستبدال' }}{% else %}{{ section.settings.returns_title_en | default: 'RETURNS & EXCHANGES' }}{% endif %}
         </h2>
-        <span class="divider-line"></span>
+        <span class="divider-line" data-reveal="scale-x"></span>
       </div>
 
-      <div class="returns-big-card">
+      <div class="returns-big-card" data-reveal="promise-card" data-delay="100">
         <div class="returns-grid-4col">
           
           <!-- Item 1 -->
-          <div class="returns-item">
+          <div class="returns-item" data-reveal="fade-up" data-delay="0">
             <div class="returns-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.87"/></svg>
             </div>
@@ -145,7 +145,7 @@
           </div>
 
           <!-- Item 2 -->
-          <div class="returns-item">
+          <div class="returns-item" data-reveal="fade-up" data-delay="80">
             <div class="returns-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
             </div>
@@ -154,7 +154,7 @@
           </div>
 
           <!-- Item 3 -->
-          <div class="returns-item">
+          <div class="returns-item" data-reveal="fade-up" data-delay="160">
             <div class="returns-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
             </div>
@@ -163,7 +163,7 @@
           </div>
 
           <!-- Item 4 -->
-          <div class="returns-item">
+          <div class="returns-item" data-reveal="fade-up" data-delay="240">
             <div class="returns-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
@@ -176,7 +176,7 @@
     </div>
 
     <!-- ── NEED HELP BAR ── -->
-    <div class="need-help-card">
+    <div class="need-help-card" data-reveal="promise-card" data-delay="150">
       <div class="need-help-grid">
         <div class="need-help-title-wrap">
           <div class="need-help-icon">
