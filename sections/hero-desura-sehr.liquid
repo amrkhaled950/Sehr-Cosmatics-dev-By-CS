@@ -6,7 +6,7 @@
 
     <!-- ── Background Image (Language Aware: AR / EN) ── -->
     {% assign is_arabic = false %}
-    {% if request.locale.iso_code == 'ar' or request.locale.root_url contains '/ar' or content_for_header contains 'lang=ar' %}
+    {% if request.locale.iso_code == 'ar' or request.locale.root_url contains '/ar' or request.path contains '/ar' or content_for_header contains 'lang=ar' %}
       {% assign is_arabic = true %}
     {% endif %}
 
@@ -82,19 +82,42 @@
       <div class="sparkles-wrap" id="sparklesWrap"></div>
     </div>
 
-    <!-- ── Hero Copy ── -->
+    <!-- ── Hero Copy (Language Aware) ── -->
     <div class="hero-copy">
       <div class="hero-copy-inner">
-        <p class="hero-eyebrow">PREMIUM CARE. POWERED BY <span class="eyebrow-accent">NATURE.</span></p>
+        <p class="hero-eyebrow">
+          {%- if is_arabic -%}
+            {{ section.settings.eyebrow_ar | default: 'عناية فائقة. بقوة الطبيعة.' }}
+          {%- else -%}
+            {{ section.settings.eyebrow_en | default: 'PREMIUM CARE. POWERED BY NATURE.' }}
+          {%- endif -%}
+        </p>
         <h1 class="hero-h1">
-          <span class="h1-line">{{ section.settings.heading_line1 | default: 'Beauty' }}</span>
-          <span class="h1-line italic">{{ section.settings.heading_line2 | default: 'Elevated.' }}</span>
+          {%- if is_arabic -%}
+            <span class="h1-line">{{ section.settings.heading_line1_ar | default: 'سِحر' }}</span>
+            <span class="h1-line italic">{{ section.settings.heading_line2_ar | default: 'الجمال.' }}</span>
+          {%- else -%}
+            <span class="h1-line">{{ section.settings.heading_line1 | default: 'Beauty' }}</span>
+            <span class="h1-line italic">{{ section.settings.heading_line2 | default: 'Elevated.' }}</span>
+          {%- endif -%}
         </h1>
-        <p class="hero-body">{{ section.settings.body_text | default: 'Science-backed formulas with natural ingredients for radiant, healthy, and confident you.' }}</p>
-        <a href="{{ section.settings.cta_link | default: '/collections/all' }}" class="cta-btn">
+        <p class="hero-body">
+          {%- if is_arabic -%}
+            {{ section.settings.body_text_ar | default: 'تركيبات مدعومة بالعلم بمكونات طبيعية مئة بالمئة لتمنحكِ إشراقة وصحة مفعمة بالثقة.' }}
+          {%- else -%}
+            {{ section.settings.body_text | default: 'Science-backed formulas with natural ingredients for radiant, healthy, and confident you.' }}
+          {%- endif -%}
+        </p>
+        <a href="{{ section.settings.cta_link | default: '/#our-collection' }}" class="cta-btn">
           <span class="cta-shine" aria-hidden="true"></span>
-          <span class="cta-text">{{ section.settings.cta_label | default: 'SHOP NOW' }}</span>
-          <span class="cta-arrow" aria-hidden="true">&#8594;</span>
+          <span class="cta-text">
+            {%- if is_arabic -%}
+              {{ section.settings.cta_label_ar | default: 'تسوق الآن' }}
+            {%- else -%}
+              {{ section.settings.cta_label | default: 'SHOP NOW' }}
+            {%- endif -%}
+          </span>
+          <span class="cta-arrow" aria-hidden="true">{% if is_arabic %}&#8592;{% else %}&#8594;{% endif %}</span>
         </a>
       </div>
     </div>
@@ -324,28 +347,72 @@
       "label": "Hero Background Image (Arabic)"
     },
     {
+      "type": "header",
+      "content": "Hero Copy (English)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_en",
+      "label": "Eyebrow Label (English)",
+      "default": "PREMIUM CARE. POWERED BY NATURE."
+    },
+    {
       "type": "text",
       "id": "heading_line1",
-      "label": "Heading Line 1",
+      "label": "Heading Line 1 (English)",
       "default": "Beauty"
     },
     {
       "type": "text",
       "id": "heading_line2",
-      "label": "Heading Line 2 (Italic)",
+      "label": "Heading Line 2 (English)",
       "default": "Elevated."
     },
     {
       "type": "textarea",
       "id": "body_text",
-      "label": "Body Paragraph",
+      "label": "Body Paragraph (English)",
       "default": "Science-backed formulas with natural ingredients for radiant, healthy, and confident you."
     },
     {
       "type": "text",
       "id": "cta_label",
-      "label": "Button label",
+      "label": "Button Label (English)",
       "default": "SHOP NOW"
+    },
+    {
+      "type": "header",
+      "content": "Hero Copy (Arabic)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_ar",
+      "label": "Eyebrow Label (Arabic)",
+      "default": "عناية فائقة. بقوة الطبيعة."
+    },
+    {
+      "type": "text",
+      "id": "heading_line1_ar",
+      "label": "Heading Line 1 (Arabic)",
+      "default": "سِحر"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2_ar",
+      "label": "Heading Line 2 (Arabic)",
+      "default": "الجمال."
+    },
+    {
+      "type": "textarea",
+      "id": "body_text_ar",
+      "label": "Body Paragraph (Arabic)",
+      "default": "تركيبات مدعومة بالعلم بمكونات طبيعية مئة بالمئة لتمنحكِ إشراقة وصحة مفعمة بالثقة."
+    },
+    {
+      "type": "text",
+      "id": "cta_label_ar",
+      "label": "Button Label (Arabic)",
+      "default": "تسوق الآن"
     },
     {
       "type": "url",
