@@ -87,8 +87,20 @@
 
       initGlobalScrollReveal();
       document.addEventListener('shopify:section:load', initGlobalScrollReveal);
+
+      /* Sticky Header Scroll State Listener */
+      function updateStickyHeader() {
+        const header = document.querySelector('.header-overlay-wrapper');
+        if (!header) return;
+        if (window.scrollY > 20) {
+          header.classList.add('is-scrolled');
+        } else {
+          header.classList.remove('is-scrolled');
+        }
+      }
+      window.addEventListener('scroll', updateStickyHeader, { passive: true });
+      updateStickyHeader();
     });
   </script>
-
 </body>
 </html>
