@@ -90,10 +90,11 @@
         "ing_4": {
           "type": "ingredient",
           "settings": {
-            "title_en": "BIOTIN",
-            "title_ar": "بيوتين سيروم",
-            "subtitle_en": "Strengthens & supports healthy growth",
-            "subtitle_ar": "يقوي ويدعم النمو الصحي",
+            "image": "shopify://shop_images/ChatGPT_Image_Aug_8_2026_05_45_34_PM.png",
+            "title_en": "TEA TREE OIL",
+            "title_ar": "زيت شجرة الشاي",
+            "subtitle_en": "Purifies & soothes the skin",
+            "subtitle_ar": "ينقي البشرة ويلطفها",
             "glow_color": "#f472b6"
           }
         },
