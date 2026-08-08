@@ -137,10 +137,20 @@
 
           {% if land_x_en == blank %}{% assign land_x_en = 0 %}{% endif %}
           {% if land_y_en == blank %}{% assign land_y_en = 0 %}{% endif %}
-          {% if land_x_ar == blank %}{% assign land_x_ar = land_x_en %}{% endif %}
-          {% if land_y_ar == blank %}{% assign land_y_ar = land_y_en %}{% endif %}
-          {% if land_x_mb == blank %}{% assign land_x_mb = land_x_en %}{% endif %}
-          {% if land_y_mb == blank %}{% assign land_y_mb = land_y_en %}{% endif %}
+
+          {% if land_x_ar == blank or land_x_ar == 0 %}
+            {% assign land_x_ar = land_x_en | times: -1 %}
+          {% endif %}
+          {% if land_y_ar == blank %}
+            {% assign land_y_ar = land_y_en %}
+          {% endif %}
+
+          {% if land_x_mb == blank %}
+            {% assign land_x_mb = land_x_en %}
+          {% endif %}
+          {% if land_y_mb == blank %}
+            {% assign land_y_mb = land_y_en %}
+          {% endif %}
           {% assign land_z    = block.settings.land_z | default: 0 %}
           {% assign from_y = block.settings.from_y | default: -900 %}
           {% assign rot_x = block.settings.rot_x | default: 0 %}
