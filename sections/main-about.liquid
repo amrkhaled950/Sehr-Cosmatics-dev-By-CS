@@ -82,33 +82,6 @@
             {% if is_arabic %}{{ section.settings.m4_desc_ar | default: 'مع نمونا، اتبعنا الطريق الصحيح: الحصول على موافقات هيئة الدواء المصرية، والتوافق مع المواصفات القياسية المصرية والمعايير الدولية للجودة لضمان أن منتجاتنا آمنة، فعالة، وموثوقة.' }}{% else %}{{ section.settings.m4_desc_en | default: 'As we grew, we followed the right path: obtaining Egyptian Drug Authority approvals, meeting Egyptian Standard Specifications, and aligning with international quality standards to ensure our products are safe, effective, and trustworthy.' }}{% endif %}
           </p>
         </div>
-    </div>
-
-    <!-- ── Interactive Stats Bar ── -->
-    <div class="about-stats-grid">
-      <div class="stat-card" data-reveal="fade-up" data-delay="0">
-        <div class="stat-number-wrap">
-          <span class="stat-number" data-target="1">0</span><span class="stat-suffix">M+</span>
-        </div>
-        <div class="stat-label">{% if is_arabic %}هدف المبيعات (قطعة){% else %}Sales Target (Pieces){% endif %}</div>
-      </div>
-      <div class="stat-card" data-reveal="fade-up" data-delay="100">
-        <div class="stat-number-wrap">
-          <span class="stat-number" data-target="100">0</span><span class="stat-suffix">+</span>
-        </div>
-        <div class="stat-label">{% if is_arabic %}منتج عناية شخصية{% else %}Care Products{% endif %}</div>
-      </div>
-      <div class="stat-card" data-reveal="fade-up" data-delay="200">
-        <div class="stat-number-wrap">
-          <span class="stat-number" data-target="2024">0</span>
-        </div>
-        <div class="stat-label">{% if is_arabic %}سنة التأسيس{% else %}Founded Year{% endif %}</div>
-      </div>
-      <div class="stat-card" data-reveal="fade-up" data-delay="300">
-        <div class="stat-number-wrap">
-          <span class="stat-number" data-target="100">0</span><span class="stat-suffix">%</span>
-        </div>
-        <div class="stat-label">{% if is_arabic %}معايير جودة دولية{% else %}Quality Standard{% endif %}</div>
       </div>
     </div>
 
@@ -167,21 +140,19 @@
 </section>
 
 <style>
-  /* ═══════════════════════════════════════════════════
-     MAIN ABOUT SECTION STYLES — #000000 & #5CC5CB
-  ═══════════════════════════════════════════════════ */
-
   .main-about-section {
     width: 100%;
-    padding: 120px 48px 100px;
+    padding: 100px 24px 80px;
     background-color: #FFFFFF;
     font-family: 'Inter', system-ui, sans-serif;
     color: #000000;
+    overflow: hidden;
   }
 
   .about-container {
-    max-width: 1080px;
+    max-width: 960px;
     margin: 0 auto;
+    padding: 0 16px;
   }
 
   /* Header */
@@ -206,16 +177,16 @@
 
   .about-title {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(48px, 6vw, 76px);
+    font-size: clamp(42px, 5.5vw, 68px);
     font-weight: 500;
     color: #000000;
     margin: 0 0 12px 0;
-    line-height: 1.05;
+    line-height: 1.08;
   }
 
   .about-tagline {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(22px, 3vw, 32px);
+    font-size: clamp(20px, 2.8vw, 30px);
     font-style: italic;
     color: #5CC5CB;
     margin: 0 0 24px 0;
@@ -231,44 +202,46 @@
   /* ── Timeline ── */
   .about-timeline-wrap {
     position: relative;
-    padding-left: 120px;
+    padding-left: 72px;
     display: flex;
     flex-direction: column;
-    gap: 64px;
-    margin-bottom: 100px;
+    gap: 56px;
+    margin-bottom: 90px;
   }
 
   [dir="rtl"] .about-timeline-wrap {
     padding-left: 0;
-    padding-right: 120px;
+    padding-right: 72px;
   }
 
   .timeline-line {
     position: absolute;
     top: 30px;
     bottom: 30px;
-    left: 154px;
-    width: 1px;
+    left: 29px;
+    width: 2px;
     background: #D9EFEF;
     z-index: 1;
   }
 
   [dir="rtl"] .timeline-line {
     left: auto;
-    right: 154px;
+    right: 29px;
   }
 
   .timeline-item {
     position: relative;
     display: flex;
     align-items: flex-start;
-    gap: 32px;
     z-index: 2;
   }
 
   .timeline-icon-circle {
-    width: 68px;
-    height: 68px;
+    position: absolute;
+    left: -72px;
+    top: 0;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     border: 1.5px solid #D9EFEF;
     background: #FFFFFF;
@@ -276,30 +249,29 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    margin-left: -34px;
-    box-shadow: 0 4px 18px rgba(92, 197, 203, 0.1);
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(92, 197, 203, 0.12);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
   [dir="rtl"] .timeline-icon-circle {
-    margin-left: 0;
-    margin-right: -34px;
+    left: auto;
+    right: -72px;
   }
 
   .timeline-item:hover .timeline-icon-circle {
     border-color: #5CC5CB;
     transform: scale(1.08);
-    box-shadow: 0 8px 24px rgba(92, 197, 203, 0.25);
+    box-shadow: 0 8px 24px rgba(92, 197, 203, 0.28);
   }
 
   .timeline-content {
-    max-width: 680px;
-    padding-top: 12px;
+    max-width: 720px;
+    padding-top: 8px;
   }
 
   .timeline-title {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 500;
     color: #000000;
     margin: 0 0 10px 0;
@@ -314,7 +286,7 @@
 
   /* ── Mission Section ── */
   .about-mission-section {
-    margin-bottom: 100px;
+    margin-bottom: 90px;
     text-align: center;
   }
 
@@ -323,19 +295,19 @@
     align-items: center;
     justify-content: center;
     gap: 24px;
-    margin-bottom: 48px;
+    margin-bottom: 44px;
   }
 
   .mission-line {
     flex: 1;
     height: 1px;
     background: #D9EFEF;
-    max-width: 240px;
+    max-width: 220px;
   }
 
   .mission-main-title {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 42px;
+    font-size: 38px;
     font-weight: 500;
     color: #000000;
     margin: 0;
@@ -350,16 +322,16 @@
 
   .mission-card {
     flex: 1;
-    max-width: 440px;
+    max-width: 420px;
     background: #F4FCFC;
     border: 1px solid #D2F2F4;
     border-radius: 16px;
-    padding: 28px 32px;
+    padding: 26px 28px;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 18px;
     text-align: left;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   }
 
   [dir="rtl"] .mission-card {
@@ -367,13 +339,14 @@
   }
 
   .mission-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(92, 197, 203, 0.12);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(92, 197, 203, 0.15);
+    border-color: #5CC5CB;
   }
 
   .mission-card-icon {
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
     border-radius: 12px;
     background: #FFFFFF;
     display: flex;
@@ -397,8 +370,8 @@
   }
 
   .mission-ampersand {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     background: #FFFFFF;
     border: 1px solid #D2F2F4;
@@ -414,21 +387,21 @@
   /* ── Promise Section ── */
   .about-promise-section {
     text-align: center;
-    max-width: 680px;
+    max-width: 660px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 36px 20px;
   }
 
   .promise-icon {
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
 
   .promise-title {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 42px;
+    font-size: 38px;
     font-weight: 500;
     color: #000000;
-    margin: 0 0 16px 0;
+    margin: 0 0 14px 0;
   }
 
   .promise-body {
@@ -439,19 +412,29 @@
   }
 
   /* ── Responsive ── */
-  @media (max-width: 860px) {
+  @media (max-width: 768px) {
     .about-timeline-wrap {
-      padding-left: 40px;
+      padding-left: 56px;
     }
     [dir="rtl"] .about-timeline-wrap {
       padding-left: 0;
-      padding-right: 40px;
+      padding-right: 56px;
+    }
+    .timeline-icon-circle {
+      left: -56px;
+      width: 48px;
+      height: 48px;
+    }
+    [dir="rtl"] .timeline-icon-circle {
+      left: auto;
+      right: -56px;
     }
     .timeline-line {
-      left: 74px;
+      left: 23px;
     }
     [dir="rtl"] .timeline-line {
-      right: 74px;
+      left: auto;
+      right: 23px;
     }
     .mission-cards-grid {
       flex-direction: column;
@@ -460,9 +443,12 @@
       width: 100%;
       max-width: 100%;
     }
-  /* ═══════════════════════════════════════════════════
-     WORLD-CLASS SCROLL ANIMATIONS
-  ═══════════════════════════════════════════════════ */
+    .main-about-section {
+      padding: 70px 16px 50px;
+    }
+  }
+
+  /* ── Scroll Animations ── */
   [data-reveal] {
     opacity: 0;
     transition-property: transform, opacity, filter, box-shadow;
@@ -472,7 +458,7 @@
   }
 
   [data-reveal="fade-up"] {
-    transform: translateY(35px);
+    transform: translateY(30px);
   }
 
   [data-reveal="scale-x"] {
@@ -487,27 +473,17 @@
   }
 
   [data-reveal="timeline-step"] {
-    transform: translateY(30px);
+    transform: translateY(25px);
   }
 
   [data-reveal="timeline-step"] .timeline-icon-circle {
     transform: scale(0.6);
     opacity: 0;
-    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-  }
-
-  [data-reveal="timeline-step"] .timeline-content {
-    transform: translateX(-25px);
-    opacity: 0;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
-  }
-
-  [dir="rtl"] [data-reveal="timeline-step"] .timeline-content {
-    transform: translateX(25px);
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
   }
 
   [data-reveal="card-3d"] {
-    transform: perspective(1000px) rotateX(12deg) translateY(40px);
+    transform: perspective(1000px) rotateX(10deg) translateY(30px);
   }
 
   [data-reveal="pop-spin"] {
@@ -515,8 +491,7 @@
   }
 
   [data-reveal="promise-card"] {
-    transform: translateY(45px) scale(0.96);
-    box-shadow: 0 0 0 rgba(92, 197, 203, 0);
+    transform: translateY(35px) scale(0.97);
   }
 
   /* Revealed Active States */
@@ -538,11 +513,6 @@
     box-shadow: 0 0 25px rgba(92, 197, 203, 0.35);
   }
 
-  [data-reveal="timeline-step"].is-in-view .timeline-content {
-    transform: translateX(0);
-    opacity: 1;
-  }
-
   [data-reveal="pop-spin"].is-in-view {
     transform: scale(1) rotate(0deg);
     opacity: 1;
@@ -551,79 +521,6 @@
   [data-reveal="promise-card"].is-in-view {
     transform: translateY(0) scale(1);
     opacity: 1;
-    box-shadow: 0 20px 50px rgba(92, 197, 203, 0.12);
-  }
-
-  /* ── Interactive Stats Grid ── */
-  .about-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-bottom: 100px;
-  }
-
-  .stat-card {
-    background: linear-gradient(135deg, #FFFFFF 0%, #F4FCFC 100%);
-    border: 1px solid #D2F2F4;
-    border-radius: 16px;
-    padding: 32px 24px;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(92, 197, 203, 0.06);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .stat-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #5CC5CB, transparent);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-
-  .stat-card:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 16px 36px rgba(92, 197, 203, 0.2);
-    border-color: #5CC5CB;
-  }
-
-  .stat-card:hover::before {
-    opacity: 1;
-  }
-
-  .stat-number-wrap {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(36px, 4vw, 54px);
-    font-weight: 600;
-    color: #000000;
-    line-height: 1;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-  }
-
-  .stat-suffix {
-    color: #5CC5CB;
-  }
-
-  .stat-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: #666666;
-    letter-spacing: 0.05em;
-  }
-
-  @media (max-width: 768px) {
-    .about-stats-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
   }
 </style>
 
@@ -649,52 +546,6 @@
     });
 
     revealElements.forEach(el => observer.observe(el));
-
-    /* Animated Counter Observer */
-    const counterElements = document.querySelectorAll('#main-about-{{ section.id }} .stat-number');
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const target = parseInt(el.getAttribute('data-target'), 10);
-          let start = 0;
-          const duration = 1800;
-          const startTime = performance.now();
-
-          function updateCounter(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const currentVal = Math.floor(progress * (2 - progress) * target);
-            el.textContent = currentVal.toLocaleString();
-            if (progress < 1) {
-              requestAnimationFrame(updateCounter);
-            } else {
-              el.textContent = target.toLocaleString();
-            }
-          }
-
-          requestAnimationFrame(updateCounter);
-          counterObserver.unobserve(el);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    counterElements.forEach(el => counterObserver.observe(el));
-
-    /* 3D Tilt Effect on Cards */
-    const tiltCards = document.querySelectorAll('#main-about-{{ section.id }} .mission-card, #main-about-{{ section.id }} .stat-card');
-    tiltCards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        card.style.transform = `perspective(1000px) rotateX(${-y / 18}deg) rotateY(${x / 18}deg) translateY(-6px)`;
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-      });
-    });
   });
 </script>
 
