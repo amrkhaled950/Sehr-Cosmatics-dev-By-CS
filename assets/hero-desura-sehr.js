@@ -114,6 +114,14 @@ function getScrollProgress(heroEl) {
   return Math.min(1, Math.max(0, scrolled / scrollable));
 }
 
+function parseCoord(val, fallback) {
+  if (val !== undefined && val !== null && val !== '') {
+    const num = parseFloat(val);
+    if (!isNaN(num)) return num;
+  }
+  return fallback;
+}
+
 /* ─── Main init ─────────────────────────────────────────── */
 function initHero() {
   /* Use class selector — works regardless of dynamic section ID */
@@ -136,12 +144,14 @@ function initHero() {
       start: parseFloat(ds.start) || 0.05,
       dur: parseFloat(ds.dur) || 0.22,
       from: parseFloat(ds.from) || -900,
-      landX_en: parseFloat(ds.landXEn || ds.landX) || 0,
-      landY_en: parseFloat(ds.landYEn || ds.landY) || 0,
-      landX_ar: parseFloat(ds.landXAr || ds.landXEn || ds.landX) || 0,
-      landY_ar: parseFloat(ds.landYAr || ds.landYEn || ds.landY) || 0,
-      landX_mb: parseFloat(ds.landXMb || ds.landXEn || ds.landX) || 0,
-      landY_mb: parseFloat(ds.landYMb || ds.landYEn || ds.landY) || 0,
+      landX_en: parseCoord(ds.landXEn || ds.landX, 0),
+      landY_en: parseCoord(ds.landYEn || ds.landY, 0),
+      landX_ar: parseCoord(ds.landXAr, parseCoord(ds.landXEn || ds.landX, 0) * -1),
+      landY_ar: parseCoord(ds.landYAr, parseCoord(ds.landYEn || ds.landY, 0)),
+      landX_mb: parseCoord(ds.landXMb, parseCoord(ds.landXEn || ds.landX, 0)),
+      landY_mb: parseCoord(ds.landYMb, parseCoord(ds.landYEn || ds.landY, 0)),
+      landX_mb_ar: parseCoord(ds.landXMbAr, parseCoord(ds.landXAr, parseCoord(ds.landXEn || ds.landX, 0) * -1)),
+      landY_mb_ar: parseCoord(ds.landYMbAr, parseCoord(ds.landYAr, parseCoord(ds.landYEn || ds.landY, 0))),
       landZ: parseFloat(ds.landZ) || 0,
       rotX: parseFloat(ds.rotX) || 0,
       rotY: parseFloat(ds.rotY) || 0,
@@ -175,7 +185,10 @@ function initHero() {
     let curLandX = bd.landX_en;
     let curLandY = bd.landY_en;
 
-    if (isMobile) {
+    if (isMobile && isArabic) {
+      curLandX = bd.landX_mb_ar;
+      curLandY = bd.landY_mb_ar;
+    } else if (isMobile) {
       curLandX = bd.landX_mb;
       curLandY = bd.landY_mb;
     } else if (isArabic) {
@@ -237,7 +250,10 @@ function initHero() {
       let curLandX = bd.landX_en;
       let curLandY = bd.landY_en;
 
-      if (isMobile) {
+      if (isMobile && isArabic) {
+        curLandX = bd.landX_mb_ar;
+        curLandY = bd.landY_mb_ar;
+      } else if (isMobile) {
         curLandX = bd.landX_mb;
         curLandY = bd.landY_mb;
       } else if (isArabic) {
