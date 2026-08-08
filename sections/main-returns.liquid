@@ -1,0 +1,782 @@
+{%- assign is_arabic = false -%}
+{%- if request.locale.iso_code == 'ar' or request.locale.root_url contains '/ar' -%}
+  {%- assign is_arabic = true -%}
+{%- endif -%}
+
+<section class="main-returns-section" id="main-returns-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="returns-container">
+
+    <!-- ── Page Header Area ── -->
+    <div class="returns-header">
+      <div class="returns-header-text">
+        <h1 class="returns-page-title" data-reveal="fade-up" data-delay="0">
+          {% if is_arabic %}{{ section.settings.title_ar | default: 'الإرجاع والاسترداد' }}{% else %}{{ section.settings.title_en | default: 'Returns &' }}{% endif %}
+          <br>
+          {% if is_arabic %}{% else %}{{ section.settings.title2_en | default: 'Refunds' }}{% endif %}
+        </h1>
+        <div class="returns-title-line" data-reveal="scale-x" data-delay="100"></div>
+        <p class="returns-page-subtitle" data-reveal="fade-up" data-delay="200">
+          {% if is_arabic %}
+            رضاك هو أولويتنا القصوى. إذا لم تكن راضياً تماماً عن مشترياتك، فنحن هنا لجعل الأمر صحيحاً.
+          {% else %}
+            Your satisfaction is our priority. If you're not completely satisfied with your purchase, we're here to make it right.
+          {% endif %}
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Top 4 Guarantees Bar (White Card) ── -->
+    <div class="returns-top-bar" data-reveal="promise-card" data-delay="100">
+      <div class="returns-top-grid">
+        
+        <div class="rtop-item" data-reveal="fade-up" data-delay="0">
+          <div class="rtop-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <div class="rtop-text">
+            <h3>{% if is_arabic %}إرجاع سهل{% else %}Easy Returns{% endif %}</h3>
+            <p>{% if is_arabic %}إرجاع خالي من المتاعب خلال الإطار الزمني المؤهل.{% else %}Hassle-free returns within the eligible time frame.{% endif %}</p>
+          </div>
+        </div>
+
+        <div class="rtop-item" data-reveal="fade-up" data-delay="80">
+          <div class="rtop-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          </div>
+          <div class="rtop-text">
+            <h3>{% if is_arabic %}استرداد سريع{% else %}Quick Refunds{% endif %}</h3>
+            <p>{% if is_arabic %}نعالج المبالغ المستردة بسرعة إلى طريقة الدفع الأصلية.{% else %}We process refunds quickly to your original payment method.{% endif %}</p>
+          </div>
+        </div>
+
+        <div class="rtop-item" data-reveal="fade-up" data-delay="160">
+          <div class="rtop-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="rtop-text">
+            <h3>{% if is_arabic %}إجراءات آمنة{% else %}Secure Process{% endif %}</h3>
+            <p>{% if is_arabic %}خصوصيتك وأمانك محميان دائماً.{% else %}Your privacy and security are always protected.{% endif %}</p>
+          </div>
+        </div>
+
+        <div class="rtop-item" data-reveal="fade-up" data-delay="240">
+          <div class="rtop-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="rtop-text">
+            <h3>{% if is_arabic %}العميل أولاً{% else %}Customer First{% endif %}</h3>
+            <p>{% if is_arabic %}فريق الدعم لدينا هنا لمساعدتك في كل خطوة.{% else %}Our support team is here to help you every step of the way.{% endif %}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SECTION 1: OUR RETURN POLICY ── -->
+    <div class="returns-section-block">
+      <div class="section-heading-centered" data-reveal="fade-up">
+        <span class="sec-eyebrow">{% if is_arabic %}سياسة الإرجاع الخاصة بنا{% else %}OUR RETURN POLICY{% endif %}</span>
+        <div class="sec-title-line" data-reveal="scale-x"></div>
+        <p class="sec-subtitle">
+          {% if is_arabic %}
+            نريدك أن تحب كل منتج من Desura De Sehr. إذا لم تكن راضياً لأي سبب، يمكنك إرجاع المنتجات المؤهلة خلال الفترة المحددة.
+          {% else %}
+            We want you to love every Desura De Sehr product. If for any reason you're not satisfied, you may return eligible items within the specified period.
+          {% endif %}
+        </p>
+      </div>
+
+      <div class="policy-cards-4col">
+        <!-- Card 1: Return Window -->
+        <div class="policy-card" data-reveal="card-3d" data-delay="0">
+          <div class="pcard-circle-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h3>{% if is_arabic %}مهلة الإرجاع{% else %}Return Window{% endif %}</h3>
+          <p>{% if is_arabic %}يمكنك إرجاع المنتج خلال 14 يوماً من استلام طلبك.{% else %}You can return your item within 14 days of receiving your order.{% endif %}</p>
+        </div>
+
+        <!-- Card 2: Condition of Items -->
+        <div class="policy-card" data-reveal="card-3d" data-delay="100">
+          <div class="pcard-circle-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M10 2v7.31L4.75 18.2A2 2 0 0 0 6.46 21h11.08a2 2 0 0 0 1.71-2.8L14 9.31V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/></svg>
+          </div>
+          <h3>{% if is_arabic %}حالة المنتجات{% else %}Condition of Items{% endif %}</h3>
+          <p>{% if is_arabic %}يجب أن تكون المنتجات غير مستخدمة، غير مفتوحة، وفي تغليفها الأصلي مع سلامة جميع الأختام.{% else %}Products must be unused, unopened, and in their original packaging with all seals intact.{% endif %}</p>
+        </div>
+
+        <!-- Card 3: Eligibility -->
+        <div class="policy-card" data-reveal="card-3d" data-delay="200">
+          <div class="pcard-circle-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>{% if is_arabic %}الأهلية وشروط الإرجاع{% else %}Eligibility{% endif %}</h3>
+          <p>{% if is_arabic %}يُقبل الإرجاع للمنتجات التالفة أو المعيبة أو الخاطئة. لا يمكن إرجاع منتجات العناية بالبشرة المفتوحة لأسباب صحية.{% else %}Returns are accepted for damaged, defective, or incorrect items. Opened skincare products cannot be returned for hygiene reasons.{% endif %}</p>
+        </div>
+
+        <!-- Card 4: Non-Returnable Items -->
+        <div class="policy-card" data-reveal="card-3d" data-delay="300">
+          <div class="pcard-circle-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          </div>
+          <h3>{% if is_arabic %}منتجات لا يمكن إرجاعها{% else %}Non-Returnable Items{% endif %}</h3>
+          <p>{% if is_arabic %}بطاقات الهدايا، منتجات التخفيضات النهائية، ومنتجات العناية بالبشرة المفتوحة غير مؤهلة للإرجاع.{% else %}Gift cards, sale items, and opened skincare products are not eligible for return.{% endif %}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION 2: HOW TO RETURN AN ITEM ── -->
+    <div class="returns-section-block">
+      <div class="section-heading-centered" data-reveal="fade-up">
+        <span class="sec-eyebrow">{% if is_arabic %}كيفية إرجاع المنتج{% else %}HOW TO RETURN AN ITEM{% endif %}</span>
+        <div class="sec-title-line" data-reveal="scale-x"></div>
+      </div>
+
+      <div class="steps-process-container" data-reveal="promise-card" data-delay="100">
+        <div class="steps-process-grid">
+          
+          <!-- Step 1 -->
+          <div class="step-card" data-reveal="fade-up" data-delay="0">
+            <div class="step-badge">
+              <span>1</span>
+              <div class="step-mini-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              </div>
+            </div>
+            <h3>{% if is_arabic %}تواصل معنا{% else %}Contact Us{% endif %}</h3>
+            <p>{% if is_arabic %}تواصل مع فريق الدعم لدينا مع تزويدنا برقم الطلب وسبب الإرجاع.{% else %}Reach out to our support team with your order number and reason for return.{% endif %}</p>
+          </div>
+
+          <div class="step-arrow">→</div>
+
+          <!-- Step 2 -->
+          <div class="step-card" data-reveal="fade-up" data-delay="100">
+            <div class="step-badge">
+              <span>2</span>
+              <div class="step-mini-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 15 11 17 15 13"/></svg>
+              </div>
+            </div>
+            <h3>{% if is_arabic %}الموافقة على الإرجاع{% else %}Return Approval{% endif %}</h3>
+            <p>{% if is_arabic %}سنقوم بمراجعة طلبك وتزويدك بتعليمات الإرجاع وعنوان الشحن.{% else %}We will review your request and provide return instructions and address.{% endif %}</p>
+          </div>
+
+          <div class="step-arrow">→</div>
+
+          <!-- Step 3 -->
+          <div class="step-card" data-reveal="fade-up" data-delay="200">
+            <div class="step-badge">
+              <span>3</span>
+              <div class="step-mini-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+            </div>
+            <h3>{% if is_arabic %}شحن المنتج{% else %}Ship the Item{% endif %}</h3>
+            <p>{% if is_arabic %}قم بتغليف المنتج بأمان وأرسله مجدداً باستخدام عنوان الإرجاع المزود.{% else %}Pack the item securely and send it back using the provided return address.{% endif %}</p>
+          </div>
+
+          <div class="step-arrow">→</div>
+
+          <!-- Step 4 -->
+          <div class="step-card" data-reveal="fade-up" data-delay="300">
+            <div class="step-badge">
+              <span>4</span>
+              <div class="step-mini-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+            </div>
+            <h3>{% if is_arabic %}تمت معالجة الاسترداد{% else %}Refund Processed{% endif %}</h3>
+            <p>{% if is_arabic %}بمجرد استلام المنتج وفحصه، ستتم معالجة المبلغ المسترد خلال 5-7 أيام عمل.{% else %}Once we receive and inspect your return, your refund will be processed within 5-7 business days.{% endif %}</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION 3: REFUND POLICY ── -->
+    <div class="returns-section-block">
+      <div class="section-heading-centered" data-reveal="fade-up">
+        <span class="sec-eyebrow">{% if is_arabic %}سياسة الاسترداد المالية{% else %}REFUND POLICY{% endif %}</span>
+        <div class="sec-title-line" data-reveal="scale-x"></div>
+      </div>
+
+      <div class="refund-policy-card" data-reveal="promise-card" data-delay="100">
+        <div class="refund-policy-grid">
+          
+          <div class="refund-item" data-reveal="fade-up" data-delay="0">
+            <div class="refund-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            </div>
+            <div class="refund-text">
+              <h3>{% if is_arabic %}طريقة الاسترداد{% else %}Refund Method{% endif %}</h3>
+              <p>{% if is_arabic %}تتم إعادة المبالغ إلى طريقة الدفع الأصلية المستخدمة أثناء الشراء.{% else %}Refunds are issued to the original payment method used during purchase.{% endif %}</p>
+            </div>
+          </div>
+
+          <div class="refund-item" data-reveal="fade-up" data-delay="100">
+            <div class="refund-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="refund-text">
+              <h3>{% if is_arabic %}وقت استرداد الأموال{% else %}Refund Time{% endif %}</h3>
+              <p>{% if is_arabic %}يرجى السماح بـ 5-7 أيام عمل حتى يظهر المبلغ المسترد في حسابك.{% else %}Please allow 5-7 business days for the refund to reflect in your account.{% endif %}</p>
+            </div>
+          </div>
+
+          <div class="refund-item" data-reveal="fade-up" data-delay="200">
+            <div class="refund-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div class="refund-text">
+              <h3>{% if is_arabic %}رسوم الشحن{% else %}Shipping Fees{% endif %}</h3>
+              <p>{% if is_arabic %}رسوم الشحن الأصلية غير قابلة للإرجاع إلا إذا كان الإرجاع بسبب خطأ منا أو منتج معيب.{% else %}Original shipping fees are non-refundable unless the return is due to our error or a defective product.{% endif %}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ── NEED HELP CARD ── -->
+    <div class="need-help-card" data-reveal="promise-card" data-delay="100">
+      <div class="need-help-grid">
+        <div class="need-help-title-wrap">
+          <div class="need-help-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+          </div>
+          <div class="need-help-text">
+            <h2>{% if is_arabic %}تحتاج إلى مساعدة؟{% else %}Need Help?{% endif %}</h2>
+            <p>{% if is_arabic %}نحن هنا من أجلك دائماً.{% else %}We're here for you.{% endif %}</p>
+          </div>
+        </div>
+
+        <div class="need-help-contacts">
+          <a href="mailto:sehrcosmetics@gmail.com" class="help-contact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>sehrcosmetics@gmail.com</span>
+          </a>
+
+          <a href="tel:+201288247928" class="help-contact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+20 128 824 7928</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .main-returns-section {
+    width: 100%;
+    padding: 110px 32px 90px;
+    background-color: #FFFFFF;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #000000;
+    overflow: hidden;
+  }
+
+  .returns-container {
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .returns-header {
+    text-align: left;
+    margin-bottom: 48px;
+  }
+
+  [dir="rtl"] .returns-header {
+    text-align: right;
+  }
+
+  .returns-page-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(48px, 6.5vw, 84px);
+    font-weight: 500;
+    color: #000000;
+    margin: 0 0 16px 0;
+    line-height: 1.02;
+  }
+
+  .returns-title-line {
+    width: 64px;
+    height: 1.5px;
+    background: #5CC5CB;
+    margin-bottom: 24px;
+  }
+
+  .returns-page-subtitle {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #666666;
+    max-width: 540px;
+    margin: 0;
+  }
+
+  /* Top Bar (4 Columns Card) */
+  .returns-top-bar {
+    background: #FFFFFF;
+    border: 1px solid #E6F6F7;
+    border-radius: 24px;
+    padding: 32px 36px;
+    box-shadow: 0 10px 40px rgba(92, 197, 203, 0.06);
+    margin-bottom: 72px;
+  }
+
+  .returns-top-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .rtop-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .rtop-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #F2FAFA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .rtop-text h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 4px 0;
+  }
+
+  .rtop-text p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #666666;
+    margin: 0;
+  }
+
+  /* Section Centered Headings */
+  .returns-section-block {
+    margin-bottom: 72px;
+  }
+
+  .section-heading-centered {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .sec-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: #000000;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .sec-title-line {
+    width: 44px;
+    height: 1.5px;
+    background: #5CC5CB;
+    margin: 0 auto 16px;
+  }
+
+  .sec-subtitle {
+    font-size: 14px;
+    color: #666666;
+    max-width: 680px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Policy Cards (4 Columns White Grid) */
+  .policy-cards-4col {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .policy-card {
+    background: #FFFFFF;
+    border: 1px solid #E6F6F7;
+    border-radius: 24px;
+    padding: 36px 28px;
+    text-align: center;
+    box-shadow: 0 6px 25px rgba(92, 197, 203, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .policy-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 35px rgba(92, 197, 203, 0.14);
+    border-color: #5CC5CB;
+  }
+
+  .pcard-circle-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #F2FAFA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+
+  .policy-card h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #000000;
+    margin: 0 0 10px 0;
+  }
+
+  .policy-card p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #666666;
+    margin: 0;
+  }
+
+  /* Steps Process Block */
+  .steps-process-container {
+    background: #FFFFFF;
+    border: 1px solid #E6F6F7;
+    border-radius: 24px;
+    padding: 44px 36px;
+    box-shadow: 0 10px 40px rgba(92, 197, 203, 0.06);
+  }
+
+  .steps-process-grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .step-card {
+    flex: 1;
+    text-align: center;
+  }
+
+  .step-badge {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #F2FAFA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #5CC5CB;
+  }
+
+  .step-mini-icon {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 1px solid #E6F6F7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(92, 197, 203, 0.15);
+  }
+
+  [dir="rtl"] .step-mini-icon {
+    right: auto;
+    left: -2px;
+  }
+
+  .step-card h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #000000;
+    margin: 0 0 8px 0;
+  }
+
+  .step-card p {
+    font-size: 13px;
+    line-height: 1.55;
+    color: #666666;
+    margin: 0;
+  }
+
+  .step-arrow {
+    font-size: 20px;
+    color: #5CC5CB;
+    font-weight: 300;
+  }
+
+  [dir="rtl"] .step-arrow {
+    transform: rotate(180deg);
+  }
+
+  /* Refund Policy Block (3 Columns Card) */
+  .refund-policy-card {
+    background: #FFFFFF;
+    border: 1px solid #E6F6F7;
+    border-radius: 24px;
+    padding: 36px 40px;
+    box-shadow: 0 10px 40px rgba(92, 197, 203, 0.06);
+  }
+
+  .refund-policy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .refund-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .refund-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #F2FAFA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .refund-text h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 4px 0;
+  }
+
+  .refund-text p {
+    font-size: 13px;
+    line-height: 1.55;
+    color: #666666;
+    margin: 0;
+  }
+
+  /* Need Help Card */
+  .need-help-card {
+    background: #FFFFFF;
+    border: 1px solid #E6F6F7;
+    border-radius: 24px;
+    padding: 28px 40px;
+    box-shadow: 0 10px 40px rgba(92, 197, 203, 0.06);
+  }
+
+  .need-help-grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .need-help-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .need-help-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #F2FAFA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .need-help-text h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: #000000;
+    margin: 0 0 2px 0;
+  }
+
+  .need-help-text p {
+    font-size: 13px;
+    color: #666666;
+    margin: 0;
+  }
+
+  .need-help-contacts {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .help-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000000;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .help-contact-item:hover {
+    color: #5CC5CB;
+  }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .returns-top-grid,
+    .policy-cards-4col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .refund-policy-grid {
+      grid-template-columns: 1fr;
+    }
+    .steps-process-grid {
+      flex-direction: column;
+      gap: 28px;
+    }
+    .step-arrow {
+      transform: rotate(90deg);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .need-help-grid {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .need-help-contacts {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .main-returns-section {
+      padding: 80px 20px 60px;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .returns-top-grid,
+    .policy-cards-4col {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ── Scroll Animations ── */
+  [data-reveal] {
+    opacity: 0;
+    transition-property: transform, opacity, filter, box-shadow;
+    transition-duration: 0.85s;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+  }
+
+  [data-reveal="fade-up"] {
+    transform: translateY(30px);
+  }
+
+  [data-reveal="scale-x"] {
+    transform: scaleX(0);
+    transform-origin: center;
+  }
+
+  [data-reveal="card-3d"] {
+    transform: perspective(1000px) rotateX(10deg) translateY(30px);
+  }
+
+  [data-reveal="promise-card"] {
+    transform: translateY(35px) scale(0.97);
+  }
+
+  /* Revealed Active States */
+  [data-reveal].is-in-view {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-reveal="scale-x"].is-in-view {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  [data-reveal="promise-card"].is-in-view {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const revealElements = document.querySelectorAll('#main-returns-{{ section.id }} [data-reveal]');
+    if (!revealElements.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const delay = el.getAttribute('data-delay') || 0;
+          setTimeout(() => {
+            el.classList.add('is-in-view');
+          }, parseInt(delay));
+          observer.unobserve(el);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealElements.forEach(el => observer.observe(el));
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Main Returns",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Page Header"
+    },
+    {
+      "type": "text",
+      "id": "title_en",
+      "label": "Title Line 1 (English)",
+      "default": "Returns &"
+    },
+    {
+      "type": "text",
+      "id": "title2_en",
+      "label": "Title Line 2 (English)",
+      "default": "Refunds"
+    },
+    {
+      "type": "text",
+      "id": "title_ar",
+      "label": "Title (Arabic)",
+      "default": "الإرجاع والاسترداد"
+    }
+  ]
+}
+{% endschema %}

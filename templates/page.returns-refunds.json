@@ -2,7 +2,7 @@
   "name": "Returns & Refunds Template",
   "sections": {
     "main": {
-      "type": "main-shipping",
+      "type": "main-returns",
       "settings": {}
     }
   },
