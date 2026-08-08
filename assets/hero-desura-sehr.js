@@ -136,8 +136,12 @@ function initHero() {
       start: parseFloat(ds.start) || 0.05,
       dur: parseFloat(ds.dur) || 0.22,
       from: parseFloat(ds.from) || -900,
-      landX: parseFloat(ds.landX) || 0,
-      landY: parseFloat(ds.landY) || 0,
+      landX_en: parseFloat(ds.landXEn || ds.landX) || 0,
+      landY_en: parseFloat(ds.landYEn || ds.landY) || 0,
+      landX_ar: parseFloat(ds.landXAr || ds.landXEn || ds.landX) || 0,
+      landY_ar: parseFloat(ds.landYAr || ds.landYEn || ds.landY) || 0,
+      landX_mb: parseFloat(ds.landXMb || ds.landXEn || ds.landX) || 0,
+      landY_mb: parseFloat(ds.landYMb || ds.landYEn || ds.landY) || 0,
       landZ: parseFloat(ds.landZ) || 0,
       rotX: parseFloat(ds.rotX) || 0,
       rotY: parseFloat(ds.rotY) || 0,
@@ -193,12 +197,30 @@ function initHero() {
       setRibbonProgress(1);
     }
 
+    const isArabic = document.documentElement.dir === 'rtl' || document.documentElement.lang === 'ar' || window.location.pathname.includes('/ar');
+    const isMobile = window.innerWidth <= 768;
+
     /* Boxes */
     blocksData.forEach((bd, i) => {
       const p     = rawP;
       const end   = bd.start + bd.dur;
       const wrap  = bd.wrap;
       if (!wrap || reducedMotion) return;
+
+      /* Device & Language specific landing coordinates */
+      let curLandX = bd.landX_en;
+      let curLandY = bd.landY_en;
+
+      if (isMobile) {
+        curLandX = bd.landX_mb;
+        curLandY = bd.landY_mb;
+      } else if (isArabic) {
+        curLandX = bd.landX_ar;
+        curLandY = bd.landY_ar;
+      }
+
+      wrap.style.left = `calc(50% + ${curLandX}%)`;
+      wrap.style.top  = `calc(50% + ${curLandY}%)`;
 
       /* Y target */
       const targetY = mapRange(p, bd.start, end, bd.from, 0, true);
