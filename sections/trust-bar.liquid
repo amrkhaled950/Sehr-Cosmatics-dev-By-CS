@@ -9,7 +9,8 @@
   <div class="trust-bar-grid">
     {%- for block in section.blocks -%}
       {%- if block.type == 'trust_item' -%}
-        <div class="trust-item" {{ block.shopify_attributes }}>
+        {%- assign trust_delay = forloop.index0 | times: 80 -%}
+        <div class="trust-item" {{ block.shopify_attributes }} data-scroll="fade-up" data-scroll-delay="{{ trust_delay }}">
           <div class="trust-icon-circle">
             {%- case block.settings.icon -%}
               {%- when 'delivery' -%}

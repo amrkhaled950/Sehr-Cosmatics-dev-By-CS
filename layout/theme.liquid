@@ -59,5 +59,36 @@
   <!-- ── Footer ── -->
   {%- section 'footer' -%}
 
+  <!-- ── Global Scroll Reveal Script ── -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initGlobalScrollReveal() {
+        const scrollEls = document.querySelectorAll('[data-scroll]:not(.is-in-view)');
+        if (!scrollEls.length) return;
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const el = entry.target;
+              const delay = parseInt(el.getAttribute('data-scroll-delay') || 0, 10);
+              setTimeout(() => {
+                el.classList.add('is-in-view');
+              }, delay);
+              observer.unobserve(el);
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -30px 0px'
+        });
+
+        scrollEls.forEach(el => observer.observe(el));
+      }
+
+      initGlobalScrollReveal();
+      document.addEventListener('shopify:section:load', initGlobalScrollReveal);
+    });
+  </script>
+
 </body>
 </html>

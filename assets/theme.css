@@ -240,3 +240,40 @@ html[lang^="ar"] {
   text-align: right;
   direction: rtl;
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   GLOBAL LUXURY SCROLL REVEAL ENGINE
+   ═══════════════════════════════════════════════════════════════════ */
+[data-scroll] {
+  opacity: 0;
+  transition-property: transform, opacity, filter, box-shadow;
+  transition-duration: 0.85s;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+/* Variant 1: Fade Up */
+[data-scroll="fade-up"] {
+  transform: translateY(35px);
+}
+
+/* Variant 2: Fade Scale / 3D */
+[data-scroll="fade-scale"] {
+  transform: scale(0.93) translateY(25px);
+}
+
+/* Variant 3: Card Stagger Slide */
+[data-scroll="card"] {
+  transform: translateY(40px) scale(0.96);
+}
+
+/* Variant 4: Section Title Slide */
+[data-scroll="title"] {
+  transform: translateY(30px);
+}
+
+/* Active In-View State */
+[data-scroll].is-in-view {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}

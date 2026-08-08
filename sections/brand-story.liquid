@@ -7,8 +7,8 @@
   <div class="brand-story-container">
 
     <!-- ── Left: Text Content ── -->
-    <div class="brand-story-text">
-      <span class="brand-story-eyebrow">
+    <div class="brand-story-text" data-scroll="fade-up" data-scroll-delay="0">
+      <span class="brand-story-eyebrow" data-scroll="title" data-scroll-delay="0">
         {%- if is_arabic -%}
           {{ section.settings.eyebrow_ar | default: 'قصتنا' }}
         {%- else -%}
@@ -16,7 +16,7 @@
         {%- endif -%}
       </span>
 
-      <h2 class="brand-story-title">
+      <h2 class="brand-story-title" data-scroll="title" data-scroll-delay="100">
         {%- if is_arabic -%}
           <span class="bst-line">{{ section.settings.heading_line1_ar | default: 'متجذرون في' }} <span class="bst-accent">{{ section.settings.heading_accent1_ar | default: 'الطبيعة.' }}</span></span>
           <span class="bst-line">{{ section.settings.heading_line2_ar | default: 'مدفوعون بـ' }} <span class="bst-accent">{{ section.settings.heading_accent2_ar | default: 'العلم.' }}</span></span>
@@ -26,7 +26,7 @@
         {%- endif -%}
       </h2>
 
-      <div class="brand-story-body">
+      <div class="brand-story-body" data-scroll="fade-up" data-scroll-delay="200">
         <p>
           {%- if is_arabic -%}
             {{ section.settings.body_para1_ar | default: 'تأسست Desura De Sehr عام 2024 على يد رائدة أعمال مصرية شابة برؤية واضحة: تقديم منتجات عناية شخصية فعّالة بجودة دولية — تُضاهي المعايير الكورية والفرنسية — بسعر يناسب السوق المحلي.' }}

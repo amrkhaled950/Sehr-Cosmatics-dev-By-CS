@@ -7,7 +7,7 @@
 
   <!-- ── Section Header ── -->
   <div class="fc-header">
-    <span class="fc-eyebrow">
+    <span class="fc-eyebrow" data-scroll="title" data-scroll-delay="0">
       {%- if is_arabic -%}
         {{ section.settings.eyebrow_ar | default: 'مجموعتنا' }}
       {%- else -%}
@@ -15,7 +15,7 @@
       {%- endif -%}
     </span>
 
-    <h2 class="fc-title">
+    <h2 class="fc-title" data-scroll="title" data-scroll-delay="100">
       {%- if is_arabic -%}
         <span class="fc-title-main">{{ section.settings.heading_main_ar | default: 'عناية دقيقة. نتائج' }}</span>
         <span class="fc-title-accent">{{ section.settings.heading_accent_ar | default: 'مرئية.' }}</span>
@@ -25,7 +25,7 @@
       {%- endif -%}
     </h2>
 
-    <p class="fc-description">
+    <p class="fc-description" data-scroll="fade-up" data-scroll-delay="200">
       {%- if is_arabic -%}
         {{ section.settings.body_ar | default: 'من الشعر للبشرة والرموش للأظافر — تركيباتنا العلمية مصممة لحل المشكلات الحقيقية وإبراز جمالك الطبيعي.' }}
       {%- else -%}
@@ -41,7 +41,8 @@
 
     {%- if collection != blank and collection.products_count > 0 -%}
       {%- for product in collection.products limit: products_to_show -%}
-        <div class="fc-card" data-product-id="{{ product.id }}">
+        {%- assign card_delay = forloop.index0 | times: 100 -%}
+        <div class="fc-card" data-product-id="{{ product.id }}" data-scroll="card" data-scroll-delay="{{ card_delay }}">
 
           <!-- Accent Dot (Color Picker from settings) -->
           <div class="fc-card-accent-dot" style="background: {{ section.settings.accent_dot_color | default: '#c9a24a' }};"></div>

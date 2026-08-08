@@ -8,7 +8,7 @@
     
     <!-- Left Column: Section Typography Header -->
     <div class="science-header">
-      <span class="science-eyebrow">
+      <span class="science-eyebrow" data-scroll="title" data-scroll-delay="0">
         {%- if is_arabic -%}
           {{ section.settings.eyebrow_ar | default: 'العلم والطبيعة' }}
         {%- else -%}
@@ -16,7 +16,7 @@
         {%- endif -%}
       </span>
 
-      <h2 class="science-title">
+      <h2 class="science-title" data-scroll="title" data-scroll-delay="100">
         {%- if is_arabic -%}
           <span class="title-line">{{ section.settings.heading_line1_ar | default: 'أفضل ما في الطبيعة.' }}</span>
           <span class="title-line">{{ section.settings.heading_line2_ar | default: 'مدعوم بـ' }}</span>
@@ -28,7 +28,7 @@
         {%- endif -%}
       </h2>
 
-      <p class="science-description">
+      <p class="science-description" data-scroll="fade-up" data-scroll-delay="200">
         {%- if is_arabic -%}
           {{ section.settings.body_ar | default: 'نجمع بين المكونات الطبيعية القوية والعلم المتقدم لتقديم نتائج ملحوظة وتدوم طويلاً.' }}
         {%- else -%}
@@ -40,7 +40,8 @@
     <!-- Right Column: Interactive Glowing Ingredient Spheres -->
     <div class="science-spheres-grid">
       {%- for block in section.blocks -%}
-        <div class="sphere-item" {{ block.shopify_attributes }}>
+        {%- assign sphere_delay = forloop.index0 | times: 100 -%}
+        <div class="sphere-item" {{ block.shopify_attributes }} data-scroll="fade-scale" data-scroll-delay="{{ sphere_delay }}">
           
           <div class="sphere-media-wrap">
             <div class="sphere-glow-effect" style="--glow-color: {{ block.settings.glow_color | default: 'rgba(99, 201, 207, 0.35)' }};" aria-hidden="true"></div>

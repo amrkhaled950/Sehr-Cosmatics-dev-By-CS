@@ -7,7 +7,7 @@
 
   <!-- ── Section Header ── -->
   <div class="insta-header">
-    <span class="insta-eyebrow">
+    <span class="insta-eyebrow" data-scroll="title" data-scroll-delay="0">
       <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
       {%- if is_arabic -%}
         {{ section.settings.eyebrow_ar | default: 'ريلز · تابع الطقوس' }}
@@ -16,9 +16,9 @@
       {%- endif -%}
     </span>
 
-    <h2 class="insta-handle">{{ section.settings.instagram_handle | default: '@sehrcosmetics' }}</h2>
+    <h2 class="insta-handle" data-scroll="title" data-scroll-delay="100">{{ section.settings.instagram_handle | default: '@sehrcosmetics' }}</h2>
 
-    <p class="insta-tag-line">
+    <p class="insta-tag-line" data-scroll="fade-up" data-scroll-delay="200">
       {%- if is_arabic -%}
         {{ section.settings.tagline_ar | default: 'شارك صورتك مع' }}
         <span class="insta-hashtag">{{ section.settings.hashtag | default: '#SehrCosmetics' }}</span>
@@ -35,7 +35,8 @@
   <div class="insta-embeds-grid">
     {%- for block in section.blocks -%}
       {%- if block.type == 'reel' and block.settings.post_url != blank -%}
-        <div class="insta-embed-wrap" {{ block.shopify_attributes }}>
+        {%- assign reel_delay = forloop.index0 | times: 100 -%}
+        <div class="insta-embed-wrap" {{ block.shopify_attributes }} data-scroll="card" data-scroll-delay="{{ reel_delay }}">
           <blockquote
             class="instagram-media"
             data-instgrm-captioned
