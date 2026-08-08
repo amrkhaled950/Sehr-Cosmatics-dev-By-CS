@@ -508,11 +508,24 @@ body {
 
 .box-wrap {
   position: absolute;
-  left: calc(50% + var(--land-x));
-  top:  calc(50% + var(--land-y));
+  left: calc(50% + var(--land-x-en, var(--land-x, 0%)));
+  top:  calc(50% + var(--land-y-en, var(--land-y, 0%)));
   transform: translate(-50%, -50%);
   pointer-events: none;
   will-change: transform, opacity;
+}
+
+[dir="rtl"] .box-wrap {
+  left: calc(50% + var(--land-x-ar, var(--land-x-en, 0%)));
+  top:  calc(50% + var(--land-y-ar, var(--land-y-en, 0%)));
+}
+
+@media (max-width: 768px) {
+  .box-wrap,
+  [dir="rtl"] .box-wrap {
+    left: calc(50% + var(--land-x-mb, var(--land-x-en, 0%))) !important;
+    top:  calc(50% + var(--land-y-mb, var(--land-y-en, 0%))) !important;
+  }
 }
 
 .box-float {

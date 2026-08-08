@@ -128,9 +128,13 @@
       {% if section.blocks.size > 0 %}
         {% for block in section.blocks %}
           {% assign idx = forloop.index0 %}
-          {% assign land_x = block.settings.land_x | default: 0 %}
-          {% assign land_y = block.settings.land_y | default: 0 %}
-          {% assign land_z = block.settings.land_z | default: 0 %}
+          {% assign land_x_en = block.settings.land_x | default: 0 %}
+          {% assign land_y_en = block.settings.land_y | default: 0 %}
+          {% assign land_x_ar = block.settings.land_x_ar | default: land_x_en %}
+          {% assign land_y_ar = block.settings.land_y_ar | default: land_y_en %}
+          {% assign land_x_mb = block.settings.land_x_mb | default: land_x_en %}
+          {% assign land_y_mb = block.settings.land_y_mb | default: land_y_en %}
+          {% assign land_z    = block.settings.land_z | default: 0 %}
           {% assign from_y = block.settings.from_y | default: -900 %}
           {% assign rot_x = block.settings.rot_x | default: 0 %}
           {% assign rot_y = block.settings.rot_y | default: 0 %}
@@ -143,14 +147,14 @@
 
           <div class="box-wrap {% if block.settings.glb_url != blank or block.settings.product_image != blank %}has-custom-media{% endif %}" 
             id="box{{ idx }}" 
-            style="--land-x:{{ land_x }}%; --land-y:{{ land_y }}%; --land-z:{{ land_z }}px;"
+            style="--land-x-en:{{ land_x_en }}%; --land-y-en:{{ land_y_en }}%; --land-x-ar:{{ land_x_ar }}%; --land-y-ar:{{ land_y_ar }}%; --land-x-mb:{{ land_x_mb }}%; --land-y-mb:{{ land_y_mb }}%; --land-z:{{ land_z }}px;"
             data-start="{{ start_s }}" 
             data-dur="{{ dur_s }}" 
             data-from="{{ from_y }}" 
             data-tilt="{{ rot_z }}" 
             data-drift="{{ rot_z }}"
-            data-land-x="{{ land_x }}"
-            data-land-y="{{ land_y }}"
+            data-land-x="{{ land_x_en }}"
+            data-land-y="{{ land_y_en }}"
             data-land-z="{{ land_z }}"
             data-rot-x="{{ rot_x }}"
             data-rot-y="{{ rot_y }}"
@@ -227,7 +231,7 @@
 
       {% else %}
         <!-- Default 4 boxes if section has no blocks added yet -->
-        <div class="box-wrap" id="box0" style="--land-x:-22%; --land-y:18%;" data-start="0.03" data-dur="0.22" data-from="-900" data-tilt="-3" data-drift="-6" data-idx="0">
+        <div class="box-wrap" id="box0" style="--land-x-en:{{ section.settings.box0_x_en | default: -22 }}%; --land-y-en:{{ section.settings.box0_y_en | default: 18 }}%; --land-x-ar:{{ section.settings.box0_x_ar | default: -32 }}%; --land-y-ar:{{ section.settings.box0_y_ar | default: 18 }}%; --land-x-mb:{{ section.settings.box0_x_mb | default: -20 }}%; --land-y-mb:{{ section.settings.box0_y_mb | default: -15 }}%;" data-start="0.03" data-dur="0.22" data-from="-900" data-tilt="-3" data-drift="-6" data-idx="0">
           <div class="box-float" id="boxFloat0">
             <div class="product-box" style="--accent:#c93b7a; --accent-dark:#8f2456; --w:72px; --ar:3.2;">
               <div class="box-right-face"></div>
@@ -250,7 +254,7 @@
           </div>
         </div>
 
-        <div class="box-wrap" id="box1" style="--land-x:-6%; --land-y:8%;" data-start="0.10" data-dur="0.22" data-from="-1100" data-tilt="2" data-drift="4" data-idx="1">
+        <div class="box-wrap" id="box1" style="--land-x-en:{{ section.settings.box1_x_en | default: -6 }}%; --land-y-en:{{ section.settings.box1_y_en | default: 8 }}%; --land-x-ar:{{ section.settings.box1_x_ar | default: -16 }}%; --land-y-ar:{{ section.settings.box1_y_ar | default: 8 }}%; --land-x-mb:{{ section.settings.box1_x_mb | default: 18 }}%; --land-y-mb:{{ section.settings.box1_y_mb | default: -10 }}%;" data-start="0.10" data-dur="0.22" data-from="-1100" data-tilt="2" data-drift="4" data-idx="1">
           <div class="box-float" id="boxFloat1">
             <div class="product-box" style="--accent:#d16a5e; --accent-dark:#8f4038; --w:110px; --ar:2.6;">
               <div class="box-right-face"></div>
@@ -273,7 +277,7 @@
           </div>
         </div>
 
-        <div class="box-wrap" id="box2" style="--land-x:12%; --land-y:12%;" data-start="0.18" data-dur="0.22" data-from="-1000" data-tilt="-2" data-drift="-3" data-idx="2">
+        <div class="box-wrap" id="box2" style="--land-x-en:{{ section.settings.box2_x_en | default: 12 }}%; --land-y-en:{{ section.settings.box2_y_en | default: 12 }}%; --land-x-ar:{{ section.settings.box2_x_ar | default: -30 }}%; --land-y-ar:{{ section.settings.box2_y_ar | default: -12 }}%; --land-x-mb:{{ section.settings.box2_x_mb | default: -18 }}%; --land-y-mb:{{ section.settings.box2_y_mb | default: 18 }}%;" data-start="0.18" data-dur="0.22" data-from="-1000" data-tilt="-2" data-drift="-3" data-idx="2">
           <div class="box-float" id="boxFloat2">
             <div class="product-box" style="--accent:#3fb8a8; --accent-dark:#237567; --w:92px; --ar:2.9;">
               <div class="box-right-face"></div>
@@ -296,7 +300,7 @@
           </div>
         </div>
 
-        <div class="box-wrap" id="box3" style="--land-x:28%; --land-y:14%;" data-start="0.26" data-dur="0.24" data-from="-1200" data-tilt="4" data-drift="7" data-idx="3">
+        <div class="box-wrap" id="box3" style="--land-x-en:{{ section.settings.box3_x_en | default: 28 }}%; --land-y-en:{{ section.settings.box3_y_en | default: 14 }}%; --land-x-ar:{{ section.settings.box3_x_ar | default: -14 }}%; --land-y-ar:{{ section.settings.box3_y_ar | default: -14 }}%; --land-x-mb:{{ section.settings.box3_x_mb | default: 18 }}%; --land-y-mb:{{ section.settings.box3_y_mb | default: 24 }}%;" data-start="0.26" data-dur="0.24" data-from="-1200" data-tilt="4" data-drift="7" data-idx="3">
           <div class="box-float" id="boxFloat3">
             <div class="product-box" style="--accent:#c9a24a; --accent-dark:#8a6d2a; --w:92px; --ar:3;">
               <div class="box-right-face"></div>
@@ -418,6 +422,85 @@
       "type": "url",
       "id": "cta_link",
       "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Default Products Positions (English, Arabic, Mobile)"
+    },
+    {
+      "type": "range", "id": "box0_x_en", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 1 X (English Desktop)", "default": -22
+    },
+    {
+      "type": "range", "id": "box0_y_en", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 1 Y (English Desktop)", "default": 18
+    },
+    {
+      "type": "range", "id": "box0_x_ar", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 1 X (Arabic Desktop)", "default": -32
+    },
+    {
+      "type": "range", "id": "box0_y_ar", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 1 Y (Arabic Desktop)", "default": 18
+    },
+    {
+      "type": "range", "id": "box0_x_mb", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 1 X (Mobile)", "default": -20
+    },
+    {
+      "type": "range", "id": "box0_y_mb", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 1 Y (Mobile)", "default": -15
+    },
+
+    {
+      "type": "range", "id": "box1_x_en", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 2 X (English Desktop)", "default": -6
+    },
+    {
+      "type": "range", "id": "box1_y_en", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 2 Y (English Desktop)", "default": 8
+    },
+    {
+      "type": "range", "id": "box1_x_ar", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 2 X (Arabic Desktop)", "default": -16
+    },
+    {
+      "type": "range", "id": "box1_y_ar", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 2 Y (Arabic Desktop)", "default": 8
+    },
+    {
+      "type": "range", "id": "box1_x_mb", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 2 X (Mobile)", "default": 18
+    },
+    {
+      "type": "range", "id": "box1_y_mb", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 2 Y (Mobile)", "default": -10
+    },
+
+    {
+      "type": "range", "id": "box2_x_en", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 3 X (English Desktop)", "default": 12
+    },
+    {
+      "type": "range", "id": "box2_y_en", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 3 Y (English Desktop)", "default": 12
+    },
+    {
+      "type": "range", "id": "box2_x_ar", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 3 X (Arabic Desktop)", "default": -30
+    },
+    {
+      "type": "range", "id": "box2_y_ar", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 3 Y (Arabic Desktop)", "default": -12
+    },
+    {
+      "type": "range", "id": "box2_x_mb", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 3 X (Mobile)", "default": -18
+    },
+    {
+      "type": "range", "id": "box2_y_mb", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 3 Y (Mobile)", "default": 18
+    },
+
+    {
+      "type": "range", "id": "box3_x_en", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 4 X (English Desktop)", "default": 28
+    },
+    {
+      "type": "range", "id": "box3_y_en", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 4 Y (English Desktop)", "default": 14
+    },
+    {
+      "type": "range", "id": "box3_x_ar", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 4 X (Arabic Desktop)", "default": -14
+    },
+    {
+      "type": "range", "id": "box3_y_ar", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 4 Y (Arabic Desktop)", "default": -14
+    },
+    {
+      "type": "range", "id": "box3_x_mb", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 4 X (Mobile)", "default": 18
+    },
+    {
+      "type": "range", "id": "box3_y_mb", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Product 4 Y (Mobile)", "default": 24
     }
   ],
   "blocks": [
@@ -451,27 +534,25 @@
         },
         {
           "type": "header",
-          "content": "3D Landing Position X, Y, Z"
+          "content": "Positions (English, Arabic, Mobile)"
         },
         {
-          "type": "range",
-          "id": "land_x",
-          "min": -50,
-          "max": 50,
-          "step": 1,
-          "unit": "%",
-          "label": "Position X Horizontal Percent",
-          "default": -22
+          "type": "range", "id": "land_x", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Position X (English Desktop)", "default": -22
         },
         {
-          "type": "range",
-          "id": "land_y",
-          "min": -50,
-          "max": 50,
-          "step": 1,
-          "unit": "%",
-          "label": "Position Y Vertical Percent",
-          "default": 18
+          "type": "range", "id": "land_y", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Position Y (English Desktop)", "default": 18
+        },
+        {
+          "type": "range", "id": "land_x_ar", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Position X (Arabic Desktop)", "default": -32
+        },
+        {
+          "type": "range", "id": "land_y_ar", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Position Y (Arabic Desktop)", "default": 18
+        },
+        {
+          "type": "range", "id": "land_x_mb", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Position X (Mobile)", "default": -20
+        },
+        {
+          "type": "range", "id": "land_y_mb", "min": -50, "max": 50, "step": 1, "unit": "%", "label": "Position Y (Mobile)", "default": -15
         },
         {
           "type": "range",
