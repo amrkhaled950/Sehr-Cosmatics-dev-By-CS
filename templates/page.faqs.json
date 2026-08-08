@@ -1,0 +1,12 @@
+{
+  "name": "FAQs Template",
+  "sections": {
+    "main": {
+      "type": "main-faq",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
