@@ -1,5 +1,9 @@
+{%- assign is_arabic = false -%}
+{%- if request.locale.iso_code == 'ar' or request.locale.root_url contains '/ar' or request.path contains '/ar' or content_for_header contains 'lang=ar' -%}
+  {%- assign is_arabic = true -%}
+{%- endif -%}
 <!DOCTYPE html>
-<html lang="{{ request.locale.iso_code }}" dir="{{ settings.text_direction | default: 'ltr' }}">
+<html lang="{{ request.locale.iso_code }}" dir="{% if is_arabic %}rtl{% else %}{{ settings.text_direction | default: 'ltr' }}{% endif %}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />

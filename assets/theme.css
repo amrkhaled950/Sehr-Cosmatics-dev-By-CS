@@ -170,3 +170,59 @@ body {
   .nav-links { display: none; }
   .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   GLOBAL ARABIC RTL STYLES (Right-To-Left)
+   ═══════════════════════════════════════════════════════════════════ */
+[dir="rtl"],
+html[lang="ar"],
+html[lang^="ar"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] body {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .hero-copy {
+  text-align: right;
+}
+
+[dir="rtl"] .hero-copy-inner {
+  align-items: flex-start;
+  text-align: right;
+}
+
+[dir="rtl"] .cta-arrow {
+  display: inline-block;
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .nav-links {
+  direction: rtl;
+}
+
+[dir="rtl"] .fc-card-info,
+[dir="rtl"] .bnd-card-info,
+[dir="rtl"] .pdp-details-col,
+[dir="rtl"] .ds-footer-col {
+  text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] .pdp-accordion-header {
+  text-align: right;
+}
+
+[dir="rtl"] .pdp-btrust-text {
+  text-align: right;
+}
+
+[dir="rtl"] input,
+[dir="rtl"] select,
+[dir="rtl"] textarea {
+  text-align: right;
+  direction: rtl;
+}
