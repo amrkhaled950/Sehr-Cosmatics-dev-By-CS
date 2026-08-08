@@ -1,0 +1,807 @@
+{%- assign is_arabic = false -%}
+{%- if request.locale.iso_code == 'ar' or request.locale.root_url contains '/ar' -%}
+  {%- assign is_arabic = true -%}
+{%- endif -%}
+
+<section class="main-privacy-section" id="main-privacy-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="privacy-container">
+
+    <!-- ── Page Header Area ── -->
+    <div class="privacy-header">
+      <h1 class="privacy-title">
+        {% if is_arabic %}{{ section.settings.title_ar | default: 'سياسة الخصوصية' }}{% else %}{{ section.settings.title_en | default: 'Privacy Policy' }}{% endif %}
+      </h1>
+      <div class="privacy-title-line"></div>
+      <p class="privacy-subtitle">
+        {% if is_arabic %}
+          في Desura De Sehr، نحن نثمن ثقتك ونلتزم بحماية معلوماتك الشخصية وحقك في الخصوصية.
+        {% else %}
+          At Desura De Sehr, we value your trust and are committed to protecting your personal information and your right to privacy.
+        {% endif %}
+      </p>
+    </div>
+
+    <!-- ── Top 5 Pillars Bar (White Card) ── -->
+    <div class="privacy-top-bar">
+      <div class="privacy-top-grid">
+        
+        <div class="ptop-item">
+          <div class="ptop-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="ptop-text">
+            <h3>{% if is_arabic %}خصوصيتك تهمنا{% else %}Your Privacy Matters{% endif %}</h3>
+            <p>{% if is_arabic %}نحمي بياناتك الشخصية بعناية ومسؤولية تامة.{% else %}We protect your personal data with care and responsibility.{% endif %}</p>
+          </div>
+        </div>
+
+        <div class="ptop-item">
+          <div class="ptop-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="ptop-text">
+            <h3>{% if is_arabic %}آمن ومحمي{% else %}Secure & Protected{% endif %}</h3>
+            <p>{% if is_arabic %}نستخدم معايير الأمان العالمية للحفاظ على أمان معلوماتك.{% else %}We use industry-standard measures to keep your information safe.{% endif %}</p>
+          </div>
+        </div>
+
+        <div class="ptop-item">
+          <div class="ptop-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="ptop-text">
+            <h3>{% if is_arabic %}أنت في كامل التحكم{% else %}You're in Control{% endif %}</h3>
+            <p>{% if is_arabic %}يمكنك إدارة تفضيلاتك وبياناتك في أي وقت.{% else %}You can manage your preferences and data at any time.{% endif %}</p>
+          </div>
+        </div>
+
+        <div class="ptop-item">
+          <div class="ptop-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div class="ptop-text">
+            <h3>{% if is_arabic %}ممارسات شفافة{% else %}Transparent Practices{% endif %}</h3>
+            <p>{% if is_arabic %}نؤمن بالتواصل الواضح والشفاف حول كيفية استخدام بياناتك.{% else %}We believe in clear communication about how we use your data.{% endif %}</p>
+          </div>
+        </div>
+
+        <div class="ptop-item">
+          <div class="ptop-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="ptop-text">
+            <h3>{% if is_arabic %}معايير عالمية{% else %}Global Standards{% endif %}</h3>
+            <p>{% if is_arabic %}تتوافق ممارساتنا مع قوانين ولوائح الخصوصية المعمول بها.{% else %}Our practices comply with applicable privacy laws and regulations.{% endif %}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SECTION 1: Information We Collect ── -->
+    <div class="privacy-section-block">
+      <div class="section-heading-centered">
+        <h2 class="sec-title">1. {% if is_arabic %}المعلومات التي نجمعها{% else %}Information We Collect{% endif %}</h2>
+        <div class="sec-title-line"></div>
+      </div>
+
+      <div class="sec1-cards-2col">
+        <!-- Personal Information Card -->
+        <div class="pcard">
+          <div class="pcard-header">
+            <div class="pcard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <h3>{% if is_arabic %}المعلومات الشخصية{% else %}Personal Information{% endif %}</h3>
+          </div>
+          
+          <p class="pcard-intro">{% if is_arabic %}قد نجمع المعلومات الشخصية التي تزودنا بها، مثل:{% else %}We may collect personal information that you provide to us, such as:{% endif %}</p>
+          
+          <ul class="pcard-list">
+            <li>{% if is_arabic %}الاسم، البريد الإلكتروني، ورقم الهاتف{% else %}Name, email address, phone number{% endif %}</li>
+            <li>{% if is_arabic %}عنوان الشحن والدفع{% else %}Shipping and billing address{% endif %}</li>
+            <li>{% if is_arabic %}تفاصيل تسجيل الدخول للحساب{% else %}Account login details{% endif %}</li>
+            <li>{% if is_arabic %}معلومات الدفع والتسديد{% else %}Payment information{% endif %}</li>
+          </ul>
+
+          <p class="pcard-subtext">{% if is_arabic %}تُجمع هذه المعلومات عندما تقوم بإنشاء حساب، إجراء طلب، التواصل معنا، أو الاشتراك في النشرة الإخبارية.{% else %}This information is collected when you create an account, place an order, contact us, or subscribe to our newsletter.{% endif %}</p>
+        </div>
+
+        <!-- Non-Personal Information Card -->
+        <div class="pcard">
+          <div class="pcard-header">
+            <div class="pcard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <h3>{% if is_arabic %}المعلومات غير الشخصية{% else %}Non-Personal Information{% endif %}</h3>
+          </div>
+          
+          <p class="pcard-intro">{% if is_arabic %}قد نجمع أيضاً معلومات غير شخصية تلقائياً، مثل:{% else %}We may also collect non-personal information automatically, such as:{% endif %}</p>
+          
+          <ul class="pcard-list">
+            <li>{% if is_arabic %}نوع المتصفح ومعلومات الجهاز{% else %}Browser type and device information{% endif %}</li>
+            <li>{% if is_arabic %}عنوان IP وبيانات الموقع الجغرافي{% else %}IP address and location data{% endif %}</li>
+            <li>{% if is_arabic %}الصفحات المزورة والوقت المستغرق على الموقع{% else %}Pages visited and time spent on our site{% endif %}</li>
+            <li>{% if is_arabic %}موقع الإحالة أو المصدر{% else %}Referring website or source{% endif %}</li>
+          </ul>
+
+          <p class="pcard-subtext">{% if is_arabic %}يساعدنا هذا في تحسين موقعنا الإلكتروني، خدماتنا، وتجربة العملاء.{% else %}This helps us improve our website, services, and customer experience.{% endif %}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION 2: How We Use Your Information ── -->
+    <div class="privacy-section-block">
+      <div class="section-heading-centered">
+        <h2 class="sec-title">2. {% if is_arabic %}كيف نستخدم معلوماتك{% else %}How We Use Your Information{% endif %}</h2>
+        <div class="sec-title-line"></div>
+      </div>
+
+      <div class="sec2-cards-5col">
+        <!-- Item 1 -->
+        <div class="mini-use-card">
+          <div class="use-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          </div>
+          <h3>{% if is_arabic %}معالجة الطلبات{% else %}To Process Orders{% endif %}</h3>
+          <p>{% if is_arabic %}لمعالجة وتوصيل طلباتك وإدارة حسابك.{% else %}To process and deliver your orders and manage your account.{% endif %}</p>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="mini-use-card">
+          <div class="use-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <h3>{% if is_arabic %}التواصل معك{% else %}To Communicate{% endif %}</h3>
+          <p>{% if is_arabic %}لإرسال تحديثات الطلبات، الرد على الاستفسارات، ومشاركة المعلومات المهمة.{% else %}To send order updates, respond to inquiries, and share important information.{% endif %}</p>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="mini-use-card">
+          <div class="use-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <h3>{% if is_arabic %}تحسين خدماتنا{% else %}To Improve Our Services{% endif %}</h3>
+          <p>{% if is_arabic %}لتحديد كيفية استخدام الموقع وتحسين منتجاتنا وخدماتنا وتجربة المستخدم.{% else %}To analyze website usage and improve our products, services, and user experience.{% endif %}</p>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="mini-use-card">
+          <div class="use-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <h3>{% if is_arabic %}تخصيص التجربة{% else %}To Personalize{% endif %}</h3>
+          <p>{% if is_arabic %}لتخصيص تجربتك وعرض المنتجات والعروض المناسبة لك.{% else %}To personalize your experience and show relevant products and offers.{% endif %}</p>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="mini-use-card">
+          <div class="use-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M12 3v18M3 12h18"/></svg>
+          </div>
+          <h3>{% if is_arabic %}الامتثال للقوانين{% else %}To Comply with Law{% endif %}</h3>
+          <p>{% if is_arabic %}للإمتثال للالتزامات القانونية ومنع الاحتيال أو الأنشطة غير القانونية.{% else %}To comply with legal obligations and prevent fraud or unlawful activity.{% endif %}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION 3: Information Sharing ── -->
+    <div class="privacy-section-block">
+      <div class="section-heading-centered">
+        <h2 class="sec-title">3. {% if is_arabic %}مشاركة المعلومات{% else %}Information Sharing{% endif %}</h2>
+        <div class="sec-title-line"></div>
+      </div>
+
+      <p class="sec-intro-text">
+        {% if is_arabic %}
+          نحن لا نبيع أو نؤجر معلوماتك الشخصية. قد نشارك معلوماتك فقط في الحالات التالية:
+        {% else %}
+          We do not sell or rent your personal information. We may share your information only in the following cases:
+        {% endif %}
+      </p>
+
+      <div class="sec3-cards-4col">
+        <!-- Card 1 -->
+        <div class="share-card">
+          <div class="share-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>{% if is_arabic %}مزودو الخدمات{% else %}Service Providers{% endif %}</h3>
+          <p>{% if is_arabic %}مع موفري الخدمات الموثوقين من الأطراف الثالثة الذين يساعدوننا في تشغيل موقعنا وأعمالنا.{% else %}With trusted third-party service providers who help us operate our website and business.{% endif %}</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="share-card">
+          <div class="share-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          </div>
+          <h3>{% if is_arabic %}معالجو المعاملات المالية{% else %}Payment Processors{% endif %}</h3>
+          <p>{% if is_arabic %}مع بوابات الدفع الآمنة لمعالجة معاملاتك المالية بكل أمان.{% else %}With secure payment gateways to process your transactions safely.{% endif %}</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="share-card">
+          <div class="share-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>{% if is_arabic %}المتطلبات القانونية{% else %}Legal Requirements{% endif %}</h3>
+          <p>{% if is_arabic %}عندما يقتضي القانون ذلك أو لحماية حقوقنا وممتلكاتنا وسلامتنا.{% else %}When required by law or to protect our rights, property, and safety.{% endif %}</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="share-card">
+          <div class="share-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          </div>
+          <h3>{% if is_arabic %}نقل الأعمال والأنشطة{% else %}Business Transfers{% endif %}</h3>
+          <p>{% if is_arabic %}في حالة الاندماج، الاستحواذ، أو بيع الأصول.{% else %}In the event of a merger, acquisition, or sale of assets.{% endif %}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTIONS 4, 5, 6, 7 GRID ── -->
+    <div class="privacy-section-block">
+      <div class="sec4to7-grid-4col">
+        
+        <!-- 4. Your Rights -->
+        <div class="grid-policy-card">
+          <div class="gcard-header">
+            <div class="gcard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            </div>
+            <h3>4. {% if is_arabic %}حقوقك{% else %}Your Rights{% endif %}</h3>
+          </div>
+          <p class="gcard-intro">{% if is_arabic %}لديك الحق في:{% else %}You have the right to:{% endif %}</p>
+          <ul class="gcard-bullets">
+            <li>{% if is_arabic %}الوصول إلى البيانات الشخصية التي نحتفظ بها عنك{% else %}Access the personal data we hold about you{% endif %}</li>
+            <li>{% if is_arabic %}تصحيح البيانات غير الدقيقة أو غير الكرتملة{% else %}Correct inaccurate or incomplete data{% endif %}</li>
+            <li>{% if is_arabic %}طلب حذف بياناتك الشخصية{% else %}Request deletion of your data{% endif %}</li>
+            <li>{% if is_arabic %}إلغاء الاشتراك في الاتصالات التسويقية{% else %}Opt out of marketing communications{% endif %}</li>
+          </ul>
+          <p class="gcard-subtext">{% if is_arabic %}لممارسة حقوقك، تواصل معنا في أي وقت.{% else %}To exercise your rights, contact us anytime.{% endif %}</p>
+        </div>
+
+        <!-- 5. Data Security -->
+        <div class="grid-policy-card">
+          <div class="gcard-header">
+            <div class="gcard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <h3>5. {% if is_arabic %}أمان البيانات{% else %}Data Security{% endif %}</h3>
+          </div>
+          <p class="gcard-body">{% if is_arabic %}نطبق الإجراءات الفنية والتنظيمية المناسبة لحماية معلوماتك الشخصية من الوصول غير المصرح به، التعديل، الإفصاح، أو التدمير.{% else %}We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.{% endif %}</p>
+        </div>
+
+        <!-- 6. Cookies -->
+        <div class="grid-policy-card">
+          <div class="gcard-header">
+            <div class="gcard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 10 10"/></svg>
+            </div>
+            <h3>6. {% if is_arabic %}ملفات تعريف الارتباط (Cookies){% else %}Cookies{% endif %}</h3>
+          </div>
+          <p class="gcard-body">{% if is_arabic %}نستخدم ملفات تعريف الارتباط لتحسين تجربتك. يمكنك إدارة أو تعطيل ملفات تعريف الارتباط من خلال إعدادات المتصفح الخاص بك.{% else %}We use cookies to enhance your experience. You can manage or disable cookies through your browser settings.{% endif %}</p>
+          <a href="/pages/privacy-policy" class="gcard-link">{% if is_arabic %}اعرف المزيد في سياسة الكوكيز{% else %}Learn more in our Cookie Policy.{% endif %}</a>
+        </div>
+
+        <!-- 7. Changes to This Policy -->
+        <div class="grid-policy-card">
+          <div class="gcard-header">
+            <div class="gcard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </div>
+            <h3>7. {% if is_arabic %}التغييرات على هذه السياسة{% else %}Changes to This Policy{% endif %}</h3>
+          </div>
+          <p class="gcard-body">{% if is_arabic %}قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر. سيتم نشر التغييرات على هذه الصفحة مع تاريخ النفاذ المحدث.{% else %}We may update this Privacy Policy from time to time. Changes will be posted on this page with the updated effective date.{% endif %}</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── QUESTIONS ABOUT YOUR PRIVACY? BAR ── -->
+    <div class="privacy-questions-card">
+      <div class="privacy-questions-grid">
+        <div class="pquestions-title-wrap">
+          <div class="pquestions-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+          </div>
+          <div class="pquestions-text">
+            <h2>{% if is_arabic %}لديك أسئلة حول خصوصيتك؟{% else %}Questions About Your Privacy?{% endif %}</h2>
+            <p>{% if is_arabic %}نحن هنا دائماً للمساعدة والرد على كافة استفساراتك.{% else %}We're here to help.{% endif %}</p>
+          </div>
+        </div>
+
+        <div class="pquestions-contacts">
+          <a href="mailto:sehrcosmetics@gmail.com" class="pcontact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>sehrcosmetics@gmail.com</span>
+          </a>
+
+          <a href="tel:+201288247928" class="pcontact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+20 128 824 7928</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ═══════════════════════════════════════════════════
+     MAIN PRIVACY SECTION STYLES — #000000 & #5CC5CB
+  ═══════════════════════════════════════════════════ */
+
+  .main-privacy-section {
+    width: 100%;
+    padding: 120px 48px 100px;
+    background-color: #FFFFFF;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #000000;
+  }
+
+  .privacy-container {
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .privacy-header {
+    text-align: left;
+    margin-bottom: 56px;
+  }
+
+  [dir="rtl"] .privacy-header {
+    text-align: right;
+  }
+
+  .privacy-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(48px, 6vw, 76px);
+    font-weight: 500;
+    color: #000000;
+    margin: 0 0 16px 0;
+    line-height: 1.05;
+  }
+
+  .privacy-title-line {
+    width: 60px;
+    height: 1.5px;
+    background: #5CC5CB;
+    margin-bottom: 24px;
+  }
+
+  .privacy-subtitle {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #555555;
+    max-width: 680px;
+    margin: 0;
+  }
+
+  /* Top 5 Pillars Bar */
+  .privacy-top-bar {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 32px 40px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.03);
+    border: 1px solid #E0D8CE;
+    margin-bottom: 80px;
+  }
+
+  .privacy-top-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+  }
+
+  .ptop-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .ptop-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .ptop-text h3 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 4px 0;
+  }
+
+  .ptop-text p {
+    font-size: 11px;
+    line-height: 1.4;
+    color: #666666;
+    margin: 0;
+  }
+
+  /* Section Dividers */
+  .privacy-section-block {
+    margin-bottom: 80px;
+  }
+
+  .section-heading-centered {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+
+  .sec-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 40px;
+    font-weight: 500;
+    color: #000000;
+    margin: 0 0 10px 0;
+  }
+
+  .sec-title-line {
+    width: 50px;
+    height: 1.5px;
+    background: #5CC5CB;
+    margin: 0 auto;
+  }
+
+  .sec-intro-text {
+    text-align: center;
+    font-size: 14px;
+    color: #555555;
+    max-width: 640px;
+    margin: 0 auto 36px;
+    line-height: 1.6;
+  }
+
+  /* Section 1: 2-Col Cards */
+  .sec1-cards-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .pcard {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    border: 1px solid #E0D8CE;
+  }
+
+  .pcard-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .pcard-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .pcard-header h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: #000000;
+    margin: 0;
+  }
+
+  .pcard-intro {
+    font-size: 13px;
+    color: #555555;
+    margin: 0 0 14px 0;
+    line-height: 1.5;
+  }
+
+  .pcard-list {
+    margin: 0 0 20px 0;
+    padding-left: 20px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #333333;
+  }
+
+  [dir="rtl"] .pcard-list {
+    padding-left: 0;
+    padding-right: 20px;
+  }
+
+  .pcard-subtext {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #777777;
+    margin: 0;
+    padding-top: 14px;
+    border-top: 1px solid #EFEAE3;
+  }
+
+  /* Section 2: 5-Col Mini Cards */
+  .sec2-cards-5col {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+
+  .mini-use-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 28px 20px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.03);
+    border: 1px solid #E0D8CE;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+  }
+
+  .mini-use-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .use-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .mini-use-card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 8px 0;
+  }
+
+  .mini-use-card p {
+    font-size: 11px;
+    line-height: 1.5;
+    color: #666666;
+    margin: 0;
+  }
+
+  /* Section 3: 4-Col Share Cards */
+  .sec3-cards-4col,
+  .sec4to7-grid-4col {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .share-card,
+  .grid-policy-card {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 32px 28px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    border: 1px solid #E0D8CE;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .share-icon,
+  .gcard-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .share-card h3,
+  .gcard-header h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: #000000;
+    margin: 0;
+  }
+
+  .gcard-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 6px;
+  }
+
+  .share-card p,
+  .gcard-body,
+  .gcard-intro {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #555555;
+    margin: 0;
+  }
+
+  .gcard-bullets {
+    margin: 4px 0 10px 0;
+    padding-left: 18px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #333333;
+  }
+
+  [dir="rtl"] .gcard-bullets {
+    padding-left: 0;
+    padding-right: 18px;
+  }
+
+  .gcard-subtext {
+    font-size: 11px;
+    color: #777777;
+    margin-top: auto;
+  }
+
+  .gcard-link {
+    font-size: 11px;
+    font-weight: 700;
+    color: #5CC5CB;
+    text-decoration: none;
+    margin-top: 6px;
+    display: inline-block;
+  }
+
+  .gcard-link:hover {
+    color: #000000;
+  }
+
+  /* Questions Card Bottom */
+  .privacy-questions-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 32px 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    border: 1px solid #E0D8CE;
+  }
+
+  .privacy-questions-grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .pquestions-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .pquestions-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .pquestions-text h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: #000000;
+    margin: 0 0 2px 0;
+  }
+
+  .pquestions-text p {
+    font-size: 12px;
+    color: #777777;
+    margin: 0;
+  }
+
+  .pquestions-contacts {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+
+  .pcontact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #000000;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .pcontact-item:hover {
+    color: #5CC5CB;
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .privacy-top-grid,
+    .sec2-cards-5col {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .sec3-cards-4col,
+    .sec4to7-grid-4col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 860px) {
+    .sec1-cards-2col {
+      grid-template-columns: 1fr;
+    }
+    .privacy-top-grid,
+    .sec2-cards-5col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .privacy-questions-grid {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .pquestions-contacts {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .main-privacy-section {
+      padding: 90px 20px 60px;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .privacy-top-grid,
+    .sec2-cards-5col,
+    .sec3-cards-4col,
+    .sec4to7-grid-4col {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Main Privacy",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Page Header"
+    },
+    {
+      "type": "text",
+      "id": "title_en",
+      "label": "Title (English)",
+      "default": "Privacy Policy"
+    },
+    {
+      "type": "text",
+      "id": "title_ar",
+      "label": "Title (Arabic)",
+      "default": "سياسة الخصوصية"
+    }
+  ]
+}
+{% endschema %}

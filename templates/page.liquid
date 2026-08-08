@@ -1,0 +1,17 @@
+{%- assign handle_down = page.handle | downcase -%}
+{%- assign title_down = page.title | downcase -%}
+{%- assign path_down = request.path | downcase -%}
+
+{%- if handle_down contains 'wishlist' or handle_down contains 'favorite' or handle_down contains 'favourite' or handle_down contains 'saved' or title_down contains 'wishlist' or title_down contains 'favorite' or path_down contains 'wish' or path_down contains 'favor' -%}
+  {% section 'main-wishlist' %}
+{%- elsif handle_down contains 'contact' or title_down contains 'contact' or path_down contains 'contact' -%}
+  {% section 'main-contact' %}
+{%- elsif handle_down contains 'shipping' or handle_down contains 'return' or handle_down contains 'refund' or title_down contains 'shipping' or path_down contains 'shipping' or path_down contains 'return' -%}
+  {% section 'main-shipping' %}
+{%- elsif handle_down contains 'privacy' or title_down contains 'privacy' or path_down contains 'privacy' -%}
+  {% section 'main-privacy' %}
+{%- elsif handle_down contains 'about' or title_down contains 'about' or path_down contains 'about' -%}
+  {% section 'main-about' %}
+{%- else -%}
+  {% section 'main-about' %}
+{%- endif -%}

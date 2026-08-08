@@ -1,0 +1,134 @@
+<!-- sections/header.liquid -->
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    
+    <!-- Left: Navigation Links -->
+    <ul class="nav-links">
+      {%- for link in linklists['main-menu'].links -%}
+        {%- assign nav_title = link.title | upcase -%}
+        {%- assign nav_url = link.url -%}
+        {%- if nav_title == 'CATALOG' or nav_title == 'SHOP' or nav_url contains '/collections' -%}
+          {%- assign nav_title = 'SHOP' -%}
+          {%- if request.locale.iso_code == 'ar' -%}{%- assign nav_title = 'تسوق' -%}{%- endif -%}
+          {%- assign nav_url = '/#our-collection' -%}
+        {%- endif -%}
+        <li><a href="{{ nav_url }}" class="{% if link.active or forloop.first %}active{% endif %}">{{ nav_title }}</a></li>
+      {%- else -%}
+        <li><a href="{{ routes.root_url }}" class="active">{% if request.locale.iso_code == 'ar' %}الرئيسية{% else %}HOME{% endif %}</a></li>
+        <li><a href="/#our-collection">{% if request.locale.iso_code == 'ar' %}تسوق{% else %}SHOP{% endif %}</a></li>
+        <li><a href="/pages/about">{% if request.locale.iso_code == 'ar' %}من نحن{% else %}ABOUT US{% endif %}</a></li>
+        <li><a href="/pages/contact">{% if request.locale.iso_code == 'ar' %}تواصل معنا{% else %}CONTACT{% endif %}</a></li>
+      {%- endfor -%}
+    </ul>
+
+    <!-- Center: Brand Logo -->
+    <a href="{{ routes.root_url }}" class="nav-logo" aria-label="{{ shop.name }} home">
+      {%- if section.settings.logo != blank or settings.logo != blank -%}
+        {%- assign header_logo = section.settings.logo | default: settings.logo -%}
+        <img src="{{ header_logo | img_url: '600x' }}" alt="{{ shop.name }}" class="nav-logo-img" style="max-width: {{ section.settings.logo_width | default: 150 }}px; height: auto; display: block;" />
+      {%- else -%}
+        <span class="nav-logo-brand">SEHR</span>
+        <span class="nav-logo-sub">DESURA DE</span>
+      {%- endif -%}
+    </a>
+
+    <!-- Right: Header Action Icons (Search | Account | Wishlist | Cart | Lang) -->
+    <div class="nav-actions">
+      
+      <!-- 1. Search Icon -->
+      <a href="{{ routes.search_url }}" class="nav-btn-icon" aria-label="Search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </a>
+
+      <span class="nav-divider" aria-hidden="true">|</span>
+
+      <!-- 2. Account Icon -->
+      <a href="{{ routes.account_url | default: '/account' }}" class="nav-btn-icon" aria-label="Account">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </a>
+
+      <span class="nav-divider" aria-hidden="true">|</span>
+
+      <!-- 3. Wishlist Icon -->
+      <a href="/pages/wishlist" class="nav-btn-icon nav-wishlist-icon" aria-label="Wishlist">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+      </a>
+
+      <span class="nav-divider" aria-hidden="true">|</span>
+
+      <!-- 4. Cart Icon -->
+      <a href="{{ routes.cart_url }}" class="nav-btn-icon nav-cart-icon" aria-label="Cart">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+      </a>
+
+      <span class="nav-divider" aria-hidden="true">|</span>
+
+      <!-- 5. Language Switcher (AR / EN) -->
+      {%- if localization.available_languages.size > 1 -%}
+        <localization-form>
+          {%- form 'localization', id: 'HeaderLanguageForm', class: 'header-localization-form' -%}
+            <input type="hidden" name="locale_code" value="{{ localization.language.iso_code }}">
+            {%- for language in localization.available_languages -%}
+              {%- if language.iso_code != localization.language.iso_code -%}
+                <button type="submit" class="nav-lang-btn-luxury" name="locale_code" value="{{ language.iso_code }}">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                  <span>{{ language.endonym_name | capitalize }}</span>
+                </button>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endform -%}
+        </localization-form>
+      {%- else -%}
+        <!-- Fallback Manual Lang Switcher -->
+        <a href="?lang={% if request.locale.iso_code == 'ar' %}en{% else %}ar{% endif %}" class="nav-lang-btn-luxury">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span>{% if request.locale.iso_code == 'ar' %}English{% else %}العربية{% endif %}</span>
+        </a>
+      {%- endif -%}
+
+    </div>
+  </div>
+</nav>
+
+{% schema %}
+{
+  "name": "Header Navigation",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Custom Header Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 250,
+      "step": 5,
+      "unit": "px",
+      "label": "Logo Width",
+      "default": 140
+    }
+  ]
+}
+{% endschema %}

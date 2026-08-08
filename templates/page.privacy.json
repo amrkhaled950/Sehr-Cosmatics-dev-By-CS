@@ -1,0 +1,12 @@
+{
+  "name": "Privacy Policy Template",
+  "sections": {
+    "main": {
+      "type": "main-privacy",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

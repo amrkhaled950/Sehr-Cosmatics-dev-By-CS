@@ -1,0 +1,493 @@
+{%- assign is_arabic = false -%}
+{%- if request.locale.iso_code == 'ar' or request.locale.root_url contains '/ar' -%}
+  {%- assign is_arabic = true -%}
+{%- endif -%}
+
+<section class="main-about-section" id="main-about-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="about-container">
+
+    <!-- ── Page Header Area ── -->
+    <div class="about-header">
+      <span class="about-eyebrow">
+        {% if is_arabic %}{{ section.settings.eyebrow_ar | default: 'من نحن' }}{% else %}{{ section.settings.eyebrow_en | default: 'ABOUT US' }}{% endif %}
+      </span>
+      <h1 class="about-title">
+        {% if is_arabic %}{{ section.settings.title_ar | default: 'قصتنا' }}{% else %}{{ section.settings.title_en | default: 'Our Story' }}{% endif %}
+      </h1>
+      <p class="about-tagline">
+        {% if is_arabic %}{{ section.settings.tagline_ar | default: 'متجذرون في الطبيعة. مدفوعون بالعلم.' }}{% else %}{{ section.settings.tagline_en | default: 'Rooted in Nature. Driven by Science.' }}{% endif %}
+      </p>
+      <div class="about-header-line"></div>
+    </div>
+
+    <!-- ── Timeline Section ── -->
+    <div class="about-timeline-wrap">
+      <div class="timeline-line"></div>
+
+      <!-- Milestone 1 -->
+      <div class="timeline-item">
+        <div class="timeline-icon-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22c1.25-.987 2.27-1.975 3.9-2.2a5.56 5.56 0 0 1 3.8 1.5 4 4 0 0 0 6.187-2.353 3.5 3.5 0 0 0 3.69-5.116A3.5 3.5 0 0 0 20.95 8 3.5 3.5 0 1 0 16 3.05a3.5 3.5 0 0 0-5.831 1.373 3.5 3.5 0 0 0-5.116 3.69 4 4 0 0 0-2.348 6.155C3.499 15.42 3 17.621 2 22z"/></svg>
+        </div>
+        <div class="timeline-content">
+          <h2 class="timeline-title">
+            {% if is_arabic %}{{ section.settings.m1_title_ar | default: 'البداية' }}{% else %}{{ section.settings.m1_title_en | default: 'The Beginning' }}{% endif %}
+          </h2>
+          <p class="timeline-desc">
+            {% if is_arabic %}{{ section.settings.m1_desc_ar | default: 'تأسست Desura De Sehr عام 2024 على يد رائدة أعمال مصرية شابة برؤية واضحة: تقديم منتجات عناية شخصية فعّالة بجودة دولية — تُضاهي المعايير الكورية والفرنسية — بسعر يناسب السوق المحلي.' }}{% else %}{{ section.settings.m1_desc_en | default: 'Desura De Sehr was founded in 2024 by a young Egyptian entrepreneur with a clear mission: to deliver powerful personal care products with international quality—like Korean and French standards—at a price that fits the local market.' }}{% endif %}
+          </p>
+        </div>
+      </div>
+
+      <!-- Milestone 2 -->
+      <div class="timeline-item">
+        <div class="timeline-icon-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+        </div>
+        <div class="timeline-content">
+          <h2 class="timeline-title">
+            {% if is_arabic %}{{ section.settings.m2_title_ar | default: 'منتجنا الأول' }}{% else %}{{ section.settings.m2_title_en | default: 'Our First Product' }}{% endif %}
+          </h2>
+          <p class="timeline-desc">
+            {% if is_arabic %}{{ section.settings.m2_desc_ar | default: 'بدأنا بمنتج واحد: سيروم نمو وإعادة إنبات الشعر. حقق نجاحاً باهراً، وقدم نتائج ملحوظة وانطباعات إيجابية من مستخدمين حقيقيين. أثبت ذلك أن السوق المصري مستعد لحلول عناية شخصية عالمية الفعالية.' }}{% else %}{{ section.settings.m2_desc_en | default: 'We started with one product: a hair growth and regeneration serum. It was a huge success, delivering visible results and positive feedback from real users. This proved that the Egyptian market is ready for effective, world-class personal care solutions.' }}{% endif %}
+          </p>
+        </div>
+      </div>
+
+      <!-- Milestone 3 -->
+      <div class="timeline-item">
+        <div class="timeline-icon-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31L4.75 18.2A2 2 0 0 0 6.46 21h11.08a2 2 0 0 0 1.71-2.8L14 9.31V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/></svg>
+        </div>
+        <div class="timeline-content">
+          <h2 class="timeline-title">
+            {% if is_arabic %}{{ section.settings.m3_title_ar | default: 'توسيع مجموعتنا' }}{% else %}{{ section.settings.m3_title_en | default: 'Expanding Our Range' }}{% endif %}
+          </h2>
+          <p class="timeline-desc">
+            {% if is_arabic %}{{ section.settings.m3_desc_ar | default: 'متابعةً لذلك النجاح، وسعنا خط منتجاتنا ليمل سيروم الرموش والحواجب، سيروم الأظافر، وسيروم تحت العين — كل منها مصاغ بعناية بمكونات مستهدفة لتقديم نتائج حقيقية وملموسة.' }}{% else %}{{ section.settings.m3_desc_en | default: 'Following that success, we expanded our line to include Lash & Brow Serum, Nail Serum, and Under Eye Serum—each carefully formulated with targeted ingredients to deliver real, noticeable results.' }}{% endif %}
+          </p>
+        </div>
+      </div>
+
+      <!-- Milestone 4 -->
+      <div class="timeline-item">
+        <div class="timeline-icon-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <div class="timeline-content">
+          <h2 class="timeline-title">
+            {% if is_arabic %}{{ section.settings.m4_title_ar | default: 'الجودة في كل خطوة' }}{% else %}{{ section.settings.m4_title_en | default: 'Quality at Every Step' }}{% endif %}
+          </h2>
+          <p class="timeline-desc">
+            {% if is_arabic %}{{ section.settings.m4_desc_ar | default: 'مع نمونا، اتبعنا الطريق الصحيح: الحصول على موافقات هيئة الدواء المصرية، والتوافق مع المواصفات القياسية المصرية والمعايير الدولية للجودة لضمان أن منتجاتنا آمنة، فعالة، وموثوقة.' }}{% else %}{{ section.settings.m4_desc_en | default: 'As we grew, we followed the right path: obtaining Egyptian Drug Authority approvals, meeting Egyptian Standard Specifications, and aligning with international quality standards to ensure our products are safe, effective, and trustworthy.' }}{% endif %}
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Mission Section ── -->
+    <div class="about-mission-section">
+      <div class="mission-header-line">
+        <span class="mission-line"></span>
+        <h2 class="mission-main-title">
+          {% if is_arabic %}{{ section.settings.mission_title_ar | default: 'مهمتنا' }}{% else %}{{ section.settings.mission_title_en | default: 'Our Mission' }}{% endif %}
+        </h2>
+        <span class="mission-line"></span>
+      </div>
+
+      <div class="mission-cards-grid">
+        <!-- Mission Card 1 -->
+        <div class="mission-card">
+          <div class="mission-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <div class="mission-card-text">
+            <h3>{% if is_arabic %}{{ section.settings.mission1_h_ar | default: 'بيع 1 مليون قطعة' }}{% else %}{{ section.settings.mission1_h_en | default: 'Sell 1 Million Pieces' }}{% endif %}</h3>
+            <p>{% if is_arabic %}{{ section.settings.mission1_p_ar | default: 'قبل عام 2027' }}{% else %}{{ section.settings.mission1_p_en | default: 'Before 2027' }}{% endif %}</p>
+          </div>
+        </div>
+
+        <!-- Ampersand Circle -->
+        <div class="mission-ampersand">&</div>
+
+        <!-- Mission Card 2 -->
+        <div class="mission-card">
+          <div class="mission-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.5"><path d="M10 2v7.31L4.75 18.2A2 2 0 0 0 6.46 21h11.08a2 2 0 0 0 1.71-2.8L14 9.31V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/></svg>
+          </div>
+          <div class="mission-card-text">
+            <h3>{% if is_arabic %}{{ section.settings.mission2_h_ar | default: 'الوصول لـ 100 منتج عناية شخصية' }}{% else %}{{ section.settings.mission2_h_en | default: 'Reach 100 Personal Care' }}{% endif %}</h3>
+            <p>{% if is_arabic %}{{ section.settings.mission2_p_ar | default: 'بجودة دولية عالمية' }}{% else %}{{ section.settings.mission2_p_en | default: 'Products of International Quality' }}{% endif %}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Promise Section ── -->
+    <div class="about-promise-section">
+      <div class="promise-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22c1.25-.987 2.27-1.975 3.9-2.2a5.56 5.56 0 0 1 3.8 1.5 4 4 0 0 0 6.187-2.353 3.5 3.5 0 0 0 3.69-5.116A3.5 3.5 0 0 0 20.95 8 3.5 3.5 0 1 0 16 3.05a3.5 3.5 0 0 0-5.831 1.373 3.5 3.5 0 0 0-5.116 3.69 4 4 0 0 0-2.348 6.155C3.499 15.42 3 17.621 2 22z"/></svg>
+      </div>
+      <h2 class="promise-title">
+        {% if is_arabic %}{{ section.settings.promise_title_ar | default: 'وعدنا' }}{% else %}{{ section.settings.promise_title_en | default: 'Our Promise' }}{% endif %}
+      </h2>
+      <p class="promise-body">
+        {% if is_arabic %}{{ section.settings.promise_body_ar | default: 'تتواجد Desura De Sehr لتقديم جودة عالمية بسعر مناسب. تركيبات بسيطة، مكونات فعالة، ونتائج حقيقية — لأن جمالك يستحق الأفضل.' }}{% else %}{{ section.settings.promise_body_en | default: 'Desura De Sehr is here to deliver world-class quality at an affordable price. Simple formulations, effective ingredients, and real results—because your beauty deserves the best.' }}{% endif %}
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ═══════════════════════════════════════════════════
+     MAIN ABOUT SECTION STYLES — #000000 & #5CC5CB
+  ═══════════════════════════════════════════════════ */
+
+  .main-about-section {
+    width: 100%;
+    padding: 120px 48px 100px;
+    background-color: #FFFFFF;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #000000;
+  }
+
+  .about-container {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .about-header {
+    text-align: left;
+    margin-bottom: 72px;
+  }
+
+  [dir="rtl"] .about-header {
+    text-align: right;
+  }
+
+  .about-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: #5CC5CB;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .about-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(48px, 6vw, 76px);
+    font-weight: 500;
+    color: #000000;
+    margin: 0 0 12px 0;
+    line-height: 1.05;
+  }
+
+  .about-tagline {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(22px, 3vw, 32px);
+    font-style: italic;
+    color: #5CC5CB;
+    margin: 0 0 24px 0;
+    font-weight: 400;
+  }
+
+  .about-header-line {
+    width: 80px;
+    height: 1px;
+    background: #5CC5CB;
+  }
+
+  /* ── Timeline ── */
+  .about-timeline-wrap {
+    position: relative;
+    padding-left: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    margin-bottom: 100px;
+  }
+
+  [dir="rtl"] .about-timeline-wrap {
+    padding-left: 0;
+    padding-right: 120px;
+  }
+
+  .timeline-line {
+    position: absolute;
+    top: 30px;
+    bottom: 30px;
+    left: 154px;
+    width: 1px;
+    background: #D9EFEF;
+    z-index: 1;
+  }
+
+  [dir="rtl"] .timeline-line {
+    left: auto;
+    right: 154px;
+  }
+
+  .timeline-item {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    z-index: 2;
+  }
+
+  .timeline-icon-circle {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 1.5px solid #D9EFEF;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: -34px;
+    box-shadow: 0 4px 18px rgba(92, 197, 203, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  [dir="rtl"] .timeline-icon-circle {
+    margin-left: 0;
+    margin-right: -34px;
+  }
+
+  .timeline-item:hover .timeline-icon-circle {
+    border-color: #5CC5CB;
+    transform: scale(1.08);
+    box-shadow: 0 8px 24px rgba(92, 197, 203, 0.25);
+  }
+
+  .timeline-content {
+    max-width: 680px;
+    padding-top: 12px;
+  }
+
+  .timeline-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: #000000;
+    margin: 0 0 10px 0;
+  }
+
+  .timeline-desc {
+    font-size: 14px;
+    line-height: 1.75;
+    color: #555555;
+    margin: 0;
+  }
+
+  /* ── Mission Section ── */
+  .about-mission-section {
+    margin-bottom: 100px;
+    text-align: center;
+  }
+
+  .mission-header-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .mission-line {
+    flex: 1;
+    height: 1px;
+    background: #D9EFEF;
+    max-width: 240px;
+  }
+
+  .mission-main-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 42px;
+    font-weight: 500;
+    color: #000000;
+    margin: 0;
+  }
+
+  .mission-cards-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .mission-card {
+    flex: 1;
+    max-width: 440px;
+    background: #F4FCFC;
+    border: 1px solid #D2F2F4;
+    border-radius: 16px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  [dir="rtl"] .mission-card {
+    text-align: right;
+  }
+
+  .mission-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(92, 197, 203, 0.12);
+  }
+
+  .mission-card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(92, 197, 203, 0.1);
+  }
+
+  .mission-card-text h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 4px 0;
+  }
+
+  .mission-card-text p {
+    font-size: 13px;
+    color: #666666;
+    margin: 0;
+  }
+
+  .mission-ampersand {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 1px solid #D2F2F4;
+    color: #5CC5CB;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ── Promise Section ── */
+  .about-promise-section {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .promise-icon {
+    margin-bottom: 14px;
+  }
+
+  .promise-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 42px;
+    font-weight: 500;
+    color: #000000;
+    margin: 0 0 16px 0;
+  }
+
+  .promise-body {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #555555;
+    margin: 0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 860px) {
+    .about-timeline-wrap {
+      padding-left: 40px;
+    }
+    [dir="rtl"] .about-timeline-wrap {
+      padding-left: 0;
+      padding-right: 40px;
+    }
+    .timeline-line {
+      left: 74px;
+    }
+    [dir="rtl"] .timeline-line {
+      right: 74px;
+    }
+    .mission-cards-grid {
+      flex-direction: column;
+    }
+    .mission-card {
+      width: 100%;
+      max-width: 100%;
+    }
+    .main-about-section {
+      padding: 90px 20px 60px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Main About",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Page Header (English)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_en",
+      "label": "Eyebrow (English)",
+      "default": "ABOUT US"
+    },
+    {
+      "type": "text",
+      "id": "title_en",
+      "label": "Title (English)",
+      "default": "Our Story"
+    },
+    {
+      "type": "text",
+      "id": "tagline_en",
+      "label": "Tagline (English)",
+      "default": "Rooted in Nature. Driven by Science."
+    },
+    {
+      "type": "header",
+      "content": "Page Header (Arabic)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_ar",
+      "label": "Eyebrow (Arabic)",
+      "default": "من نحن"
+    },
+    {
+      "type": "text",
+      "id": "title_ar",
+      "label": "Title (Arabic)",
+      "default": "قصتنا"
+    },
+    {
+      "type": "text",
+      "id": "tagline_ar",
+      "label": "Tagline (Arabic)",
+      "default": "متجذرون في الطبيعة. مدفوعون بالعلم."
+    }
+  ]
+}
+{% endschema %}

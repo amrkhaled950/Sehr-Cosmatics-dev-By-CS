@@ -1,0 +1,759 @@
+{%- assign is_arabic = false -%}
+{%- if request.locale.iso_code == 'ar' or request.locale.root_url contains '/ar' -%}
+  {%- assign is_arabic = true -%}
+{%- endif -%}
+
+{%- assign shop_links  = section.blocks | where: 'type', 'shop_link' -%}
+{%- assign info_links  = section.blocks | where: 'type', 'info_link' -%}
+{%- assign care_links  = section.blocks | where: 'type', 'care_link' -%}
+
+<footer class="ds-footer" id="site-footer">
+
+  <!-- ── Main Footer Grid ── -->
+  <div class="ds-footer-main">
+    <div class="ds-footer-container">
+
+      <!-- Col 1: Newsletter -->
+      <div class="ds-footer-col ds-footer-newsletter">
+        <div class="ds-footer-newsletter-label">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>
+            {%- if is_arabic -%}{{ section.settings.newsletter_eyebrow_ar | default: 'ابقَ على اطلاع' }}{%- else -%}{{ section.settings.newsletter_eyebrow_en | default: 'STAY BEAUTIFULLY INFORMED' }}{%- endif -%}
+          </span>
+        </div>
+
+        <p class="ds-footer-newsletter-body">
+          {%- if is_arabic -%}{{ section.settings.newsletter_body_ar | default: 'كن أول من يعلم بالوصولات الجديدة والعروض ونصائح الجمال.' }}{%- else -%}{{ section.settings.newsletter_body_en | default: 'Be the first to know about new arrivals, offers, and beauty tips.' }}{%- endif -%}
+        </p>
+
+        <form class="ds-footer-form" action="/contact#footer-newsletter" method="post" accept-charset="UTF-8">
+          <input type="hidden" name="form_type" value="customer" />
+          <input type="hidden" name="utf8" value="✓" />
+          <input type="hidden" name="contact[tags]" value="newsletter" />
+          <div class="ds-footer-input-wrap">
+            <input
+              type="email"
+              name="contact[email]"
+              class="ds-footer-email-input"
+              placeholder="{%- if is_arabic -%}بريدك الإلكتروني{%- else -%}Your email{%- endif -%}"
+              required
+              aria-label="Email address"
+            />
+            <button type="submit" class="ds-footer-subscribe-btn">
+              {%- if is_arabic -%}{{ section.settings.subscribe_label_ar | default: 'اشترك' }}{%- else -%}{{ section.settings.subscribe_label_en | default: 'SUBSCRIBE' }}{%- endif -%}
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Col 2: Shop Links -->
+      <div class="ds-footer-col">
+        <h4 class="ds-footer-col-title">
+          {%- if is_arabic -%}{{ section.settings.shop_title_ar | default: 'المتجر' }}{%- else -%}{{ section.settings.shop_title_en | default: 'SHOP' }}{%- endif -%}
+        </h4>
+        <ul class="ds-footer-links">
+          {%- if shop_links.size > 0 -%}
+            {%- for block in shop_links -%}
+              {%- assign f_link = block.settings.link_url -%}
+              {%- if f_link contains '/collections/all' or f_link == '#' or f_link == blank -%}
+                {%- assign f_link = '/#our-collection' -%}
+              {%- endif -%}
+              <li {{ block.shopify_attributes }}>
+                <a href="{{ f_link }}" class="ds-footer-link">
+                  {%- if is_arabic -%}{{ block.settings.label_ar | default: block.settings.label_en }}{%- else -%}{{ block.settings.label_en }}{%- endif -%}
+                </a>
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="/#our-collection" class="ds-footer-link">{%- if is_arabic -%}كل المنتجات{%- else -%}All Products{%- endif -%}</a></li>
+            <li><a href="{{ section.settings.cat1_url | default: '/collections/hair-care' }}" class="ds-footer-link">{%- if is_arabic -%}{{ section.settings.cat1_label_ar | default: 'العناية بالشعر' }}{%- else -%}{{ section.settings.cat1_label_en | default: 'Hair Care' }}{%- endif -%}</a></li>
+            <li><a href="{{ section.settings.cat2_url | default: '/collections/skin-care' }}" class="ds-footer-link">{%- if is_arabic -%}{{ section.settings.cat2_label_ar | default: 'العناية بالبشرة' }}{%- else -%}{{ section.settings.cat2_label_en | default: 'Skin Care' }}{%- endif -%}</a></li>
+            <li><a href="{{ section.settings.cat3_url | default: '/collections/nail-care' }}" class="ds-footer-link">{%- if is_arabic -%}{{ section.settings.cat3_label_ar | default: 'العناية بالأظافر' }}{%- else -%}{{ section.settings.cat3_label_en | default: 'Nail Care' }}{%- endif -%}</a></li>
+            <li><a href="{{ section.settings.cat4_url | default: '/collections/lash-brow' }}" class="ds-footer-link">{%- if is_arabic -%}{{ section.settings.cat4_label_ar | default: 'الرموش والحواجب' }}{%- else -%}{{ section.settings.cat4_label_en | default: 'Lash & Brow Care' }}{%- endif -%}</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      <!-- Col 3: Information Links -->
+      <div class="ds-footer-col">
+        <h4 class="ds-footer-col-title">
+          {%- if is_arabic -%}{{ section.settings.info_title_ar | default: 'معلومات' }}{%- else -%}{{ section.settings.info_title_en | default: 'INFORMATION' }}{%- endif -%}
+        </h4>
+        <ul class="ds-footer-links">
+          {%- if info_links.size > 0 -%}
+            {%- for block in info_links -%}
+              <li {{ block.shopify_attributes }}>
+                <a href="{{ block.settings.link_url | default: '#' }}" class="ds-footer-link">
+                  {%- if is_arabic -%}{{ block.settings.label_ar | default: block.settings.label_en }}{%- else -%}{{ block.settings.label_en }}{%- endif -%}
+                </a>
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="/pages/about" class="ds-footer-link">{%- if is_arabic -%}من نحن{%- else -%}About Us{%- endif -%}</a></li>
+            <li><a href="/pages/faqs" class="ds-footer-link">FAQs</a></li>
+            <li><a href="/pages/contact" class="ds-footer-link">{%- if is_arabic -%}تواصل معنا{%- else -%}Contact Us{%- endif -%}</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      <!-- Col 4: Customer Care Links -->
+      <div class="ds-footer-col">
+        <h4 class="ds-footer-col-title">
+          {%- if is_arabic -%}{{ section.settings.care_title_ar | default: 'خدمة العملاء' }}{%- else -%}{{ section.settings.care_title_en | default: 'CUSTOMER CARE' }}{%- endif -%}
+        </h4>
+        <ul class="ds-footer-links">
+          {%- if care_links.size > 0 -%}
+            {%- for block in care_links -%}
+              <li {{ block.shopify_attributes }}>
+                <a href="{{ block.settings.link_url | default: '#' }}" class="ds-footer-link">
+                  {%- if is_arabic -%}{{ block.settings.label_ar | default: block.settings.label_en }}{%- else -%}{{ block.settings.label_en }}{%- endif -%}
+                </a>
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="/pages/shipping" class="ds-footer-link">{%- if is_arabic -%}الشحن والتوصيل{%- else -%}Shipping & Delivery{%- endif -%}</a></li>
+            <li><a href="/pages/returns" class="ds-footer-link">{%- if is_arabic -%}الإرجاع والاستبدال{%- else -%}Returns & Refunds{%- endif -%}</a></li>
+            <li><a href="/pages/privacy-policy" class="ds-footer-link">{%- if is_arabic -%}سياسة الخصوصية{%- else -%}Privacy Policy{%- endif -%}</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      <!-- Col 5: Logo + Socials -->
+      <div class="ds-footer-col ds-footer-brand-col">
+        <div class="ds-footer-logo-wrap">
+          {%- if section.settings.footer_logo != blank -%}
+            <img
+              src="{{ section.settings.footer_logo | img_url: '200x80' }}"
+              alt="{{ shop.name }}"
+              class="ds-footer-logo-img"
+              loading="lazy"
+            />
+          {%- else -%}
+            <div class="ds-footer-logo-text">
+              <span class="ds-footer-logo-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5cc5cb" stroke-width="1.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </span>
+              <span class="ds-footer-logo-name">
+                <span class="ds-footer-logo-desura">Desura De</span>
+                <span class="ds-footer-logo-sehr">Sehr</span>
+              </span>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="ds-footer-socials">
+          {%- if section.settings.social_instagram != blank -%}
+            <a href="{{ section.settings.social_instagram }}" class="ds-social-btn" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.social_tiktok != blank -%}
+            <a href="{{ section.settings.social_tiktok }}" class="ds-social-btn" target="_blank" rel="noopener" aria-label="TikTok">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.79 1.53V6.76a4.85 4.85 0 0 1-1.02-.07z"/></svg>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.social_facebook != blank -%}
+            <a href="{{ section.settings.social_facebook }}" class="ds-social-btn" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.social_pinterest != blank -%}
+            <a href="{{ section.settings.social_pinterest }}" class="ds-social-btn" target="_blank" rel="noopener" aria-label="Pinterest">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Bottom Bar ── -->
+  <div class="ds-footer-bottom">
+    <div class="ds-footer-bottom-inner">
+      <p class="ds-footer-copy">
+        © {{ 'now' | date: '%Y' }} {{ section.settings.brand_name | default: shop.name }}.
+        {%- if is_arabic -%}{{ section.settings.copyright_ar | default: 'جميع الحقوق محفوظة.' }}{%- else -%}{{ section.settings.copyright_en | default: 'All Rights Reserved.' }}{%- endif -%}
+      </p>
+    </div>
+  </div>
+
+</footer>
+
+<style>
+  /* ═══════════════════════════════════════════════════
+     FOOTER — Desura De Sehr — Dark Premium
+  ═══════════════════════════════════════════════════ */
+
+  .ds-footer {
+    background: #111111;
+    color: #cccccc;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .ds-footer-main {
+    padding: 72px 48px 60px;
+  }
+
+  .ds-footer-container {
+    max-width: 1320px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .ds-footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Newsletter */
+  .ds-footer-newsletter-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #5cc5cb;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .ds-footer-newsletter-body {
+    font-size: 13px;
+    line-height: 1.65;
+    color: #888888;
+    margin: 0 0 22px;
+  }
+
+  .ds-footer-input-wrap {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    overflow: hidden;
+    transition: border-color 0.25s ease;
+  }
+
+  .ds-footer-input-wrap:focus-within {
+    border-color: #5cc5cb;
+  }
+
+  .ds-footer-email-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    padding: 12px 18px;
+  }
+
+  .ds-footer-email-input::placeholder {
+    color: rgba(255,255,255,0.3);
+  }
+
+  .ds-footer-subscribe-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: #5cc5cb;
+    color: #ffffff;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 100px;
+    margin: 3px;
+    transition: background 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .ds-footer-subscribe-btn:hover {
+    background: #4ab5bb;
+  }
+
+  /* Column Titles */
+  .ds-footer-col-title {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #5cc5cb;
+    margin: 0 0 20px;
+  }
+
+  /* Nav Links */
+  .ds-footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ds-footer-link {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #888888;
+    text-decoration: none;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+    display: inline-block;
+  }
+
+  .ds-footer-link:hover {
+    color: #ffffff;
+    padding-left: 4px;
+  }
+
+  [dir="rtl"] .ds-footer-link:hover {
+    padding-left: 0;
+    padding-right: 4px;
+  }
+
+  /* Brand Column */
+  .ds-footer-brand-col {
+    align-items: flex-end;
+    gap: 20px;
+  }
+
+  .ds-footer-logo-wrap {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .ds-footer-logo-img {
+    max-width: 160px;
+    height: auto;
+    opacity: 0.9;
+  }
+
+  .ds-footer-logo-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .ds-footer-logo-name {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+
+  .ds-footer-logo-desura {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    color: #888888;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .ds-footer-logo-sehr {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: 0.04em;
+  }
+
+  /* Social Buttons */
+  .ds-footer-socials {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ds-social-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888888;
+    text-decoration: none;
+    transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  }
+
+  .ds-social-btn:hover {
+    color: #5cc5cb;
+    border-color: #5cc5cb;
+    transform: translateY(-3px);
+  }
+
+  /* Bottom Bar */
+  .ds-footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 20px 48px;
+  }
+
+  .ds-footer-bottom-inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ds-footer-copy {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    color: #555555;
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .ds-footer-container { grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .ds-footer-brand-col { align-items: flex-start; }
+    .ds-footer-logo-wrap { justify-content: flex-start; }
+  }
+
+  @media (max-width: 768px) {
+    .ds-footer-container {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px 20px;
+    }
+    .ds-footer-newsletter {
+      grid-column: 1 / -1;
+    }
+    .ds-footer-brand-col {
+      grid-column: 1 / -1;
+      align-items: center;
+      text-align: center;
+      margin-top: 12px;
+    }
+    .ds-footer-logo-wrap {
+      justify-content: center;
+    }
+    .ds-footer-main {
+      padding: 44px 20px 36px;
+    }
+    .ds-footer-bottom {
+      padding: 16px 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ds-footer-container {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px 16px;
+    }
+    .ds-footer-col-title {
+      font-size: 13px;
+    }
+    .ds-footer-link {
+      font-size: 13px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo & Branding"
+    },
+    {
+      "type": "image_picker",
+      "id": "footer_logo",
+      "label": "Footer Logo (light version for dark background)"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand Name (for copyright)",
+      "default": "Desura De Sehr"
+    },
+    {
+      "type": "header",
+      "content": "Social Media Links"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "social_tiktok",
+      "label": "TikTok URL"
+    },
+    {
+      "type": "url",
+      "id": "social_facebook",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "social_pinterest",
+      "label": "Pinterest URL"
+    },
+    {
+      "type": "header",
+      "content": "Column Titles (English)"
+    },
+    {
+      "type": "text",
+      "id": "shop_title_en",
+      "label": "Shop Column Title",
+      "default": "SHOP"
+    },
+    {
+      "type": "text",
+      "id": "info_title_en",
+      "label": "Information Column Title",
+      "default": "INFORMATION"
+    },
+    {
+      "type": "text",
+      "id": "care_title_en",
+      "label": "Customer Care Column Title",
+      "default": "CUSTOMER CARE"
+    },
+    {
+      "type": "header",
+      "content": "Column Titles (Arabic)"
+    },
+    {
+      "type": "text",
+      "id": "shop_title_ar",
+      "label": "Shop Column Title (Arabic)",
+      "default": "المتجر"
+    },
+    {
+      "type": "text",
+      "id": "info_title_ar",
+      "label": "Information Column Title (Arabic)",
+      "default": "معلومات"
+    },
+    {
+      "type": "text",
+      "id": "care_title_ar",
+      "label": "Customer Care Column Title (Arabic)",
+      "default": "خدمة العملاء"
+    },
+    {
+      "type": "header",
+      "content": "Category Links (Labels & Destination URLs)"
+    },
+    {
+      "type": "text",
+      "id": "cat1_label_en",
+      "label": "Category 1 Title (English)",
+      "default": "Hair Care"
+    },
+    {
+      "type": "text",
+      "id": "cat1_label_ar",
+      "label": "Category 1 Title (Arabic)",
+      "default": "العناية بالشعر"
+    },
+    {
+      "type": "url",
+      "id": "cat1_url",
+      "label": "Category 1 Link URL"
+    },
+    {
+      "type": "text",
+      "id": "cat2_label_en",
+      "label": "Category 2 Title (English)",
+      "default": "Skin Care"
+    },
+    {
+      "type": "text",
+      "id": "cat2_label_ar",
+      "label": "Category 2 Title (Arabic)",
+      "default": "العناية بالبشرة"
+    },
+    {
+      "type": "url",
+      "id": "cat2_url",
+      "label": "Category 2 Link URL"
+    },
+    {
+      "type": "text",
+      "id": "cat3_label_en",
+      "label": "Category 3 Title (English)",
+      "default": "Nail Care"
+    },
+    {
+      "type": "text",
+      "id": "cat3_label_ar",
+      "label": "Category 3 Title (Arabic)",
+      "default": "العناية بالأظافر"
+    },
+    {
+      "type": "url",
+      "id": "cat3_url",
+      "label": "Category 3 Link URL"
+    },
+    {
+      "type": "text",
+      "id": "cat4_label_en",
+      "label": "Category 4 Title (English)",
+      "default": "Lash & Brow Care"
+    },
+    {
+      "type": "text",
+      "id": "cat4_label_ar",
+      "label": "Category 4 Title (Arabic)",
+      "default": "الرموش والحواجب"
+    },
+    {
+      "type": "url",
+      "id": "cat4_url",
+      "label": "Category 4 Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter (English)"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_eyebrow_en",
+      "label": "Eyebrow Label",
+      "default": "STAY BEAUTIFULLY INFORMED"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_body_en",
+      "label": "Body Text",
+      "default": "Be the first to know about new arrivals, offers, and beauty tips."
+    },
+    {
+      "type": "text",
+      "id": "subscribe_label_en",
+      "label": "Subscribe Button Label",
+      "default": "SUBSCRIBE"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter (Arabic)"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_eyebrow_ar",
+      "label": "Eyebrow Label (Arabic)",
+      "default": "ابقَ على اطلاع"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_body_ar",
+      "label": "Body Text (Arabic)",
+      "default": "كن أول من يعلم بالوصولات الجديدة والعروض ونصائح الجمال."
+    },
+    {
+      "type": "text",
+      "id": "subscribe_label_ar",
+      "label": "Subscribe Button Label (Arabic)",
+      "default": "اشترك"
+    },
+    {
+      "type": "header",
+      "content": "Copyright"
+    },
+    {
+      "type": "text",
+      "id": "copyright_en",
+      "label": "Copyright Text (English)",
+      "default": "All Rights Reserved."
+    },
+    {
+      "type": "text",
+      "id": "copyright_ar",
+      "label": "Copyright Text (Arabic)",
+      "default": "جميع الحقوق محفوظة."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "shop_link",
+      "name": "Shop Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label_en",
+          "label": "Label (English)",
+          "default": "All Products"
+        },
+        {
+          "type": "text",
+          "id": "label_ar",
+          "label": "Label (Arabic)",
+          "default": "كل المنتجات"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    },
+    {
+      "type": "info_link",
+      "name": "Information Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label_en",
+          "label": "Label (English)",
+          "default": "About Us"
+        },
+        {
+          "type": "text",
+          "id": "label_ar",
+          "label": "Label (Arabic)",
+          "default": "من نحن"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    },
+    {
+      "type": "care_link",
+      "name": "Customer Care Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label_en",
+          "label": "Label (English)",
+          "default": "Shipping & Delivery"
+        },
+        {
+          "type": "text",
+          "id": "label_ar",
+          "label": "Label (Arabic)",
+          "default": "الشحن والتوصيل"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

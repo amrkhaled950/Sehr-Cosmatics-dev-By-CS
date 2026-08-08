@@ -1,0 +1,12 @@
+{
+  "name": "Wishlist Template",
+  "sections": {
+    "main": {
+      "type": "main-wishlist",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

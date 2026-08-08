@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}" dir="{{ settings.text_direction | default: 'ltr' }}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>
+    {%- if template == 'index' -%}
+      {{ shop.name }} — {{ page_title }}
+    {%- elsif page_title -%}
+      {{ page_title }} — {{ shop.name }}
+    {%- else -%}
+      {{ shop.name }}
+    {%- endif -%}
+  </title>
+
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}" />
+  {%- endif -%}
+
+  <!-- Favicon -->
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}" />
+  {%- endif -%}
+
+  <!-- Canonical -->
+  <link rel="canonical" href="{{ canonical_url }}" />
+
+  <!-- Shopify -->
+  {{ content_for_header }}
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Theme CSS -->
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+  {{ 'hero-desura-sehr.css' | asset_url | stylesheet_tag }}
+</head>
+
+<body class="template-{{ template | replace: '.', '-' }}">
+
+  <!-- ── Floating Glass Header Wrapper (Overlays Hero Image Directly) ── -->
+  <header class="header-overlay-wrapper">
+    {%- section 'announcement-bar' -%}
+    {%- section 'header' -%}
+  </header>
+
+  <!-- ── Main Content ── -->
+  <main id="main-content" role="main">
+    {{ content_for_layout }}
+    {%- if template == 'index' -%}
+      {%- section 'science-ingredients' -%}
+      {%- section 'featured-collection' -%}
+      {%- section 'bundles-collection' -%}
+      {%- section 'instagram-reels' -%}
+      {%- section 'trust-bar' -%}
+      {%- section 'brand-story' -%}
+    {%- endif -%}
+  </main>
+
+  <!-- ── Footer ── -->
+  {%- section 'footer' -%}
+
+</body>
+</html>

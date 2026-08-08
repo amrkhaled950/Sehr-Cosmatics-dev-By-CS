@@ -1,0 +1,76 @@
+{
+  "current": {
+    "brand_color": "#63c9cf",
+    "text_direction": "ltr",
+    "sections": {
+      "science-ingredients": {
+        "type": "science-ingredients",
+        "settings": {
+          "eyebrow_en": "THE SCIENCE WITHIN",
+          "heading_line1_en": "Nature's Best.",
+          "heading_line2_en": "Backed by",
+          "heading_accent_en": "Science.",
+          "body_en": "We combine powerful natural ingredients with advanced science to deliver visible, lasting results.",
+          "eyebrow_ar": "العلم والطبيعة",
+          "heading_line1_ar": "أفضل ما في الطبيعة.",
+          "heading_line2_ar": "مدعوم بـ",
+          "heading_accent_ar": "العلم.",
+          "body_ar": "نجمع بين المكونات الطبيعية القوية والعلم المتقدم لتقديم نتائج ملحوظة وتدوم طويلاً."
+        },
+        "blocks": {
+          "ing_1": {
+            "type": "ingredient",
+            "settings": {
+              "title_en": "TEA TREE OIL",
+              "title_ar": "زيت شجرة الشاي",
+              "subtitle_en": "Purifies & soothes the skin",
+              "subtitle_ar": "ينقي ويهدئ البشرة",
+              "glow_color": "#48a375"
+            }
+          },
+          "ing_2": {
+            "type": "ingredient",
+            "settings": {
+              "title_en": "VITAMIN C",
+              "title_ar": "فيتامين سي",
+              "subtitle_en": "Brightens & boosts radiance",
+              "subtitle_ar": "يضيء ويعزز إشراق البشرة",
+              "glow_color": "#e09f3e"
+            }
+          },
+          "ing_3": {
+            "type": "ingredient",
+            "settings": {
+              "title_en": "SALICYLIC ACID",
+              "title_ar": "حمض الساليسيليك",
+              "subtitle_en": "Exfoliates & unclogs pores",
+              "subtitle_ar": "يقشر وينظف المسام العميق",
+              "glow_color": "#60a5fa"
+            }
+          },
+          "ing_4": {
+            "type": "ingredient",
+            "settings": {
+              "title_en": "BIOTIN",
+              "title_ar": "بيوتين سيروم",
+              "subtitle_en": "Strengthens & supports healthy growth",
+              "subtitle_ar": "يقوي ويدعم النمو الصحي",
+              "glow_color": "#f472b6"
+            }
+          },
+          "ing_5": {
+            "type": "ingredient",
+            "settings": {
+              "title_en": "COLLAGEN",
+              "title_ar": "كولاجين",
+              "subtitle_en": "Hydrates & improves skin elasticity",
+              "subtitle_ar": "يرطب ويحسن مرونة البشرة",
+              "glow_color": "#38bdf8"
+            }
+          }
+        },
+        "block_order": ["ing_1", "ing_2", "ing_3", "ing_4", "ing_5"]
+      }
+    }
+  }
+}

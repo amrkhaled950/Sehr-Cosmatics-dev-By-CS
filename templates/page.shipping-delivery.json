@@ -1,0 +1,12 @@
+{
+  "name": "Shipping & Delivery Template",
+  "sections": {
+    "main": {
+      "type": "main-shipping",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

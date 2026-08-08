@@ -1,0 +1,588 @@
+{{ 'hero-desura-sehr.css' | asset_url | stylesheet_tag }}
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
+<section class="hero-section" id="hero-desura" aria-label="Hero" data-section-id="{{ section.id }}">
+  <div class="hero-sticky">
+
+    <!-- ── Background Image (Language Aware: AR / EN) ── -->
+    {% assign is_arabic = false %}
+    {% if request.locale.iso_code == 'ar' or request.locale.root_url contains '/ar' or content_for_header contains 'lang=ar' %}
+      {% assign is_arabic = true %}
+    {% endif %}
+
+    <div class="hero-bg-wrap" id="heroBgWrap">
+      {% if is_arabic %}
+        {% if section.settings.hero_image_ar != blank %}
+          <img class="hero-bg-img" src="{{ section.settings.hero_image_ar | img_url: '1920x' }}" alt="Hero Background Arabic" loading="eager" />
+        {% else %}
+          <img class="hero-bg-img" src="{{ 'hero-bg-ar.jpg' | asset_url }}" alt="Hero Background Arabic" loading="eager" />
+        {% endif %}
+      {% else %}
+        {% if section.settings.hero_image_en != blank %}
+          <img class="hero-bg-img" src="{{ section.settings.hero_image_en | img_url: '1920x' }}" alt="Hero Background English" loading="eager" />
+        {% elsif section.settings.hero_image != blank %}
+          <img class="hero-bg-img" src="{{ section.settings.hero_image | img_url: '1920x' }}" alt="Hero Background English" loading="eager" />
+        {% else %}
+          <img class="hero-bg-img" src="{{ 'hero-bg.jpg' | asset_url }}" alt="Hero Background English" loading="eager" />
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <!-- ── Tint ── -->
+    <div class="hero-tint" aria-hidden="true"></div>
+
+    <!-- ── Atmosphere ── -->
+    <div class="hero-atmosphere" aria-hidden="true">
+
+      <div class="atm-silk" id="atmSilk"></div>
+
+      <div class="atm-halo-wrap" id="atmHaloWrap">
+        <div class="atm-halo-ring">
+          <div class="atm-halo-outer-glow"></div>
+          <div class="atm-halo-arc"></div>
+        </div>
+      </div>
+
+      <svg class="atm-svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="sehr-ribbonGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#e0f8fa"/>
+            <stop offset="60%" stop-color="#63c9cf"/>
+            <stop offset="100%" stop-color="#3199a0"/>
+          </linearGradient>
+          <filter id="sehr-glowFilter" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="sehr-dropletGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <path id="ribbonLeft"  class="ribbon" d="M 40 780 C 180 650, 220 520, 360 540 S 520 700, 680 620" fill="none" stroke="url(#sehr-ribbonGrad)" stroke-width="3.5" stroke-linecap="round" filter="url(#sehr-glowFilter)" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+        <path id="ribbonRight" class="ribbon" d="M 1560 760 C 1400 640, 1360 500, 1200 520 S 1020 700, 880 600" fill="none" stroke="url(#sehr-ribbonGrad)" stroke-width="3.5" stroke-linecap="round" filter="url(#sehr-glowFilter)" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+        <path id="ribbonTop"   class="ribbon" d="M 640 260 C 780 220, 900 320, 1040 260 S 1240 200, 1360 280" fill="none" stroke="url(#sehr-ribbonGrad)" stroke-width="2.5" stroke-linecap="round" filter="url(#sehr-glowFilter)" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+        <circle class="droplet" cx="120"  cy="720" r="4" fill="#63c9cf" filter="url(#sehr-dropletGlow)" style="--di:0"/>
+        <circle class="droplet" cx="300"  cy="560" r="3" fill="#63c9cf" filter="url(#sehr-dropletGlow)" style="--di:1"/>
+        <circle class="droplet" cx="520"  cy="640" r="5" fill="#63c9cf" filter="url(#sehr-dropletGlow)" style="--di:2"/>
+        <circle class="droplet" cx="1480" cy="700" r="4" fill="#63c9cf" filter="url(#sehr-dropletGlow)" style="--di:3"/>
+        <circle class="droplet" cx="1280" cy="540" r="3" fill="#63c9cf" filter="url(#sehr-dropletGlow)" style="--di:4"/>
+        <circle class="droplet" cx="1000" cy="600" r="5" fill="#63c9cf" filter="url(#sehr-dropletGlow)" style="--di:5"/>
+        <circle class="droplet" cx="780"  cy="240" r="3" fill="#63c9cf" filter="url(#sehr-dropletGlow)" style="--di:6"/>
+        <circle class="droplet" cx="1100" cy="260" r="4" fill="#63c9cf" filter="url(#sehr-dropletGlow)" style="--di:7"/>
+      </svg>
+
+      <div class="sphere" style="--sx:6%;  --sy:72%; --ss:70px; --sc:rgba(99,201,207,0.45);  --sd:0s;   --sm:1"></div>
+      <div class="sphere" style="--sx:12%; --sy:58%; --ss:42px; --sc:rgba(180,240,245,0.55); --sd:0.6s; --sm:-1"></div>
+      <div class="sphere" style="--sx:88%; --sy:70%; --ss:90px; --sc:rgba(75,185,192,0.4);   --sd:1.2s; --sm:1"></div>
+      <div class="sphere" style="--sx:82%; --sy:84%; --ss:34px; --sc:rgba(99,201,207,0.5);   --sd:1.8s; --sm:-1"></div>
+      <div class="sphere" style="--sx:70%; --sy:18%; --ss:22px; --sc:rgba(195,245,248,0.7);  --sd:2.4s; --sm:1"></div>
+      <div class="sphere" style="--sx:22%; --sy:22%; --ss:18px; --sc:rgba(195,245,248,0.6);  --sd:3s;   --sm:-1"></div>
+
+      <div class="sparkles-wrap" id="sparklesWrap"></div>
+    </div>
+
+    <!-- ── Hero Copy ── -->
+    <div class="hero-copy">
+      <div class="hero-copy-inner">
+        <p class="hero-eyebrow">PREMIUM CARE. POWERED BY <span class="eyebrow-accent">NATURE.</span></p>
+        <h1 class="hero-h1">
+          <span class="h1-line">{{ section.settings.heading_line1 | default: 'Beauty' }}</span>
+          <span class="h1-line italic">{{ section.settings.heading_line2 | default: 'Elevated.' }}</span>
+        </h1>
+        <p class="hero-body">{{ section.settings.body_text | default: 'Science-backed formulas with natural ingredients for radiant, healthy, and confident you.' }}</p>
+        <a href="{{ section.settings.cta_link | default: '/collections/all' }}" class="cta-btn">
+          <span class="cta-shine" aria-hidden="true"></span>
+          <span class="cta-text">{{ section.settings.cta_label | default: 'SHOP NOW' }}</span>
+          <span class="cta-arrow" aria-hidden="true">&#8594;</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ── Product Stage (Supports 3D GLB, Custom Images & CSS Boxes) ── -->
+    <div class="boxes-stage" id="boxesStage" aria-hidden="true">
+
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          {% assign idx = forloop.index0 %}
+          {% assign land_x = block.settings.land_x | default: 0 %}
+          {% assign land_y = block.settings.land_y | default: 0 %}
+          {% assign land_z = block.settings.land_z | default: 0 %}
+          {% assign from_y = block.settings.from_y | default: -900 %}
+          {% assign rot_x = block.settings.rot_x | default: 0 %}
+          {% assign rot_y = block.settings.rot_y | default: 0 %}
+          {% assign rot_z = block.settings.rot_z | default: 0 %}
+          {% assign start_s = block.settings.start_scroll | default: 3 | times: 0.01 %}
+          {% assign dur_s = block.settings.dur_scroll | default: 22 | times: 0.01 %}
+          {% assign accent = block.settings.accent_color | default: '#c93b7a' %}
+          {% assign accent_dark = block.settings.accent_dark_color | default: '#8f2456' %}
+          {% assign scale_val = block.settings.scale_size | default: 100 | times: 0.01 %}
+
+          <div class="box-wrap {% if block.settings.glb_url != blank or block.settings.product_image != blank %}has-custom-media{% endif %}" 
+            id="box{{ idx }}" 
+            style="--land-x:{{ land_x }}%; --land-y:{{ land_y }}%; --land-z:{{ land_z }}px;"
+            data-start="{{ start_s }}" 
+            data-dur="{{ dur_s }}" 
+            data-from="{{ from_y }}" 
+            data-tilt="{{ rot_z }}" 
+            data-drift="{{ rot_z }}"
+            data-land-x="{{ land_x }}"
+            data-land-y="{{ land_y }}"
+            data-land-z="{{ land_z }}"
+            data-rot-x="{{ rot_x }}"
+            data-rot-y="{{ rot_y }}"
+            data-rot-z="{{ rot_z }}"
+            data-scale="{{ scale_val }}"
+            data-idx="{{ idx }}"
+            {{ block.shopify_attributes }}>
+            <div class="box-float" id="boxFloat{{ idx }}">
+
+              {% if block.settings.glb_url != blank %}
+                <!-- ── 3D GLB Model Container ── -->
+                <div class="product-3d-model-wrap" style="transform: rotateX({{ rot_x }}deg) rotateY({{ rot_y }}deg) scale({{ scale_val }});">
+                  <model-viewer
+                    src="{{ block.settings.glb_url }}"
+                    alt="{{ block.settings.product_name | escape }}"
+                    auto-rotate
+                    rotation-per-second="18deg"
+                    interaction-prompt="none"
+                    shadow-intensity="1.5"
+                    shadow-softness="0.5"
+                    exposure="1.1"
+                    camera-controls
+                    disable-zoom
+                    loading="eager"
+                    class="product-glb-viewer">
+                  </model-viewer>
+                  {% if block.settings.product_name != blank %}
+                    <div class="glb-product-badge" style="--accent: {{ accent }};">
+                      <strong>{{ block.settings.product_name }}</strong>
+                      {% if block.settings.compounds_sub != blank %}
+                        <span>{{ block.settings.compounds_sub }}</span>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+              {% elsif block.settings.product_image != blank %}
+                <!-- ── Custom Uploaded Product Image ── -->
+                <div class="product-image-wrap" style="transform: rotateX({{ rot_x }}deg) rotateY({{ rot_y }}deg) scale({{ scale_val }});">
+                  <img src="{{ block.settings.product_image | img_url: '800x' }}" alt="{{ block.settings.product_name | escape }}" loading="eager" />
+                  {% if block.settings.product_name != blank %}
+                    <div class="glb-product-badge" style="--accent: {{ accent }};">
+                      <strong>{{ block.settings.product_name }}</strong>
+                      {% if block.settings.compounds_sub != blank %}
+                        <span>{{ block.settings.compounds_sub }}</span>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+              {% else %}
+                <!-- ── 2D CSS Product Box Fallback ── -->
+                <div class="product-box" style="--accent:{{ accent }}; --accent-dark:{{ accent_dark }}; --w:85px; --ar:3;">
+                  <div class="box-right-face"></div>
+                  <div class="box-front">
+                    <div class="box-faux-qr"></div>
+                    <div class="brand-brand-block">
+                      <div class="brand-logo-square"><div class="brand-logo-circle"></div></div>
+                      <div class="brand-name"><span>DESURA <span class="brand-de">DE</span></span><br><strong>SEHR</strong></div>
+                      <div class="brand-stroke"></div>
+                      <div class="product-name-label">{{ block.settings.product_name | default: 'PRODUCT' }}</div>
+                    </div>
+                    <div class="box-lower-band">
+                      <div class="compounds-label">{ COMPOUNDS }</div>
+                      <div class="compounds-divider"></div>
+                      <div class="compounds-sub">{{ block.settings.compounds_sub | default: 'NATURAL EXTRACTS' }}</div>
+                    </div>
+                    <div class="box-gloss"></div>
+                  </div>
+                </div>
+              {% endif %}
+
+            </div>
+          </div>
+        {% endfor %}
+
+      {% else %}
+        <!-- Default 4 boxes if section has no blocks added yet -->
+        <div class="box-wrap" id="box0" style="--land-x:-22%; --land-y:18%;" data-start="0.03" data-dur="0.22" data-from="-900" data-tilt="-3" data-drift="-6" data-idx="0">
+          <div class="box-float" id="boxFloat0">
+            <div class="product-box" style="--accent:#c93b7a; --accent-dark:#8f2456; --w:72px; --ar:3.2;">
+              <div class="box-right-face"></div>
+              <div class="box-front">
+                <div class="box-faux-qr"></div>
+                <div class="box-brand-block">
+                  <div class="brand-logo-square"><div class="brand-logo-circle"></div></div>
+                  <div class="brand-name"><span>DESURA <span class="brand-de">DE</span></span><br><strong>SEHR</strong></div>
+                  <div class="brand-stroke"></div>
+                  <div class="product-name-label">EYE CONTOUR</div>
+                </div>
+                <div class="box-lower-band">
+                  <div class="compounds-label">{ COMPOUNDS }</div>
+                  <div class="compounds-divider"></div>
+                  <div class="compounds-sub">VITAMIN C &amp; K</div>
+                </div>
+                <div class="box-gloss"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="box-wrap" id="box1" style="--land-x:-6%; --land-y:8%;" data-start="0.10" data-dur="0.22" data-from="-1100" data-tilt="2" data-drift="4" data-idx="1">
+          <div class="box-float" id="boxFloat1">
+            <div class="product-box" style="--accent:#d16a5e; --accent-dark:#8f4038; --w:110px; --ar:2.6;">
+              <div class="box-right-face"></div>
+              <div class="box-front">
+                <div class="box-faux-qr"></div>
+                <div class="box-brand-block">
+                  <div class="brand-logo-square"><div class="brand-logo-circle"></div></div>
+                  <div class="brand-name"><span>DESURA <span class="brand-de">DE</span></span><br><strong>SEHR</strong></div>
+                  <div class="brand-stroke"></div>
+                  <div class="product-name-label">NAIL SERUM</div>
+                </div>
+                <div class="box-lower-band">
+                  <div class="compounds-label">{ COMPOUNDS }</div>
+                  <div class="compounds-divider"></div>
+                  <div class="compounds-sub">BIOTIN &amp; COLLAGEN</div>
+                </div>
+                <div class="box-gloss"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="box-wrap" id="box2" style="--land-x:12%; --land-y:12%;" data-start="0.18" data-dur="0.22" data-from="-1000" data-tilt="-2" data-drift="-3" data-idx="2">
+          <div class="box-float" id="boxFloat2">
+            <div class="product-box" style="--accent:#3fb8a8; --accent-dark:#237567; --w:92px; --ar:2.9;">
+              <div class="box-right-face"></div>
+              <div class="box-front">
+                <div class="box-faux-qr"></div>
+                <div class="box-brand-block">
+                  <div class="brand-logo-square"><div class="brand-logo-circle"></div></div>
+                  <div class="brand-name"><span>DESURA <span class="brand-de">DE</span></span><br><strong>SEHR</strong></div>
+                  <div class="brand-stroke"></div>
+                  <div class="product-name-label">LASH &amp; BROW</div>
+                </div>
+                <div class="box-lower-band">
+                  <div class="compounds-label">{ COMPOUNDS }</div>
+                  <div class="compounds-divider"></div>
+                  <div class="compounds-sub">PEPTIDE SERUM</div>
+                </div>
+                <div class="box-gloss"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="box-wrap" id="box3" style="--land-x:28%; --land-y:14%;" data-start="0.26" data-dur="0.24" data-from="-1200" data-tilt="4" data-drift="7" data-idx="3">
+          <div class="box-float" id="boxFloat3">
+            <div class="product-box" style="--accent:#c9a24a; --accent-dark:#8a6d2a; --w:92px; --ar:3;">
+              <div class="box-right-face"></div>
+              <div class="box-front">
+                <div class="box-faux-qr"></div>
+                <div class="box-brand-block">
+                  <div class="brand-logo-square"><div class="brand-logo-circle"></div></div>
+                  <div class="brand-name"><span>DESURA <span class="brand-de">DE</span></span><br><strong>SEHR</strong></div>
+                  <div class="brand-stroke"></div>
+                  <div class="product-name-label">HAIR OIL</div>
+                </div>
+                <div class="box-lower-band">
+                  <div class="compounds-label">{ COMPOUNDS }</div>
+                  <div class="compounds-divider"></div>
+                  <div class="compounds-sub">ROSEMARY &amp; MINT</div>
+                </div>
+                <div class="box-gloss"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+    </div><!-- /boxes-stage -->
+
+  </div><!-- /hero-sticky -->
+</section>
+
+<script src="{{ 'hero-desura-sehr.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Hero Desura De Sehr",
+  "max_blocks": 16,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background Images (Language Specific)"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_en",
+      "label": "Hero Background Image (English)"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_ar",
+      "label": "Hero Background Image (Arabic)"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Heading Line 1",
+      "default": "Beauty"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Heading Line 2 (Italic)",
+      "default": "Elevated."
+    },
+    {
+      "type": "textarea",
+      "id": "body_text",
+      "label": "Body Paragraph",
+      "default": "Science-backed formulas with natural ingredients for radiant, healthy, and confident you."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_item",
+      "name": "Product (3D GLB or Image)",
+      "settings": [
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product Name",
+          "default": "EYE CONTOUR"
+        },
+        {
+          "type": "text",
+          "id": "compounds_sub",
+          "label": "Compounds Subtitle",
+          "default": "VITAMIN C AND K"
+        },
+        {
+          "type": "text",
+          "id": "glb_url",
+          "label": "3D Model GLB File Link (URL)",
+          "info": "Upload .glb file to Shopify (Content > Files) and paste link here."
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Or Upload Custom Product Image (PNG/JPG)",
+          "info": "If no GLB URL is provided, this image will be used instead."
+        },
+        {
+          "type": "header",
+          "content": "3D Landing Position X, Y, Z"
+        },
+        {
+          "type": "range",
+          "id": "land_x",
+          "min": -50,
+          "max": 50,
+          "step": 1,
+          "unit": "%",
+          "label": "Position X Horizontal Percent",
+          "default": -22
+        },
+        {
+          "type": "range",
+          "id": "land_y",
+          "min": -50,
+          "max": 50,
+          "step": 1,
+          "unit": "%",
+          "label": "Position Y Vertical Percent",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "land_z",
+          "min": -500,
+          "max": 500,
+          "step": 10,
+          "unit": "px",
+          "label": "Position Z Depth Offset",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Drop Animation and Rotations"
+        },
+        {
+          "type": "range",
+          "id": "from_y",
+          "min": -2000,
+          "max": -200,
+          "step": 50,
+          "unit": "px",
+          "label": "Drop Height Initial Y",
+          "default": -900
+        },
+        {
+          "type": "range",
+          "id": "rot_x",
+          "min": -180,
+          "max": 180,
+          "step": 5,
+          "unit": "deg",
+          "label": "Rotation X",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "rot_y",
+          "min": -180,
+          "max": 180,
+          "step": 5,
+          "unit": "deg",
+          "label": "Rotation Y",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "rot_z",
+          "min": -45,
+          "max": 45,
+          "step": 1,
+          "unit": "deg",
+          "label": "Tilt Rotation Z",
+          "default": -3
+        },
+        {
+          "type": "range",
+          "id": "scale_size",
+          "min": 50,
+          "max": 250,
+          "step": 5,
+          "unit": "%",
+          "label": "3D Model Scale Percent",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Scroll Timing"
+        },
+        {
+          "type": "range",
+          "id": "start_scroll",
+          "min": 0,
+          "max": 90,
+          "step": 1,
+          "unit": "%",
+          "label": "Scroll Animation Start Percent",
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "dur_scroll",
+          "min": 5,
+          "max": 60,
+          "step": 1,
+          "unit": "%",
+          "label": "Scroll Animation Duration Percent",
+          "default": 22
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "accent_color",
+          "label": "Accent Color",
+          "default": "#c93b7a"
+        },
+        {
+          "type": "color",
+          "id": "accent_dark_color",
+          "label": "Dark Accent Color",
+          "default": "#8f2456"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Desura De Sehr",
+      "blocks": [
+        {
+          "type": "product_item",
+          "settings": {
+            "product_name": "EYE CONTOUR",
+            "compounds_sub": "VITAMIN C AND K",
+            "land_x": -22,
+            "land_y": 18,
+            "land_z": 0,
+            "from_y": -900,
+            "rot_z": -3,
+            "accent_color": "#c93b7a",
+            "accent_dark_color": "#8f2456",
+            "start_scroll": 3,
+            "dur_scroll": 22
+          }
+        },
+        {
+          "type": "product_item",
+          "settings": {
+            "product_name": "NAIL SERUM",
+            "compounds_sub": "BIOTIN AND COLLAGEN",
+            "land_x": -6,
+            "land_y": 8,
+            "land_z": 50,
+            "from_y": -1100,
+            "rot_z": 2,
+            "accent_color": "#d16a5e",
+            "accent_dark_color": "#8f4038",
+            "start_scroll": 10,
+            "dur_scroll": 22
+          }
+        },
+        {
+          "type": "product_item",
+          "settings": {
+            "product_name": "LASH AND BROW",
+            "compounds_sub": "PEPTIDE SERUM",
+            "land_x": 12,
+            "land_y": 12,
+            "land_z": -30,
+            "from_y": -1000,
+            "rot_z": -2,
+            "accent_color": "#3fb8a8",
+            "accent_dark_color": "#237567",
+            "start_scroll": 18,
+            "dur_scroll": 22
+          }
+        },
+        {
+          "type": "product_item",
+          "settings": {
+            "product_name": "HAIR OIL",
+            "compounds_sub": "ROSEMARY AND MINT",
+            "land_x": 28,
+            "land_y": 14,
+            "land_z": 20,
+            "from_y": -1200,
+            "rot_z": 4,
+            "accent_color": "#c9a24a",
+            "accent_dark_color": "#8a6d2a",
+            "start_scroll": 26,
+            "dur_scroll": 24
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

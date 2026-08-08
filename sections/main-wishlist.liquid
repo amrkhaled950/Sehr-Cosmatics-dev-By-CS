@@ -1,0 +1,484 @@
+{%- assign is_arabic = false -%}
+{%- if request.locale.iso_code == 'ar' or request.locale.root_url contains '/ar' -%}
+  {%- assign is_arabic = true -%}
+{%- endif -%}
+
+<section class="main-wishlist-section" id="main-wishlist-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="wishlist-container">
+
+    <!-- ── Page Header ── -->
+    <div class="wishlist-header">
+      <span class="wishlist-eyebrow">
+        {% if is_arabic %}قائمة المفضلة{% else %}YOUR WISHLIST{% endif %}
+      </span>
+      <h1 class="wishlist-title">
+        {% if is_arabic %}المنتجات <em>المفضلة</em>{% else %}Saved <em>Rituals</em>{% endif %}
+      </h1>
+      <p class="wishlist-subtitle">
+        {% if is_arabic %}المنتجات التي حفظتها لتجربتها لاحقاً في مكان واحد.{% else %}Your personal collection of saved beauty rituals and favorite products.{% endif %}
+      </p>
+      <div class="wishlist-title-line"></div>
+    </div>
+
+    <!-- ── Wishlist Grid Viewport ── -->
+    <div id="wishlistGridContainer" class="wishlist-grid-wrap">
+      
+      <div class="wishlist-toolbar">
+        <span class="wishlist-count-label" id="wishlistCountLabel">
+          {% if is_arabic %}المنتجات المحفوظة: 0{% else %}Saved Items: 0{% endif %}
+        </span>
+        <button type="button" class="wishlist-clear-all-btn" id="btnClearWishlist" style="display: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          <span>{% if is_arabic %}مسح القائمة{% else %}CLEAR ALL{% endif %}</span>
+        </button>
+      </div>
+
+      <!-- Dynamic Items Grid -->
+      <div class="wishlist-products-grid" id="wishlistProductsGrid">
+        <!-- Javascript will inject products from localStorage or fallback collection -->
+      </div>
+
+      <!-- Empty State Box -->
+      <div class="wishlist-empty-box" id="wishlistEmptyBox" style="display: none;">
+        <div class="wishlist-empty-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h2>{% if is_arabic %}قائمة المفضلة فارغة حالياً{% else %}Your wishlist is empty{% endif %}</h2>
+        <p>{% if is_arabic %}لم تقم بحفظ أي منتجات في المفضلة بعد. انقر على أيقونة القلب في أي منتج لإضافته هنا.{% else %}You haven't saved any products to your wishlist yet. Click the heart icon on any product to save it here.{% endif %}</p>
+        <a href="/collections/all" class="wishlist-empty-shop-btn">
+          {% if is_arabic %}تصفح المنتجات{% else %}EXPLORE OUR PRODUCTS{% endif %} →
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ═══════════════════════════════════════════════════
+     MAIN WISHLIST SECTION STYLES — #000000 & #5CC5CB
+  ═══════════════════════════════════════════════════ */
+
+  .main-wishlist-section {
+    width: 100%;
+    min-height: 80vh;
+    padding: 120px 48px 100px;
+    background-color: #FFFFFF;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #000000;
+  }
+
+  .wishlist-container {
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .wishlist-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .wishlist-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: #5CC5CB;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .wishlist-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(44px, 5.5vw, 68px);
+    font-weight: 500;
+    color: #000000;
+    margin: 0 0 14px 0;
+    line-height: 1.05;
+  }
+
+  .wishlist-title em {
+    font-style: italic;
+    color: #5CC5CB;
+    font-weight: 400;
+  }
+
+  .wishlist-subtitle {
+    font-size: 15px;
+    color: #555555;
+    margin: 0 0 20px 0;
+  }
+
+  .wishlist-title-line {
+    width: 60px;
+    height: 1.5px;
+    background: #5CC5CB;
+    margin: 0 auto;
+  }
+
+  /* Toolbar */
+  .wishlist-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid #E0D8CE;
+  }
+
+  .wishlist-count-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #000000;
+    text-transform: uppercase;
+  }
+
+  .wishlist-clear-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: 1px solid #E0D8CE;
+    color: #777777;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 8px 18px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .wishlist-clear-all-btn:hover {
+    color: #E31C5F;
+    border-color: #E31C5F;
+    background: #FFFFFF;
+  }
+
+  /* Products Grid */
+  .wishlist-products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+
+  /* Wishlist Item Card */
+  .wl-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid #E0D8CE;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .wl-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  }
+
+  .wl-remove-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 10;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 1px solid #E0D8CE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777777;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  [dir="rtl"] .wl-remove-btn {
+    right: auto;
+    left: 14px;
+  }
+
+  .wl-remove-btn:hover {
+    background: #E31C5F;
+    border-color: #E31C5F;
+    color: #FFFFFF;
+  }
+
+  .wl-img-wrap {
+    width: 100%;
+    height: 240px;
+    border-radius: 14px;
+    background: #FFFFFF;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .wl-img-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+  }
+
+  .wl-card:hover .wl-img-wrap img {
+    transform: scale(1.05);
+  }
+
+  .wl-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+  }
+
+  .wl-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: #000000;
+    text-decoration: none;
+    line-height: 1.2;
+    transition: color 0.2s ease;
+  }
+
+  .wl-title:hover {
+    color: #5CC5CB;
+  }
+
+  .wl-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000000;
+  }
+
+  .wl-atc-btn {
+    width: 100%;
+    height: 44px;
+    border-radius: 100px;
+    background: #5CC5CB;
+    color: #000000;
+    border: none;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .wl-atc-btn:hover {
+    background: #000000;
+    color: #FFFFFF;
+  }
+
+  /* Empty Box */
+  .wishlist-empty-box {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 80px 32px;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.03);
+    border: 1px solid #E0D8CE;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .wishlist-empty-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+
+  .wishlist-empty-box h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: #000000;
+    margin: 0;
+  }
+
+  .wishlist-empty-box p {
+    font-size: 14px;
+    color: #666666;
+    margin: 0 0 16px 0;
+    line-height: 1.6;
+  }
+
+  .wishlist-empty-shop-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #000000;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+  }
+
+  .wishlist-empty-shop-btn:hover {
+    background: #5CC5CB;
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .wishlist-products-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 860px) {
+    .wishlist-products-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .main-wishlist-section {
+      padding: 90px 20px 60px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .wishlist-products-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const grid = document.getElementById('wishlistProductsGrid');
+    const emptyBox = document.getElementById('wishlistEmptyBox');
+    const countLabel = document.getElementById('wishlistCountLabel');
+    const btnClear = document.getElementById('btnClearWishlist');
+
+    // Get wishlist array from localStorage
+    function getWishlist() {
+      try {
+        return JSON.parse(localStorage.getItem('desura_wishlist') || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveWishlist(arr) {
+      localStorage.setItem('desura_wishlist', JSON.stringify(arr));
+      renderWishlist();
+    }
+
+    function renderWishlist() {
+      const items = getWishlist();
+      const isAr = document.documentElement.lang === 'ar' || window.location.pathname.includes('/ar');
+
+      if (countLabel) {
+        countLabel.textContent = isAr ? `المنتجات المحفوظة: ${items.length}` : `Saved Items: ${items.length}`;
+      }
+
+      if (items.length === 0) {
+        if (grid) grid.style.display = 'none';
+        if (emptyBox) emptyBox.style.display = 'flex';
+        if (btnClear) btnClear.style.display = 'none';
+      } else {
+        if (emptyBox) emptyBox.style.display = 'none';
+        if (btnClear) btnClear.style.display = 'inline-flex';
+        if (grid) {
+          grid.style.display = 'grid';
+          grid.innerHTML = items.map((item, idx) => `
+            <div class="wl-card" data-id="${item.id || idx}">
+              <button type="button" class="wl-remove-btn" data-index="${idx}" title="Remove">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+              
+              <a href="${item.url || '#'}" class="wl-img-wrap">
+                <img src="${item.image || '{{ 'hero-bg.jpg' | asset_url }}'}" alt="${item.title || 'Product'}" />
+              </a>
+
+              <div class="wl-details">
+                <a href="${item.url || '#'}" class="wl-title">${item.title || 'Sehr Hair Oil'}</a>
+                <span class="wl-price">${item.price || 'LE 300.00'}</span>
+              </div>
+
+              <button type="button" class="wl-atc-btn" data-variant-id="${item.variantId || ''}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+                <span>${isAr ? 'أضف إلى السلة' : 'ADD TO CART'}</span>
+              </button>
+            </div>
+          `).join('');
+
+          // Bind remove buttons
+          grid.querySelectorAll('.wl-remove-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+              const i = parseInt(this.getAttribute('data-index'));
+              const list = getWishlist();
+              list.splice(i, 1);
+              saveWishlist(list);
+            });
+          });
+
+          // Bind Add to Cart buttons
+          grid.querySelectorAll('.wl-atc-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+              const variantId = this.getAttribute('data-variant-id');
+              if (variantId) {
+                fetch('/cart/add.js', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ items: [{ id: variantId, quantity: 1 }] })
+                }).then(() => {
+                  window.location.href = '/cart';
+                }).catch(() => {
+                  window.location.href = '/cart';
+                });
+              } else {
+                window.location.href = '/cart';
+              }
+            });
+          });
+        }
+      }
+    }
+
+    if (btnClear) {
+      btnClear.addEventListener('click', function () {
+        saveWishlist([]);
+      });
+    }
+
+    // Initial render
+    renderWishlist();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Main Wishlist",
+  "settings": []
+}
+{% endschema %}

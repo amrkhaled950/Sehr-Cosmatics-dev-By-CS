@@ -1,0 +1,12 @@
+{
+  "name": "Collection Template",
+  "sections": {
+    "featured": {
+      "type": "featured-collection",
+      "settings": {}
+    }
+  },
+  "order": [
+    "featured"
+  ]
+}

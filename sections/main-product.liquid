@@ -1,0 +1,2080 @@
+{%- assign is_arabic = false -%}
+{%- if request.locale.iso_code == 'ar' or request.locale.root_url contains '/ar' -%}
+  {%- assign is_arabic = true -%}
+{%- endif -%}
+
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
+
+<!-- ── Model Viewer Script for .glb 3D Files ── -->
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
+<div class="product-page-wrapper" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}">
+
+  <!-- ── Top Marquee / Ticker Bar ── -->
+  <div class="pdp-ticker-bar">
+    <div class="pdp-ticker-track">
+      <div class="pdp-ticker-content">
+        <span>100% NATURAL INGREDIENTS</span> <span class="pdp-star">✦</span>
+        <span>DERMATOLOGICALLY TESTED</span> <span class="pdp-star">✦</span>
+        <span>MADE WITH LOVE IN EGYPT</span> <span class="pdp-star">✦</span>
+        <span>SECURE PAYMENT</span> <span class="pdp-star">✦</span>
+        <span>EASY RETURNS</span> <span class="pdp-star">✦</span>
+        <span>FREE DELIVERY</span> <span class="pdp-star">✦</span>
+      </div>
+      <div class="pdp-ticker-content" aria-hidden="true">
+        <span>100% NATURAL INGREDIENTS</span> <span class="pdp-star">✦</span>
+        <span>DERMATOLOGICALLY TESTED</span> <span class="pdp-star">✦</span>
+        <span>MADE WITH LOVE IN EGYPT</span> <span class="pdp-star">✦</span>
+        <span>SECURE PAYMENT</span> <span class="pdp-star">✦</span>
+        <span>EASY RETURNS</span> <span class="pdp-star">✦</span>
+        <span>FREE DELIVERY</span> <span class="pdp-star">✦</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pdp-main-container">
+    
+    <!-- ── Breadcrumbs ── -->
+    <nav class="pdp-breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">{% if is_arabic %}الرئيسية{% else %}HOME{% endif %}</a>
+      <span class="sep">/</span>
+      <a href="/collections/all">{% if is_arabic %}المتجر{% else %}SHOP{% endif %}</a>
+      <span class="sep">/</span>
+      <span class="current">{{ product.title | default: 'sehr hair oil' }}</span>
+    </nav>
+
+    <!-- ── Main Product Grid ── -->
+    <div class="pdp-grid">
+
+      <!-- Left Column: Media Gallery & 3D Model Viewer -->
+      <div class="pdp-gallery-col">
+        <div class="pdp-gallery-layout">
+          
+          <!-- Thumbnails Column -->
+          <div class="pdp-thumbnails">
+            {%- if product.media.size > 0 -%}
+              {%- for media in product.media -%}
+                {%- if media.media_type == 'model' -%}
+                  {%- assign media_model_source = media.sources | where: 'format', 'glb' | first -%}
+                  {%- if media_model_source == blank -%}
+                    {%- assign media_model_source = media.sources | first -%}
+                  {%- endif -%}
+                  <button
+                    type="button"
+                    class="pdp-thumb-item pdp-thumb-3d-btn {% if forloop.first %}active{% endif %}"
+                    data-is-3d="true"
+                    data-glb-url="{{ media_model_source.url }}"
+                    data-media-id="{{ media.id }}"
+                    aria-label="360 View {{ forloop.index }}"
+                  >
+                    {%- if media.preview_image != blank -%}
+                      <img src="{{ media.preview_image | img_url: '200x200', crop: 'center' }}" alt="3D Model {{ forloop.index }}" />
+                      <span class="thumb-3d-badge">360°</span>
+                    {%- else -%}
+                      <div class="thumb-3d-icon-wrap">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="2"><path d="M21.5 12H2.5M12 2.5v19M4.93 4.93l14.14 14.14M4.93 19.07l14.14-14.14"/></svg>
+                        <span>360°</span>
+                      </div>
+                    {%- endif -%}
+                  </button>
+                {%- else -%}
+                  <button
+                    type="button"
+                    class="pdp-thumb-item {% if forloop.first %}active{% endif %}"
+                    data-media-id="{{ media.id }}"
+                    data-full-src="{{ media | img_url: '1400x1400' }}"
+                  >
+                    <img
+                      src="{{ media | img_url: '200x200', crop: 'center' }}"
+                      alt="{{ media.alt | default: product.title | escape }}"
+                      loading="lazy"
+                    />
+                  </button>
+                {%- endif -%}
+              {%- endfor -%}
+
+              <!-- Integrated 360° / 3D Thumbnail item if GLB model setting exists and product has no media models -->
+              {%- assign media_models_count = product.media | where: 'media_type', 'model' | size -%}
+              {%- if section.settings.custom_glb_url != blank and media_models_count == 0 -%}
+                <button
+                  type="button"
+                  class="pdp-thumb-item pdp-thumb-3d-btn"
+                  data-is-3d="true"
+                  data-glb-url="{{ section.settings.custom_glb_url }}"
+                  aria-label="360 View"
+                >
+                  <div class="thumb-3d-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="2"><path d="M21.5 12H2.5M12 2.5v19M4.93 4.93l14.14 14.14M4.93 19.07l14.14-14.14"/></svg>
+                    <span>360°</span>
+                  </div>
+                </button>
+              {%- endif -%}
+
+            {%- else -%}
+              <!-- Fallback Thumbnails for design preview -->
+              <button
+                type="button"
+                class="pdp-thumb-item active"
+                data-full-src="{{ 'hero-bg.jpg' | asset_url }}"
+              >
+                <img src="{{ 'hero-bg.jpg' | asset_url }}" alt="Thumbnail 1" />
+              </button>
+              <button
+                type="button"
+                class="pdp-thumb-item"
+                data-full-src="{{ 'hero-bg-ar.jpg' | asset_url }}"
+              >
+                <img src="{{ 'hero-bg-ar.jpg' | asset_url }}" alt="Thumbnail 2" />
+              </button>
+              <!-- 360° Integrated Thumbnail -->
+              {%- if section.settings.custom_glb_url != blank -%}
+                <button
+                  type="button"
+                  class="pdp-thumb-item pdp-thumb-3d-btn"
+                  data-is-3d="true"
+                  data-glb-url="{{ section.settings.custom_glb_url }}"
+                  aria-label="360 View"
+                >
+                  <div class="thumb-3d-icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="2"><path d="M21.5 12H2.5M12 2.5v19M4.93 4.93l14.14 14.14M4.93 19.07l14.14-14.14"/></svg>
+                    <span>360°</span>
+                  </div>
+                </button>
+              {%- endif -%}
+            {%- endif -%}
+          </div>
+
+          <!-- Main Stage Viewport -->
+          <div class="pdp-main-stage-wrap">
+            
+            <!-- Badge -->
+            {%- if section.settings.show_badge -%}
+              <div class="pdp-badge">
+                {{ section.settings.badge_text | default: 'BEST SELLER' }}
+              </div>
+            {%- endif -%}
+
+            <!-- Expand / Lightbox Button -->
+            <button type="button" class="pdp-expand-btn" aria-label="Expand image" id="pdpExpandBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </button>
+
+            <!-- Image View Stage -->
+            <div class="pdp-stage-view" id="pdpImageView">
+              {%- if product.featured_image != blank -%}
+                <img
+                  id="pdpMainImage"
+                  src="{{ product.featured_image | img_url: '1400x1400' }}"
+                  alt="{{ product.title | escape }}"
+                  class="pdp-main-img"
+                />
+              {%- else -%}
+                <img
+                  id="pdpMainImage"
+                  src="{{ 'hero-bg.jpg' | asset_url }}"
+                  alt="Product Image"
+                  class="pdp-main-img"
+                />
+              {%- endif -%}
+            </div>
+
+            <!-- 3D Model Stage View (.glb player) -->
+            <div class="pdp-3d-stage" id="pdp3dView" style="display: none;">
+              {%- assign glb_url = section.settings.custom_glb_url -%}
+              {%- assign shopify_3d_model = product.media | where: 'media_type', 'model' | first -%}
+              {%- assign initial_glb = '' -%}
+              
+              {%- if shopify_3d_model != blank -%}
+                {%- assign model_source = shopify_3d_model.sources | where: 'format', 'glb' | first -%}
+                {%- if model_source == blank -%}
+                  {%- assign model_source = shopify_3d_model.sources | first -%}
+                {%- endif -%}
+                {%- assign initial_glb = model_source.url -%}
+              {%- elsif glb_url != blank -%}
+                {%- assign initial_glb = glb_url -%}
+              {%- else -%}
+                {%- assign initial_glb = 'https://modelviewer.dev/shared-assets/models/Astronaut.glb' -%}
+              {%- endif -%}
+
+              <model-viewer
+                id="pdpModelViewer"
+                src="{{ initial_glb }}"
+                alt="3D Model of {{ product.title | escape }}"
+                auto-rotate
+                camera-controls
+                ar
+                shadow-intensity="1.2"
+                environment-image="neutral"
+                exposure="1"
+                style="width: 100%; height: 100%; min-height: 480px; background-color: transparent;"
+              >
+                <button slot="ar-button" class="glb-ar-btn">
+                  👋 View in your space (AR)
+                </button>
+              </model-viewer>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right Column: Product Details & Purchase Form -->
+      <div class="pdp-details-col">
+        
+        <!-- Category Eyebrow -->
+        <span class="pdp-eyebrow">
+          {%- if is_arabic -%}
+            {{ section.settings.category_eyebrow_ar | default: section.settings.category_eyebrow | default: 'عناية سحر' }}
+          {%- else -%}
+            {{ section.settings.category_eyebrow | default: 'SEHR CARE' }}
+          {%- endif -%}
+        </span>
+
+        <!-- Product Main Title -->
+        <h1 class="pdp-title">
+          {%- if product.title != blank -%}
+            {{ product.title }}
+          {%- else -%}
+            sehr <em>hair</em> oil
+          {%- endif -%}
+        </h1>
+
+        <!-- Subtitle / Tagline -->
+        <p class="pdp-subtitle">
+          {%- if is_arabic -%}
+            {{ section.settings.subtitle_ar | default: section.settings.subtitle | default: 'جمال يتألق' }}
+          {%- else -%}
+            {{ section.settings.subtitle | default: 'Beauty Elevated' }}
+          {%- endif -%}
+        </p>
+
+        <!-- Rating Stars -->
+        <div class="pdp-rating">
+          <div class="pdp-stars">
+            ★ ★ ★ ★ ★
+          </div>
+          <span class="pdp-review-count">(No reviews yet)</span>
+        </div>
+
+        <!-- Price Display -->
+        <div class="pdp-price-wrap">
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <span class="pdp-price-compare">{{ current_variant.compare_at_price | money }}</span>
+          {%- endif -%}
+          <span class="pdp-price-current">
+            {%- if product.price != blank -%}
+              {{ product.price | money }}
+            {%- else -%}
+              LE 300.00
+            {%- endif -%}
+          </span>
+        </div>
+
+        <!-- 4 Key Feature Icons Grid -->
+        <div class="pdp-features-grid">
+          <div class="pdp-feature-item">
+            <div class="pdp-feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="pdp-feature-text">
+              <strong>{% if is_arabic %}{{ section.settings.feature1_title_ar | default: section.settings.feature1_title | default: 'جودة فاخرة' }}{% else %}{{ section.settings.feature1_title | default: 'Premium' }}{% endif %}</strong>
+              <span>{% if is_arabic %}{{ section.settings.feature1_sub_ar | default: section.settings.feature1_sub | default: 'أعلى المعايير' }}{% else %}{{ section.settings.feature1_sub | default: 'Quality' }}{% endif %}</span>
+            </div>
+          </div>
+
+          <div class="pdp-feature-item">
+            <div class="pdp-feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            </div>
+            <div class="pdp-feature-text">
+              <strong>{% if is_arabic %}{{ section.settings.feature2_title_ar | default: section.settings.feature2_title | default: 'تغذية عميقة' }}{% else %}{{ section.settings.feature2_title | default: 'Nourishes' }}{% endif %}</strong>
+              <span>{% if is_arabic %}{{ section.settings.feature2_sub_ar | default: section.settings.feature2_sub | default: 'للشعر والبشرة' }}{% else %}{{ section.settings.feature2_sub | default: 'Deeply' }}{% endif %}</span>
+            </div>
+          </div>
+
+          <div class="pdp-feature-item">
+            <div class="pdp-feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            </div>
+            <div class="pdp-feature-text">
+              <strong>{% if is_arabic %}{{ section.settings.feature3_title_ar | default: section.settings.feature3_title | default: 'ترطيب كلي' }}{% else %}{{ section.settings.feature3_title | default: 'Hydrates' }}{% endif %}</strong>
+              <span>{% if is_arabic %}{{ section.settings.feature3_sub_ar | default: section.settings.feature3_sub | default: 'حماية فائقة' }}{% else %}{{ section.settings.feature3_sub | default: 'Skin' }}{% endif %}</span>
+            </div>
+          </div>
+
+          <div class="pdp-feature-item">
+            <div class="pdp-feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.5"><path d="M2 22c1.25-.987 2.27-1.975 3.9-2.2a5.56 5.56 0 0 1 3.8 1.5 4 4 0 0 0 6.187-2.353 3.5 3.5 0 0 0 3.69-5.116A3.5 3.5 0 0 0 20.95 8 3.5 3.5 0 1 0 16 3.05a3.5 3.5 0 0 0-5.831 1.373 3.5 3.5 0 0 0-5.116 3.69 4 4 0 0 0-2.348 6.155C3.499 15.42 3 17.621 2 22z"/></svg>
+            </div>
+            <div class="pdp-feature-text">
+              <strong>{% if is_arabic %}{{ section.settings.feature4_title_ar | default: section.settings.feature4_title | default: '100%' }}{% else %}{{ section.settings.feature4_title | default: '100%' }}{% endif %}</strong>
+              <span>{% if is_arabic %}{{ section.settings.feature4_sub_ar | default: section.settings.feature4_sub | default: 'مكونات طبيعية' }}{% else %}{{ section.settings.feature4_sub | default: 'Natural' }}{% endif %}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Purchase Form -->
+        {%- form 'product', product, id: 'AddToCartForm', class: 'pdp-form' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}" id="pdpVariantId" />
+
+          <!-- Variant Selector (SIZE Pills) -->
+          {%- if product.options_with_values.size > 0 -%}
+            {%- for option in product.options_with_values -%}
+              <div class="pdp-option-group">
+                <label class="pdp-option-label">{{ option.name | uppercase }}</label>
+                <div class="pdp-option-pills">
+                  {%- for value in option.values -%}
+                    <button
+                      type="button"
+                      class="pdp-pill {% if option.selected_value == value or forloop.first %}active{% endif %}"
+                      data-option-position="{{ option.position }}"
+                      data-value="{{ value | escape }}"
+                    >
+                      {{ value }}
+                    </button>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            <!-- Fallback Size Pills for Demo -->
+            <div class="pdp-option-group">
+              <label class="pdp-option-label">SIZE</label>
+              <div class="pdp-option-pills">
+                <button type="button" class="pdp-pill active">30 ML</button>
+                <button type="button" class="pdp-pill">60 ML</button>
+                <button type="button" class="pdp-pill">100 ML</button>
+              </div>
+            </div>
+          {%- endif -%}
+
+          <!-- Quantity Selector -->
+          <div class="pdp-quantity-wrap">
+            <label class="pdp-option-label">QUANTITY</label>
+            <div class="pdp-qty-control">
+              <button type="button" class="pdp-qty-btn" id="qtyMinus" aria-label="Decrease quantity">—</button>
+              <input type="number" name="quantity" id="Quantity" value="1" min="1" class="pdp-qty-input" />
+              <button type="button" class="pdp-qty-btn" id="qtyPlus" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+
+          <!-- Buttons Group (ADD TO CART + Wishlist Heart) -->
+          <div class="pdp-actions-row">
+            <button type="submit" name="add" id="AddToCart" class="pdp-atc-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              <span>{% if is_arabic %}أضف إلى السلة{% else %}ADD TO CART{% endif %}</span>
+            </button>
+
+            <button type="button" class="pdp-wishlist-heart-btn" aria-label="Add to wishlist" id="pdpWishlistBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+
+          <!-- Small Inline Trust Icons Bar -->
+          <div class="pdp-trust-inline-bar">
+            <div class="trust-inline-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>{% if is_arabic %}دفع آمن{% else %}Secure Payment{% endif %}</span>
+            </div>
+            <div class="trust-inline-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span>{% if is_arabic %}شحن سريع{% else %}Fast Delivery{% endif %}</span>
+            </div>
+            <div class="trust-inline-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.8"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>{% if is_arabic %}منتج أصلي 100%{% else %}100% Original{% endif %}</span>
+            </div>
+            <div class="trust-inline-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.8"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.87"/></svg>
+              <span>{% if is_arabic %}إرجاع سهل{% else %}Easy Returns{% endif %}</span>
+            </div>
+          </div>
+
+        {%- endform -%}
+
+        <!-- Product Accordions (المكونات | كيفية الاستخدام | معلومات | تحذيرات) -->
+        <div class="pdp-accordions">
+          
+          <!-- 1. المكونات / Ingredients -->
+          <details class="pdp-accordion-item" open>
+            <summary class="pdp-accordion-header">
+              <span>{% if is_arabic %}{{ section.settings.ing_tab_title_ar | default: 'المكونات' }}{% else %}{{ section.settings.ing_tab_title | default: 'INGREDIENTS' }}{% endif %}</span>
+              <span class="pdp-accordion-icon">+</span>
+            </summary>
+            <div class="pdp-accordion-content">
+              <p>
+                {%- if is_arabic -%}
+                  {{ section.settings.ing_tab_content_ar | default: 'زيت الأرغان الطبيعي، زيت الجوجوبا النقية، زيت الروزماري، فيتامين هـ المغذي، ومستخلصات نباتية طبيعية 100%.' }}
+                {%- else -%}
+                  {{ section.settings.ing_tab_content | default: 'Argania Spinosa (Argan) Kernel Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Rosmarinus Officinalis (Rosemary) Leaf Oil, Tocopherol (Vitamin E).' }}
+                {%- endif -%}
+              </p>
+            </div>
+          </details>
+
+          <!-- 2. كيفية الاستخدام / How to Use -->
+          <details class="pdp-accordion-item">
+            <summary class="pdp-accordion-header">
+              <span>{% if is_arabic %}{{ section.settings.how_tab_title_ar | default: 'كيفية الاستخدام' }}{% else %}{{ section.settings.how_tab_title | default: 'HOW TO USE' }}{% endif %}</span>
+              <span class="pdp-accordion-icon">+</span>
+            </summary>
+            <div class="pdp-accordion-content">
+              <p>
+                {%- if is_arabic -%}
+                  {{ section.settings.how_tab_content_ar | default: 'ضعي من 3 إلى 5 قطرات في راحة اليد، ويدلك بفرك اليدين معاً، ويوزع برفق على المنطقة المستهدفة حتى يتم الامتصاص بالكامل.' }}
+                {%- else -%}
+                  {{ section.settings.how_tab_content | default: 'Apply 3-5 drops into palm, rub hands together, and gently massage into target area until fully absorbed.' }}
+                {%- endif -%}
+              </p>
+            </div>
+          </details>
+
+          <!-- 3. معلومات / Information -->
+          <details class="pdp-accordion-item">
+            <summary class="pdp-accordion-header">
+              <span>{% if is_arabic %}{{ section.settings.info_tab_title_ar | default: 'معلومات' }}{% else %}{{ section.settings.info_tab_title | default: 'INFORMATION' }}{% endif %}</span>
+              <span class="pdp-accordion-icon">+</span>
+            </summary>
+            <div class="pdp-accordion-content">
+              {%- if is_arabic and section.settings.info_tab_content_ar != blank -%}
+                <p>{{ section.settings.info_tab_content_ar }}</p>
+              {%- elsif section.settings.info_tab_content != blank -%}
+                <p>{{ section.settings.info_tab_content }}</p>
+              {%- elsif product.description != blank -%}
+                {{ product.description }}
+              {%- else -%}
+                <p>{%- if is_arabic -%}تركيبة فريدة مدعومة بأحدث تقنيات الجمال والعناية الطبيعية، خالية من البارابين والسولفات، ومناسبة لجميع أنواع البشرة والشعر.{%- else -%}Formulated with organic cold-pressed oils and active botanical extracts, deeply nourishing and lightweight formula.{%- endif -%}</p>
+              {%- endif -%}
+            </div>
+          </details>
+
+          <!-- 4. تحذيرات / Warnings -->
+          <details class="pdp-accordion-item">
+            <summary class="pdp-accordion-header">
+              <span>{% if is_arabic %}{{ section.settings.warn_tab_title_ar | default: 'تحذيرات' }}{% else %}{{ section.settings.warn_tab_title | default: 'WARNINGS & PRECAUTIONS' }}{% endif %}</span>
+              <span class="pdp-accordion-icon">+</span>
+            </summary>
+            <div class="pdp-accordion-content">
+              <p>
+                {%- if is_arabic -%}
+                  {{ section.settings.warn_tab_content_ar | default: 'للاستخدام الخارجي فقط. يحفظ في مكان بارد وجاف بعيداً عن أشعة الشمس المباشرة ومتناول الأطفال. ينصح بإجراء اختبار حساسية على جزء صغير من الجلد قبل الاستخدام الأول.' }}
+                {%- else -%}
+                  {{ section.settings.warn_tab_content | default: 'For external use only. Store in a cool, dry place away from direct sunlight and children. Perform a patch test on a small area of skin before first use.' }}
+                {%- endif -%}
+              </p>
+            </div>
+          </details>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ── Bottom Trust Guarantee Section ── -->
+    <div class="pdp-bottom-trust-card">
+      <div class="pdp-bottom-trust-grid">
+        
+        <div class="pdp-btrust-item">
+          <div class="pdp-btrust-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <div class="pdp-btrust-text">
+            <h4>{% if is_arabic %}{{ section.settings.btrust1_title_ar | default: 'توصيل مجاني' }}{% else %}{{ section.settings.btrust1_title | default: 'Free Delivery' }}{% endif %}</h4>
+            <p>{% if is_arabic %}{{ section.settings.btrust1_sub_ar | default: 'على الطلبات فوق 1000 جنيه' }}{% else %}{{ section.settings.btrust1_sub | default: 'On orders over LE 1000' }}{% endif %}</p>
+          </div>
+        </div>
+
+        <div class="pdp-btrust-item">
+          <div class="pdp-btrust-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <div class="pdp-btrust-text">
+            <h4>{% if is_arabic %}{{ section.settings.btrust2_title_ar | default: 'تغليف آمن' }}{% else %}{{ section.settings.btrust2_title | default: 'Secure Packaging' }}{% endif %}</h4>
+            <p>{% if is_arabic %}{{ section.settings.btrust2_sub_ar | default: 'آمن وصديق للبيئة' }}{% else %}{{ section.settings.btrust2_sub | default: 'Safe and eco-friendly' }}{% endif %}</p>
+          </div>
+        </div>
+
+        <div class="pdp-btrust-item">
+          <div class="pdp-btrust-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="pdp-btrust-text">
+            <h4>{% if is_arabic %}{{ section.settings.btrust3_title_ar | default: 'مختبر طبياً' }}{% else %}{{ section.settings.btrust3_title | default: 'Dermatology Tested' }}{% endif %}</h4>
+            <p>{% if is_arabic %}{{ section.settings.btrust3_sub_ar | default: 'آمن للبشرة الحساسة' }}{% else %}{{ section.settings.btrust3_sub | default: 'Safe for sensitive skin' }}{% endif %}</p>
+          </div>
+        </div>
+
+        <div class="pdp-btrust-item">
+          <div class="pdp-btrust-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="pdp-btrust-text">
+            <h4>{% if is_arabic %}{{ section.settings.btrust4_title_ar | default: '100% عضوي' }}{% else %}{{ section.settings.btrust4_title | default: '100% Organic' }}{% endif %}</h4>
+            <p>{% if is_arabic %}{{ section.settings.btrust4_sub_ar | default: 'مكونات طبيعية نقية' }}{% else %}{{ section.settings.btrust4_sub | default: 'Pure natural ingredients' }}{% endif %}</p>
+          </div>
+        </div>
+
+        <div class="pdp-btrust-item">
+          <div class="pdp-btrust-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="pdp-btrust-text">
+            <h4>{% if is_arabic %}مختبر جلدياً{% else %}Dermatologically Tested{% endif %}</h4>
+            <p>{% if is_arabic %}معتمد إكلينيكياً{% else %}Clinically approved{% endif %}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Lightbox Zoom Modal -->
+<div id="pdpLightboxModal" class="pdp-lightbox-modal" style="display: none;">
+  <div class="pdp-lightbox-backdrop" id="pdpLightboxBackdrop"></div>
+  <div class="pdp-lightbox-container">
+    <button type="button" class="pdp-lightbox-close" id="pdpLightboxClose" aria-label="Close">✕</button>
+    <img id="pdpLightboxImg" src="" alt="Full Screen View" />
+  </div>
+</div>
+
+<style>
+  /* ═══════════════════════════════════════════════════
+     DESURA DE SEHR — PRODUCT PAGE LIGHT DESIGN SYSTEM
+     Colors: Clean Light Backgrounds (#FFFFFF / #FFFFFF)
+     Text: Pure Black (#000000)
+     Accent: Tiffany Teal (#5CC5CB)
+  ═══════════════════════════════════════════════════ */
+
+  .product-page-wrapper {
+    width: 100%;
+    background-color: #FFFFFF;
+    min-height: 100vh;
+    padding-top: 100px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #000000;
+  }
+
+  /* ── Top Marquee Ticker ── */
+  .pdp-ticker-bar {
+    width: 100%;
+    background: #F4ECE4;
+    border-top: 1px solid #EBE2D8;
+    border-bottom: 1px solid #EBE2D8;
+    overflow: hidden;
+    padding: 10px 0;
+    white-space: nowrap;
+  }
+
+  .pdp-ticker-track {
+    display: flex;
+    width: max-content;
+    animation: pdpTicker 35s linear infinite;
+  }
+
+  .pdp-ticker-content {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding-right: 28px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: #000000;
+    text-transform: uppercase;
+  }
+
+  .pdp-star {
+    color: #5CC5CB;
+    font-size: 12px;
+  }
+
+  @keyframes pdpTicker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── Main Container ── */
+  .pdp-main-container {
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 40px 48px 100px;
+  }
+
+  /* ── Breadcrumbs ── */
+  .pdp-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #888888;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+  }
+
+  .pdp-breadcrumbs a {
+    color: #888888;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .pdp-breadcrumbs a:hover {
+    color: #000000;
+  }
+
+  .pdp-breadcrumbs .sep {
+    color: #CCCCCC;
+  }
+
+  .pdp-breadcrumbs .current {
+    color: #000000;
+  }
+
+  /* ── Grid Layout ── */
+  .pdp-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 64px;
+    align-items: start;
+    margin-bottom: 60px;
+  }
+
+  /* ── Left Column: Media ── */
+  .pdp-gallery-layout {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 20px;
+  }
+
+  .pdp-thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .pdp-thumb-item {
+    width: 84px;
+    height: 84px;
+    border-radius: 12px;
+    border: 1.5px solid #E0D8CE;
+    background: #FFFFFF;
+    padding: 6px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.25s ease;
+  }
+
+  .pdp-thumb-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 6px;
+  }
+
+  .pdp-thumb-item.active,
+  .pdp-thumb-item:hover {
+    border-color: #000000;
+    background: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  /* Integrated 360 Thumbnail Item */
+  .pdp-thumb-3d-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #5CC5CB !important;
+    background: #F4FCFC !important;
+  }
+
+  .pdp-thumb-3d-btn.active,
+  .pdp-thumb-3d-btn:hover {
+    background: #5CC5CB !important;
+    color: #FFFFFF !important;
+  }
+
+  .pdp-thumb-3d-btn.active svg,
+  .pdp-thumb-3d-btn:hover svg {
+    stroke: #FFFFFF !important;
+  }
+
+  .thumb-3d-icon-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #000000;
+  }
+
+  .thumb-3d-icon-wrap span {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+  }
+
+  .thumb-3d-badge {
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    background: #5CC5CB;
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 2px 5px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+    pointer-events: none;
+  }
+
+  /* Main Stage Wrap */
+  .pdp-main-stage-wrap {
+    position: relative;
+    background: #FAFAFA;
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 520px;
+    border: 1px solid #E5DEC9;
+  }
+
+  .pdp-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    background: #000000;
+    color: #FFFFFF;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    padding: 8px 18px;
+    border-radius: 100px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    text-transform: uppercase;
+  }
+
+  .pdp-expand-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 1px solid #E0D8CE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #000000;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .pdp-expand-btn:hover {
+    transform: scale(1.08);
+    background: #000000;
+    color: #FFFFFF;
+  }
+
+  .pdp-stage-view {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    min-height: 480px;
+    width: 100%;
+  }
+
+  .pdp-main-img {
+    width: 100%;
+    height: 100%;
+    max-height: 520px;
+    object-fit: contain;
+    border-radius: 12px;
+    transition: opacity 0.25s ease, transform 0.3s ease;
+  }
+
+  /* Lightbox Modal */
+  .pdp-lightbox-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pdp-lightbox-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+  }
+
+  .pdp-lightbox-container {
+    position: relative;
+    z-index: 10;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pdp-lightbox-container img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .pdp-lightbox-close {
+    position: absolute;
+    top: -48px;
+    right: -12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    color: #000000;
+    border: none;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .pdp-lightbox-close:hover {
+    background: #5CC5CB;
+    color: #FFFFFF;
+    transform: scale(1.1);
+  }
+
+  .pdp-3d-stage {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    min-height: 460px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #EFEAE3;
+    position: relative;
+  }
+
+  .glb-ar-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000000;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+
+  .glb-demo-box {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .glb-info-tag {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 11px;
+    color: #333333;
+    text-align: center;
+  }
+
+  .pdp-stage-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px;
+    background: #FFFFFF;
+    border-top: 1px solid #E5DEC9;
+  }
+
+  .pdp-view-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #666666;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .pdp-view-toggle-btn.active,
+  .pdp-view-toggle-btn:hover {
+    color: #000000;
+    background: #FFFFFF;
+    border-color: #000000;
+  }
+
+  /* ── Right Column: Details ── */
+  .pdp-details-col {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .pdp-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: #5CC5CB;
+    text-transform: uppercase;
+  }
+
+  .pdp-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 52px;
+    font-weight: 500;
+    line-height: 1.05;
+    color: #000000;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .pdp-title em {
+    font-style: italic;
+    font-weight: 400;
+    color: #5CC5CB;
+  }
+
+  .pdp-subtitle {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 20px;
+    font-style: italic;
+    color: #555555;
+    margin: -8px 0 0 0;
+  }
+
+  .pdp-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: -4px;
+  }
+
+  .pdp-stars {
+    color: #5CC5CB;
+    letter-spacing: 2px;
+    font-size: 14px;
+  }
+
+  .pdp-review-count {
+    font-size: 12px;
+    color: #666666;
+  }
+
+  .pdp-price-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 4px 0 8px;
+  }
+
+  .pdp-price-current {
+    font-size: 26px;
+    font-weight: 600;
+    color: #000000;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .pdp-price-compare {
+    font-size: 18px;
+    color: #999999;
+    text-decoration: line-through;
+  }
+
+  /* Features Highlight Grid (WHITE CARD) */
+  .pdp-features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    background: #FFFFFF;
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid #E0D8CE;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+
+  .pdp-feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .pdp-feature-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pdp-feature-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  .pdp-feature-text strong {
+    font-weight: 700;
+    color: #000000;
+  }
+
+  .pdp-feature-text span {
+    color: #666666;
+  }
+
+  /* Form & Controls */
+  .pdp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin-top: 10px;
+  }
+
+  .pdp-option-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pdp-option-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #666666;
+    text-transform: uppercase;
+  }
+
+  .pdp-option-pills {
+    display: flex;
+    gap: 12px;
+  }
+
+  .pdp-pill {
+    padding: 12px 24px;
+    border-radius: 100px;
+    border: 1.5px solid #E0D8CE;
+    background: #FFFFFF;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #000000;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .pdp-pill.active,
+  .pdp-pill:hover {
+    border-color: #5CC5CB;
+    color: #FFFFFF;
+    background: #5CC5CB;
+    box-shadow: 0 4px 14px rgba(92, 197, 203, 0.25);
+  }
+
+  /* Quantity */
+  .pdp-quantity-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pdp-qty-control {
+    display: inline-flex;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1.5px solid #E0D8CE;
+    border-radius: 100px;
+    padding: 4px 14px;
+    width: fit-content;
+  }
+
+  .pdp-qty-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+    cursor: pointer;
+    padding: 6px 12px;
+    transition: color 0.2s ease;
+  }
+
+  .pdp-qty-btn:hover {
+    color: #5CC5CB;
+  }
+
+  .pdp-qty-input {
+    width: 44px;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #000000;
+    outline: none;
+    -moz-appearance: textfield;
+  }
+
+  .pdp-qty-input::-webkit-outer-spin-button,
+  .pdp-qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Action Buttons Row */
+  .pdp-actions-row {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .pdp-atc-btn {
+    flex: 1;
+    height: 54px;
+    border-radius: 100px;
+    background: #5CC5CB;
+    color: #000000;
+    border: none;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 24px rgba(92, 197, 203, 0.25);
+  }
+
+  .pdp-atc-btn:hover {
+    background: #000000;
+    color: #FFFFFF;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .pdp-wishlist-heart-btn {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 1.5px solid #E0D8CE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  .pdp-wishlist-heart-btn:hover,
+  .pdp-wishlist-heart-btn.active {
+    color: #E31C5F;
+    border-color: #E31C5F;
+    background: #FFFFFF;
+  }
+
+  .pdp-wishlist-heart-btn.active svg {
+    fill: #E31C5F;
+  }
+
+  /* Inline Trust Bar under ATC button */
+  .pdp-trust-inline-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 12px 6px 0;
+    border-top: 1px solid #E0D8CE;
+  }
+
+  .trust-inline-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #555555;
+    font-weight: 500;
+  }
+
+  /* Accordions */
+  .pdp-accordions {
+    margin-top: 16px;
+    border-top: 1px solid #E0D8CE;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pdp-accordion-item {
+    border-bottom: 1px solid #E0D8CE;
+  }
+
+  .pdp-accordion-header {
+    padding: 18px 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: #000000;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    text-transform: uppercase;
+  }
+
+  .pdp-accordion-header::-webkit-details-marker {
+    display: none;
+  }
+
+  .pdp-accordion-content {
+    padding-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #555555;
+  }
+
+  /* ── THE RITUAL CARD ── */
+  .pdp-ritual-card {
+    background: #FAFAFA;
+    border-radius: 24px;
+    padding: 56px 48px;
+    margin-bottom: 40px;
+    border: 1px solid #E5DEC9;
+  }
+
+  .pdp-ritual-eyebrow {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: #5CC5CB;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .pdp-ritual-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 44px;
+    font-weight: 500;
+    color: #000000;
+    margin: 0 0 12px 0;
+  }
+
+  .pdp-ritual-title em {
+    font-style: italic;
+    color: #5CC5CB;
+    font-weight: 400;
+  }
+
+  .pdp-ritual-subtitle {
+    font-size: 14px;
+    color: #555555;
+    margin: 0 0 36px 0;
+  }
+
+  .pdp-ritual-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .pdp-step-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 28px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.03);
+    border: 1px solid #E0D8CE;
+    transition: transform 0.3s ease;
+  }
+
+  .pdp-step-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .pdp-step-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid #5CC5CB;
+    color: #5CC5CB;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .pdp-step-text {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #000000;
+    margin: 0;
+  }
+
+  /* ── BOTTOM TRUST CARD ── */
+  .pdp-bottom-trust-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 32px 40px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    border: 1px solid #E0D8CE;
+  }
+
+  .pdp-bottom-trust-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px 40px;
+  }
+
+  .pdp-btrust-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .pdp-btrust-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5CC5CB;
+    flex-shrink: 0;
+  }
+
+  .pdp-btrust-text h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 3px 0;
+  }
+
+  .pdp-btrust-text p {
+    font-size: 11px;
+    color: #666666;
+    margin: 0;
+  }
+
+  /* ── Responsive Layout ── */
+  @media (max-width: 1024px) {
+    .pdp-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .pdp-gallery-layout {
+      grid-template-columns: 1fr;
+    }
+    .pdp-thumbnails {
+      flex-direction: row;
+      order: 2;
+      overflow-x: auto;
+    }
+    .pdp-main-stage-wrap {
+      order: 1;
+    }
+    .pdp-ritual-steps-grid {
+      grid-template-columns: 1fr;
+    }
+    .pdp-bottom-trust-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .pdp-main-container {
+      padding: 20px 20px 60px;
+    }
+    .pdp-title {
+      font-size: 38px;
+    }
+    .pdp-features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .pdp-ritual-card {
+      padding: 32px 20px;
+    }
+    .pdp-bottom-trust-card {
+      padding: 24px 20px;
+      border-radius: 16px;
+    }
+    .pdp-bottom-trust-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .pdp-trust-inline-bar {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    /* ── Thumbnail Click Switcher & 3D Stage Toggle ── */
+    const thumbs = document.querySelectorAll('.pdp-thumb-item');
+    const mainImg = document.getElementById('pdpMainImage');
+    const photoView = document.getElementById('pdpImageView');
+    const modelView = document.getElementById('pdp3dView');
+    const modelViewer = document.getElementById('pdpModelViewer');
+
+    thumbs.forEach(thumb => {
+      thumb.addEventListener('click', function () {
+        thumbs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+
+        const is3D = this.getAttribute('data-is-3d') === 'true';
+
+        if (is3D) {
+          if (photoView) photoView.style.display = 'none';
+          if (modelView) modelView.style.display = 'flex';
+
+          const glbUrl = this.getAttribute('data-glb-url');
+          if (modelViewer && glbUrl) {
+            const currentSrc = modelViewer.getAttribute('src');
+            if (currentSrc !== glbUrl) {
+              modelViewer.setAttribute('src', glbUrl);
+            }
+          }
+        } else {
+          if (modelView) modelView.style.display = 'none';
+          if (photoView) photoView.style.display = 'flex';
+
+          const fullSrc = this.getAttribute('data-full-src') || (this.querySelector('img') ? this.querySelector('img').src : '');
+          if (mainImg && fullSrc) {
+            mainImg.style.opacity = '0.3';
+            mainImg.src = fullSrc;
+            setTimeout(() => {
+              mainImg.style.opacity = '1';
+            }, 80);
+          }
+        }
+      });
+    });
+
+    /* ── Expand Lightbox Image Modal ── */
+    const expandBtn = document.getElementById('pdpExpandBtn');
+    const lightboxModal = document.getElementById('pdpLightboxModal');
+    const lightboxImg = document.getElementById('pdpLightboxImg');
+    const lightboxClose = document.getElementById('pdpLightboxClose');
+    const lightboxBackdrop = document.getElementById('pdpLightboxBackdrop');
+
+    if (expandBtn && lightboxModal && lightboxImg) {
+      expandBtn.addEventListener('click', function () {
+        if (mainImg && mainImg.src) {
+          lightboxImg.src = mainImg.src;
+          lightboxModal.style.display = 'flex';
+        }
+      });
+
+      if (lightboxClose) {
+        lightboxClose.addEventListener('click', function () {
+          lightboxModal.style.display = 'none';
+        });
+      }
+      if (lightboxBackdrop) {
+        lightboxBackdrop.addEventListener('click', function () {
+          lightboxModal.style.display = 'none';
+        });
+      }
+    }
+
+    /* ── Quantity Controls ── */
+    const qtyInput = document.getElementById('Quantity');
+    const btnPlus = document.getElementById('qtyPlus');
+    const btnMinus = document.getElementById('qtyMinus');
+
+    if (qtyInput && btnPlus && btnMinus) {
+      btnPlus.addEventListener('click', function () {
+        qtyInput.value = parseInt(qtyInput.value || 1) + 1;
+      });
+      btnMinus.addEventListener('click', function () {
+        const val = parseInt(qtyInput.value || 1);
+        if (val > 1) qtyInput.value = val - 1;
+      });
+    }
+
+    /* ── Variant Pill Selection ── */
+    const pills = document.querySelectorAll('.pdp-pill');
+    pills.forEach(pill => {
+      pill.addEventListener('click', function () {
+        const parent = this.closest('.pdp-option-pills');
+        if (parent) {
+          parent.querySelectorAll('.pdp-pill').forEach(p => p.classList.remove('active'));
+          this.classList.add('active');
+        }
+      });
+    });
+
+    /* ── Wishlist Heart Toggle & LocalStorage Sync ── */
+    const wishlistBtn = document.getElementById('pdpWishlistBtn');
+    if (wishlistBtn) {
+      const productTitle = {{ product.title | default: 'sehr hair oil' | json }};
+      const productPrice = {{ product.price | money | default: 'LE 300.00' | json }};
+      const productImage = {{ product.featured_image | img_url: '400x400' | json }};
+      const productUrl = {{ product.url | default: '#' | json }};
+      const variantId = {{ current_variant.id | json }};
+
+      function isSaved() {
+        try {
+          const list = JSON.parse(localStorage.getItem('desura_wishlist') || '[]');
+          return list.some(item => item.title === productTitle);
+        } catch (e) {
+          return false;
+        }
+      }
+
+      if (isSaved()) {
+        wishlistBtn.classList.add('active');
+      }
+
+      wishlistBtn.addEventListener('click', function () {
+        try {
+          let list = JSON.parse(localStorage.getItem('desura_wishlist') || '[]');
+          if (isSaved()) {
+            list = list.filter(item => item.title !== productTitle);
+            this.classList.remove('active');
+          } else {
+            list.push({ title: productTitle, price: productPrice, image: productImage, url: productUrl, variantId: variantId });
+            this.classList.add('active');
+          }
+          localStorage.setItem('desura_wishlist', JSON.stringify(list));
+        } catch (e) {
+          this.classList.toggle('active');
+        }
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Main Product Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product Header & Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "category_eyebrow",
+      "label": "Category Eyebrow (English)",
+      "default": "SEHR CARE"
+    },
+    {
+      "type": "text",
+      "id": "category_eyebrow_ar",
+      "label": "Category Eyebrow (Arabic)",
+      "default": "عناية سحر"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle / Tagline (English)",
+      "default": "Beauty Elevated"
+    },
+    {
+      "type": "text",
+      "id": "subtitle_ar",
+      "label": "Subtitle / Tagline (Arabic)",
+      "default": "جمال يتألق"
+    },
+
+    {
+      "type": "header",
+      "content": "3D GLB Model Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_glb_url",
+      "label": "Custom .GLB File URL",
+      "info": "Paste any direct link to a .glb file. Users can rotate the 3D model in 360°!"
+    },
+
+    {
+      "type": "header",
+      "content": "Badge Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show Badge on Product Image",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text (English)",
+      "default": "BEST SELLER"
+    },
+    {
+      "type": "text",
+      "id": "badge_text_ar",
+      "label": "Badge Text (Arabic)",
+      "default": "الأكثر مبيعاً"
+    },
+
+    {
+      "type": "header",
+      "content": "4 Key Highlights Grid"
+    },
+    {
+      "type": "text",
+      "id": "feature1_title",
+      "label": "Feature 1 Title (English)",
+      "default": "Premium"
+    },
+    {
+      "type": "text",
+      "id": "feature1_title_ar",
+      "label": "Feature 1 Title (Arabic)",
+      "default": "جودة فاخرة"
+    },
+    {
+      "type": "text",
+      "id": "feature1_sub",
+      "label": "Feature 1 Subtitle (English)",
+      "default": "Quality"
+    },
+    {
+      "type": "text",
+      "id": "feature1_sub_ar",
+      "label": "Feature 1 Subtitle (Arabic)",
+      "default": "أعلى المعايير"
+    },
+
+    {
+      "type": "text",
+      "id": "feature2_title",
+      "label": "Feature 2 Title (English)",
+      "default": "Nourishes"
+    },
+    {
+      "type": "text",
+      "id": "feature2_title_ar",
+      "label": "Feature 2 Title (Arabic)",
+      "default": "تغذية عميقة"
+    },
+    {
+      "type": "text",
+      "id": "feature2_sub",
+      "label": "Feature 2 Subtitle (English)",
+      "default": "Deeply"
+    },
+    {
+      "type": "text",
+      "id": "feature2_sub_ar",
+      "label": "Feature 2 Subtitle (Arabic)",
+      "default": "للشعر والبشرة"
+    },
+
+    {
+      "type": "text",
+      "id": "feature3_title",
+      "label": "Feature 3 Title (English)",
+      "default": "Hydrates"
+    },
+    {
+      "type": "text",
+      "id": "feature3_title_ar",
+      "label": "Feature 3 Title (Arabic)",
+      "default": "ترطيب كلي"
+    },
+    {
+      "type": "text",
+      "id": "feature3_sub",
+      "label": "Feature 3 Subtitle (English)",
+      "default": "Skin"
+    },
+    {
+      "type": "text",
+      "id": "feature3_sub_ar",
+      "label": "Feature 3 Subtitle (Arabic)",
+      "default": "حماية فائقة"
+    },
+
+    {
+      "type": "text",
+      "id": "feature4_title",
+      "label": "Feature 4 Title (English)",
+      "default": "100%"
+    },
+    {
+      "type": "text",
+      "id": "feature4_title_ar",
+      "label": "Feature 4 Title (Arabic)",
+      "default": "100%"
+    },
+    {
+      "type": "text",
+      "id": "feature4_sub",
+      "label": "Feature 4 Subtitle (English)",
+      "default": "Natural"
+    },
+    {
+      "type": "text",
+      "id": "feature4_sub_ar",
+      "label": "Feature 4 Subtitle (Arabic)",
+      "default": "مكونات طبيعية"
+    },
+
+    {
+      "type": "header",
+      "content": "Product Accordions / Tabs (4 Tabs)"
+    },
+    {
+      "type": "text",
+      "id": "ing_tab_title",
+      "label": "1. Ingredients Tab Title (English)",
+      "default": "INGREDIENTS"
+    },
+    {
+      "type": "text",
+      "id": "ing_tab_title_ar",
+      "label": "1. Ingredients Tab Title (Arabic)",
+      "default": "المكونات"
+    },
+    {
+      "type": "textarea",
+      "id": "ing_tab_content",
+      "label": "1. Ingredients Content (English)",
+      "default": "Argania Spinosa (Argan) Kernel Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Rosmarinus Officinalis (Rosemary) Leaf Oil, Tocopherol (Vitamin E)."
+    },
+    {
+      "type": "textarea",
+      "id": "ing_tab_content_ar",
+      "label": "1. Ingredients Content (Arabic)",
+      "default": "زيت الأرغان الطبيعي، زيت الجوجوبا النقية، زيت الروزماري، فيتامين هـ المغذي، ومستخلصات نباتية طبيعية 100%."
+    },
+
+    {
+      "type": "text",
+      "id": "how_tab_title",
+      "label": "2. How to Use Tab Title (English)",
+      "default": "HOW TO USE"
+    },
+    {
+      "type": "text",
+      "id": "how_tab_title_ar",
+      "label": "2. How to Use Tab Title (Arabic)",
+      "default": "كيفية الاستخدام"
+    },
+    {
+      "type": "textarea",
+      "id": "how_tab_content",
+      "label": "2. How to Use Content (English)",
+      "default": "Apply 3-5 drops into palm, rub hands together, and gently massage into target area until fully absorbed."
+    },
+    {
+      "type": "textarea",
+      "id": "how_tab_content_ar",
+      "label": "2. How to Use Content (Arabic)",
+      "default": "ضعي من 3 إلى 5 قطرات في راحة اليد، ويدلك بفرك اليدين معاً، ويوزع برفق على المنطقة المستهدفة حتى يتم الامتصاص بالكامل."
+    },
+
+    {
+      "type": "text",
+      "id": "info_tab_title",
+      "label": "3. Information Tab Title (English)",
+      "default": "INFORMATION"
+    },
+    {
+      "type": "text",
+      "id": "info_tab_title_ar",
+      "label": "3. Information Tab Title (Arabic)",
+      "default": "معلومات"
+    },
+    {
+      "type": "textarea",
+      "id": "info_tab_content",
+      "label": "3. Information Content (English)",
+      "info": "Leave blank to use standard Shopify Product Description."
+    },
+    {
+      "type": "textarea",
+      "id": "info_tab_content_ar",
+      "label": "3. Information Content (Arabic)",
+      "info": "أتركه فارغاً لاستخدام وصف المنتج الافتراضي من شوبيفاي."
+    },
+
+    {
+      "type": "text",
+      "id": "warn_tab_title",
+      "label": "4. Warnings Tab Title (English)",
+      "default": "WARNINGS & PRECAUTIONS"
+    },
+    {
+      "type": "text",
+      "id": "warn_tab_title_ar",
+      "label": "4. Warnings Tab Title (Arabic)",
+      "default": "تحذيرات"
+    },
+    {
+      "type": "textarea",
+      "id": "warn_tab_content",
+      "label": "4. Warnings Content (English)",
+      "default": "For external use only. Store in a cool, dry place away from direct sunlight and children. Perform a patch test on a small area of skin before first use."
+    },
+    {
+      "type": "textarea",
+      "id": "warn_tab_content_ar",
+      "label": "4. Warnings Content (Arabic)",
+      "default": "للاستخدام الخارجي فقط. يحفظ في مكان بارد وجاف بعيداً عن أشعة الشمس المباشرة ومتناول الأطفال. ينصح بإجراء اختبار حساسية على جزء صغير من الجلد قبل الاستخدام الأول."
+    },
+
+    {
+      "type": "header",
+      "content": "The Ritual Section"
+    },
+    {
+      "type": "text",
+      "id": "ritual_eyebrow",
+      "label": "Ritual Eyebrow (English)",
+      "default": "THE RITUAL"
+    },
+    {
+      "type": "text",
+      "id": "ritual_eyebrow_ar",
+      "label": "Ritual Eyebrow (Arabic)",
+      "default": "روتين العناية"
+    },
+    {
+      "type": "text",
+      "id": "ritual_title",
+      "label": "Ritual Title (English)",
+      "default": "How to Use"
+    },
+    {
+      "type": "text",
+      "id": "ritual_title_ar",
+      "label": "Ritual Title (Arabic)",
+      "default": "طريقة الاستخدام"
+    },
+    {
+      "type": "textarea",
+      "id": "ritual_subtitle",
+      "label": "Ritual Subtitle (English)",
+      "default": "Follow these simple steps to get the most out of your product."
+    },
+    {
+      "type": "textarea",
+      "id": "ritual_subtitle_ar",
+      "label": "Ritual Subtitle (Arabic)",
+      "default": "اتبع هذه الخطوات البسيطة للحصول على أقصى فائدة من منتجك."
+    },
+
+    {
+      "type": "textarea",
+      "id": "step1_text",
+      "label": "Step 1 Text (English)",
+      "default": "Cleanse the target area and pat dry before application."
+    },
+    {
+      "type": "textarea",
+      "id": "step1_text_ar",
+      "label": "Step 1 Text (Arabic)",
+      "default": "نظف المنطقة المستهدفة وجففها برفق قبل الاستخدام."
+    },
+    {
+      "type": "textarea",
+      "id": "step2_text",
+      "label": "Step 2 Text (English)",
+      "default": "Apply a small amount and gently massage until fully absorbed."
+    },
+    {
+      "type": "textarea",
+      "id": "step2_text_ar",
+      "label": "Step 2 Text (Arabic)",
+      "default": "ضع كمية صغيرة وقم بالتدليك برفق حتى يتم الامتصاص بالكامل."
+    },
+    {
+      "type": "textarea",
+      "id": "step3_text",
+      "label": "Step 3 Text (English)",
+      "default": "Use consistently as part of your daily routine for best results."
+    },
+    {
+      "type": "textarea",
+      "id": "step3_text_ar",
+      "label": "Step 3 Text (Arabic)",
+      "default": "استخدمه بانتظام كجزء من روتينك اليومي للحصول على أفضل النتائج."
+    },
+
+    {
+      "type": "header",
+      "content": "Bottom Guarantees Section"
+    },
+    {
+      "type": "text",
+      "id": "btrust1_title",
+      "label": "Guarantee 1 Title (English)",
+      "default": "Free Delivery"
+    },
+    {
+      "type": "text",
+      "id": "btrust1_title_ar",
+      "label": "Guarantee 1 Title (Arabic)",
+      "default": "توصيل مجاني"
+    },
+    {
+      "type": "text",
+      "id": "btrust1_sub",
+      "label": "Guarantee 1 Subtitle (English)",
+      "default": "On orders over LE 1000"
+    },
+    {
+      "type": "text",
+      "id": "btrust1_sub_ar",
+      "label": "Guarantee 1 Subtitle (Arabic)",
+      "default": "على الطلبات فوق 1000 جنيه"
+    },
+
+    {
+      "type": "text",
+      "id": "btrust2_title",
+      "label": "Guarantee 2 Title (English)",
+      "default": "Secure Packaging"
+    },
+    {
+      "type": "text",
+      "id": "btrust2_title_ar",
+      "label": "Guarantee 2 Title (Arabic)",
+      "default": "تغليف آمن"
+    },
+    {
+      "type": "text",
+      "id": "btrust2_sub",
+      "label": "Guarantee 2 Subtitle (English)",
+      "default": "Safe and eco-friendly"
+    },
+    {
+      "type": "text",
+      "id": "btrust2_sub_ar",
+      "label": "Guarantee 2 Subtitle (Arabic)",
+      "default": "آمن وصديق للبيئة"
+    },
+
+    {
+      "type": "text",
+      "id": "btrust3_title",
+      "label": "Guarantee 3 Title (English)",
+      "default": "Dermatology Tested"
+    },
+    {
+      "type": "text",
+      "id": "btrust3_title_ar",
+      "label": "Guarantee 3 Title (Arabic)",
+      "default": "مختبر طبياً"
+    },
+    {
+      "type": "text",
+      "id": "btrust3_sub",
+      "label": "Guarantee 3 Subtitle (English)",
+      "default": "Safe for sensitive skin"
+    },
+    {
+      "type": "text",
+      "id": "btrust3_sub_ar",
+      "label": "Guarantee 3 Subtitle (Arabic)",
+      "default": "آمن للبشرة الحساسة"
+    },
+
+    {
+      "type": "text",
+      "id": "btrust4_title",
+      "label": "Guarantee 4 Title (English)",
+      "default": "100% Organic"
+    },
+    {
+      "type": "text",
+      "id": "btrust4_title_ar",
+      "label": "Guarantee 4 Title (Arabic)",
+      "default": "100% عضوي"
+    },
+    {
+      "type": "text",
+      "id": "btrust4_sub",
+      "label": "Guarantee 4 Subtitle (English)",
+      "default": "Pure natural ingredients"
+    },
+    {
+      "type": "text",
+      "id": "btrust4_sub_ar",
+      "label": "Guarantee 4 Subtitle (Arabic)",
+      "default": "مكونات طبيعية نقية"
+    }
+  ]
+}
+{% endschema %}

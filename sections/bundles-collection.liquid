@@ -1,0 +1,760 @@
+{%- assign is_arabic = false -%}
+{%- if request.locale.iso_code == 'ar' or request.locale.root_url contains '/ar' -%}
+  {%- assign is_arabic = true -%}
+{%- endif -%}
+
+<section class="bundles-section" id="bundles-section-{{ section.id }}" data-section-id="{{ section.id }}">
+
+  <!-- ── Section Header ── -->
+  <div class="bnd-header">
+    <span class="bnd-eyebrow">
+      {%- if is_arabic -%}
+        {{ section.settings.eyebrow_ar | default: 'مجموعات منتقاة' }}
+      {%- else -%}
+        {{ section.settings.eyebrow_en | default: 'CURATED SETS' }}
+      {%- endif -%}
+    </span>
+
+    <h2 class="bnd-title">
+      {%- if is_arabic -%}
+        <span class="bnd-title-main">{{ section.settings.heading_main_ar | default: 'وفّر أكثر مع' }}</span>
+        <span class="bnd-title-accent">{{ section.settings.heading_accent_ar | default: 'الباندلز.' }}</span>
+      {%- else -%}
+        <span class="bnd-title-main">{{ section.settings.heading_main_en | default: 'Save More With' }}</span>
+        <span class="bnd-title-accent">{{ section.settings.heading_accent_en | default: 'Bundles.' }}</span>
+      {%- endif -%}
+    </h2>
+
+    <p class="bnd-description">
+      {%- if is_arabic -%}
+        {{ section.settings.body_ar | default: 'تركيبات مختارة من أفضل منتجاتنا — صُمِّمت لتعمل معاً وبسعر يستحق.' }}
+      {%- else -%}
+        {{ section.settings.body_en | default: 'Curated combinations of our bestsellers — designed to work together and priced to save.' }}
+      {%- endif -%}
+    </p>
+  </div>
+
+  <!-- ── Bundles Grid ── -->
+  <div class="bnd-grid">
+    {%- assign bundle_collection = collections[section.settings.collection] -%}
+    {%- assign bundles_to_show = section.settings.products_to_show | default: 4 -%}
+
+    {%- if bundle_collection != blank and bundle_collection.products_count > 0 -%}
+      {%- for product in bundle_collection.products limit: bundles_to_show -%}
+        <div class="bnd-card" data-product-id="{{ product.id }}">
+
+          <!-- Bundle Badge -->
+          <div class="bnd-badge">
+            <span class="bnd-badge-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            </span>
+            <span class="bnd-badge-text">
+              {%- if is_arabic -%}{{ section.settings.badge_label_ar | default: 'باندل' }}{%- else -%}{{ section.settings.badge_label_en | default: 'BUNDLE' }}{%- endif -%}
+            </span>
+          </div>
+
+          <!-- Wishlist Button -->
+          <button class="bnd-wishlist-btn" aria-label="Add to wishlist">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </button>
+
+          <!-- Product Image -->
+          <a href="{{ product.url }}" class="bnd-card-img-link" aria-label="{{ product.title | escape }}">
+            <div class="bnd-card-img-wrap">
+              {%- if product.featured_image != blank -%}
+                <img
+                  src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}"
+                  alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                  class="bnd-card-img"
+                  loading="lazy"
+                  width="600"
+                  height="600"
+                />
+                {%- if product.images[1] != blank -%}
+                  <img
+                    src="{{ product.images[1] | img_url: '600x600', crop: 'center' }}"
+                    alt="{{ product.images[1].alt | default: product.title | escape }}"
+                    class="bnd-card-img bnd-card-img-hover"
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                  />
+                {%- endif -%}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'bnd-card-img bnd-placeholder' }}
+              {%- endif -%}
+
+              <!-- Savings Badge -->
+              {%- if product.compare_at_price > product.price -%}
+                {%- assign savings_pct = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+                <div class="bnd-savings-badge">
+                  {%- if is_arabic -%}وفّر {{ savings_pct }}%{%- else -%}SAVE {{ savings_pct }}%{%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </a>
+
+          <!-- Product Info -->
+          <div class="bnd-card-info">
+            <a href="{{ product.url }}" class="bnd-card-title">
+              {%- if is_arabic and product.metafields.custom.title_ar != blank -%}
+                {{ product.metafields.custom.title_ar }}
+              {%- else -%}
+                {{ product.title | downcase }}
+              {%- endif -%}
+            </a>
+
+            <div class="bnd-card-price">
+              {%- if product.compare_at_price > product.price -%}
+                <span class="bnd-price-compare">{{ product.compare_at_price | money }}</span>
+              {%- endif -%}
+              <span class="bnd-price-current">{{ product.price | money }}</span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="bnd-card-actions">
+              {%- assign current_variant = product.selected_or_first_available_variant -%}
+              {%- if current_variant.available -%}
+                <form action="/cart/add" method="post" class="bnd-atc-form">
+                  <input type="hidden" name="id" value="{{ current_variant.id }}" />
+                  <input type="hidden" name="quantity" value="1" />
+                  <button type="submit" class="bnd-btn bnd-btn-outline">
+                    <svg class="bnd-cart-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    {%- if is_arabic -%}أضف للسلة{%- else -%}ADD TO CART{%- endif -%}
+                  </button>
+                </form>
+                <a href="{{ product.url }}?variant={{ current_variant.id }}" class="bnd-btn bnd-btn-solid">
+                  {%- if is_arabic -%}اشتري الآن{%- else -%}BUY NOW{%- endif -%}
+                </a>
+              {%- else -%}
+                <button class="bnd-btn bnd-btn-outline" disabled>
+                  {%- if is_arabic -%}نفد المخزون{%- else -%}SOLD OUT{%- endif -%}
+                </button>
+              {%- endif -%}
+            </div>
+          </div>
+
+        </div>
+      {%- endfor -%}
+
+    {%- else -%}
+      <!-- Placeholder cards when no collection selected -->
+      {%- for i in (1..4) -%}
+        <div class="bnd-card bnd-card-placeholder">
+          <div class="bnd-badge">
+            <span class="bnd-badge-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            </span>
+            <span class="bnd-badge-text">{%- if is_arabic -%}باندل{%- else -%}BUNDLE{%- endif -%}</span>
+          </div>
+          <div class="bnd-card-img-wrap">
+            {{ 'product-1' | placeholder_svg_tag: 'bnd-card-img bnd-placeholder' }}
+          </div>
+          <div class="bnd-card-info">
+            <span class="bnd-card-title">{%- if is_arabic -%}اسم الباندل{%- else -%}bundle name{%- endif -%}</span>
+            <div class="bnd-card-price">
+              <span class="bnd-price-compare">EGP 600.00</span>
+              <span class="bnd-price-current">EGP 450.00</span>
+            </div>
+            <div class="bnd-card-actions">
+              <button class="bnd-btn bnd-btn-outline">
+                <svg class="bnd-cart-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                {%- if is_arabic -%}أضف للسلة{%- else -%}ADD TO CART{%- endif -%}
+              </button>
+              <button class="bnd-btn bnd-btn-solid">{%- if is_arabic -%}اشتري الآن{%- else -%}BUY NOW{%- endif -%}</button>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+
+  <!-- View All Bundles -->
+  {%- if section.settings.show_view_all and section.settings.view_all_link != blank -%}
+    <div class="bnd-view-all-wrap">
+      <a href="{{ section.settings.view_all_link }}" class="bnd-view-all-btn">
+        {%- if is_arabic -%}
+          عرض جميع الباندلز
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg>
+        {%- else -%}
+          VIEW ALL BUNDLES
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        {%- endif -%}
+      </a>
+    </div>
+  {%- endif -%}
+
+</section>
+
+<style>
+  /* ═══════════════════════════════════════════════════
+     BUNDLES SECTION STYLES — Desura De Sehr
+  ═══════════════════════════════════════════════════ */
+
+  .bundles-section {
+    width: 100%;
+    padding: 100px 48px;
+    background: linear-gradient(180deg, #ffffff 0%, #f7fdfd 100%);
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* ── Header ── */
+  .bnd-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 64px;
+  }
+
+  .bnd-eyebrow {
+    display: block;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: #5cc5cb;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .bnd-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(42px, 5vw, 68px);
+    font-weight: 500;
+    line-height: 1.05;
+    color: #1a1a1a;
+    margin: 0 0 24px;
+    display: block;
+  }
+
+  .bnd-title-main {
+    display: inline;
+  }
+
+  .bnd-title-accent {
+    font-style: italic;
+    color: #5cc5cb;
+    font-weight: 400;
+    display: inline;
+    margin-left: 12px;
+  }
+
+  .bnd-description {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #666666;
+    margin: 0 auto;
+    max-width: 580px;
+  }
+
+  /* ── Grid ── */
+  .bnd-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* ── Card ── */
+  .bnd-card {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.07);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: box-shadow 0.35s ease, transform 0.35s ease;
+  }
+
+  .bnd-card:hover {
+    box-shadow: 0 24px 56px rgba(0,0,0,0.10);
+    transform: translateY(-6px);
+  }
+
+  /* Bundle Badge (top-left) */
+  .bnd-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #1a1a1a;
+    color: #ffffff;
+    padding: 5px 10px 5px 8px;
+    border-radius: 100px;
+  }
+
+  .bnd-badge-icon {
+    display: flex;
+    align-items: center;
+    color: #5cc5cb;
+  }
+
+  .bnd-badge-text {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* Savings % badge (top-right of image) */
+  .bnd-savings-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #c93b7a;
+    color: #ffffff;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 4px 9px;
+    border-radius: 100px;
+  }
+
+  /* Wishlist */
+  .bnd-wishlist-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.92);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #aaaaaa;
+    transition: color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+    backdrop-filter: blur(8px);
+  }
+
+  .bnd-wishlist-btn:hover,
+  .bnd-wishlist-btn.active {
+    color: #c93b7a;
+    background: #ffffff;
+    transform: scale(1.12);
+  }
+
+  .bnd-wishlist-btn.active svg {
+    fill: #c93b7a;
+    stroke: #c93b7a;
+  }
+
+  /* Image */
+  .bnd-card-img-link {
+    display: block;
+    text-decoration: none;
+  }
+
+  .bnd-card-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #f9f9f9;
+    overflow: hidden;
+  }
+
+  .bnd-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    padding: 20px;
+    transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .bnd-card-img-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+
+  .bnd-card:hover .bnd-card-img:not(.bnd-card-img-hover) {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+
+  .bnd-card:hover .bnd-card-img-hover {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+
+  .bnd-placeholder {
+    padding: 30px;
+    opacity: 0.12;
+  }
+
+  /* Info */
+  .bnd-card-info {
+    padding: 20px 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .bnd-card-title {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #1a1a1a;
+    text-decoration: none;
+    display: block;
+    transition: color 0.2s ease;
+  }
+
+  .bnd-card-title:hover {
+    color: #5cc5cb;
+  }
+
+  .bnd-card-price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .bnd-price-current {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #5cc5cb;
+  }
+
+  .bnd-price-compare {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+    color: #aaaaaa;
+    text-decoration: line-through;
+  }
+
+  /* Buttons */
+  .bnd-card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .bnd-atc-form {
+    flex: 1;
+    display: flex;
+  }
+
+  .bnd-btn {
+    flex: 1;
+    height: 42px;
+    border-radius: 100px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-decoration: none;
+    border: none;
+    white-space: nowrap;
+  }
+
+  .bnd-btn-outline {
+    background: transparent;
+    border: 1.5px solid #1a1a1a;
+    color: #1a1a1a;
+    width: 100%;
+  }
+
+  .bnd-btn-outline:hover {
+    background: #1a1a1a;
+    color: #ffffff;
+  }
+
+  .bnd-btn-solid {
+    background: #1a1a1a;
+    color: #ffffff;
+    border: 1.5px solid #1a1a1a;
+  }
+
+  .bnd-btn-solid:hover {
+    background: #5cc5cb;
+    border-color: #5cc5cb;
+  }
+
+  .bnd-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .bnd-cart-icon {
+    flex-shrink: 0;
+  }
+
+  /* View All */
+  .bnd-view-all-wrap {
+    text-align: center;
+    margin-top: 56px;
+  }
+
+  .bnd-view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: #1a1a1a;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 14px 36px;
+    border: 1.5px solid #1a1a1a;
+    border-radius: 100px;
+    transition: all 0.28s ease;
+  }
+
+  .bnd-view-all-btn:hover {
+    background: #1a1a1a;
+    color: #ffffff;
+  }
+
+  /* RTL */
+  [dir="rtl"] .bnd-badge {
+    left: auto;
+    right: 14px;
+  }
+
+  [dir="rtl"] .bnd-wishlist-btn {
+    right: auto;
+    left: 14px;
+  }
+
+  [dir="rtl"] .bnd-savings-badge {
+    right: auto;
+    left: 10px;
+  }
+
+  [dir="rtl"] .bnd-title-accent {
+    margin-left: 0;
+    margin-right: 12px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .bnd-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .bnd-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .bundles-section {
+      padding: 72px 32px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .bnd-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .bundles-section {
+      padding: 48px 10px;
+    }
+    .bnd-card-info {
+      padding: 10px 8px 14px;
+      gap: 6px;
+    }
+    .bnd-card-img {
+      padding: 8px;
+    }
+    .bnd-title {
+      font-size: 30px;
+    }
+    .bnd-card-actions {
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .bnd-atc-form {
+      width: 100%;
+    }
+    .bnd-btn {
+      height: 34px;
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      width: 100%;
+      padding: 0 6px;
+      border-radius: 100px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    /* Wishlist toggle */
+    document.querySelectorAll('.bnd-wishlist-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        this.classList.toggle('active');
+      });
+    });
+
+    /* AJAX Add to Cart */
+    document.querySelectorAll('.bnd-atc-form').forEach(function (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const btn = form.querySelector('.bnd-btn-outline');
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+        btn.style.background = '#5cc5cb';
+        btn.style.borderColor = '#5cc5cb';
+        btn.style.color = '#fff';
+
+        fetch('/cart/add.js', { method: 'POST', body: formData })
+          .then(function (r) { return r.json(); })
+          .then(function () {
+            setTimeout(function () {
+              btn.innerHTML = originalHTML;
+              btn.style.background = '';
+              btn.style.borderColor = '';
+              btn.style.color = '';
+            }, 1800);
+          })
+          .catch(function () {
+            btn.innerHTML = originalHTML;
+            btn.style.background = '';
+            btn.style.borderColor = '';
+            btn.style.color = '';
+          });
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Bundles Collection",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header (English)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_en",
+      "label": "Eyebrow (English)",
+      "default": "CURATED SETS"
+    },
+    {
+      "type": "text",
+      "id": "heading_main_en",
+      "label": "Headline Main Text (English)",
+      "default": "Save More With"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent_en",
+      "label": "Headline Accent Italic Teal (English)",
+      "default": "Bundles."
+    },
+    {
+      "type": "textarea",
+      "id": "body_en",
+      "label": "Description Body (English)",
+      "default": "Curated combinations of our bestsellers — designed to work together and priced to save."
+    },
+    {
+      "type": "text",
+      "id": "badge_label_en",
+      "label": "Bundle Badge Label (English)",
+      "default": "BUNDLE"
+    },
+    {
+      "type": "header",
+      "content": "Section Header (Arabic)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_ar",
+      "label": "Eyebrow (Arabic)",
+      "default": "مجموعات منتقاة"
+    },
+    {
+      "type": "text",
+      "id": "heading_main_ar",
+      "label": "Headline Main Text (Arabic)",
+      "default": "وفّر أكثر مع"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent_ar",
+      "label": "Headline Accent Italic Teal (Arabic)",
+      "default": "الباندلز."
+    },
+    {
+      "type": "textarea",
+      "id": "body_ar",
+      "label": "Description Body (Arabic)",
+      "default": "تركيبات مختارة من أفضل منتجاتنا — صُمِّمت لتعمل معاً وبسعر يستحق."
+    },
+    {
+      "type": "text",
+      "id": "badge_label_ar",
+      "label": "Bundle Badge Label (Arabic)",
+      "default": "باندل"
+    },
+    {
+      "type": "header",
+      "content": "Collection & Display"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Bundles Collection (tagged 'bundles')"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Number of Bundles to Show",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "View All Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show View All Button",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All Bundles Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bundles Collection"
+    }
+  ]
+}
+{% endschema %}

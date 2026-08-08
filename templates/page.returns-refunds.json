@@ -1,0 +1,12 @@
+{
+  "name": "Returns & Refunds Template",
+  "sections": {
+    "main": {
+      "type": "main-shipping",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

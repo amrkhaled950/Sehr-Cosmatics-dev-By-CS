@@ -1,0 +1,397 @@
+{%- assign is_arabic = false -%}
+{%- if request.locale.iso_code == 'ar' or request.locale.root_url contains '/ar' -%}
+  {%- assign is_arabic = true -%}
+{%- endif -%}
+
+<section class="insta-reels-section" id="insta-reels-{{ section.id }}" data-section-id="{{ section.id }}">
+
+  <!-- ── Section Header ── -->
+  <div class="insta-header">
+    <span class="insta-eyebrow">
+      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      {%- if is_arabic -%}
+        {{ section.settings.eyebrow_ar | default: 'ريلز · تابع الطقوس' }}
+      {%- else -%}
+        {{ section.settings.eyebrow_en | default: 'REELS · FOLLOW THE RITUAL' }}
+      {%- endif -%}
+    </span>
+
+    <h2 class="insta-handle">{{ section.settings.instagram_handle | default: '@sehrcosmetics' }}</h2>
+
+    <p class="insta-tag-line">
+      {%- if is_arabic -%}
+        {{ section.settings.tagline_ar | default: 'شارك صورتك مع' }}
+        <span class="insta-hashtag">{{ section.settings.hashtag | default: '#SehrCosmetics' }}</span>
+        {{ section.settings.tagline_suffix_ar | default: 'لفرصة الظهور معنا' }}
+      {%- else -%}
+        {{ section.settings.tagline_en | default: 'Tag' }}
+        <span class="insta-hashtag">{{ section.settings.hashtag | default: '#SehrCosmetics' }}</span>
+        {{ section.settings.tagline_suffix_en | default: 'for a chance to be featured' }}
+      {%- endif -%}
+    </p>
+  </div>
+
+  <!-- ── Embeds Grid ── -->
+  <div class="insta-embeds-grid">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'reel' and block.settings.post_url != blank -%}
+        <div class="insta-embed-wrap" {{ block.shopify_attributes }}>
+          <blockquote
+            class="instagram-media"
+            data-instgrm-captioned
+            data-instgrm-permalink="{{ block.settings.post_url }}"
+            data-instgrm-version="14"
+            style="background:#FFF; border:0; border-radius:12px; box-shadow:0 2px 18px rgba(0,0,0,0.10); margin:0; max-width:100%; min-width:260px; padding:0; width:100%;"
+          ></blockquote>
+        </div>
+      {%- elsif block.type == 'reel' and block.settings.post_url == blank -%}
+        <!-- Placeholder when no URL added yet -->
+        <div class="insta-embed-wrap insta-placeholder-wrap" {{ block.shopify_attributes }}>
+          <div class="insta-placeholder-card">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#5cc5cb" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <p>{%- if is_arabic -%}أضف رابط إنستجرام{%- else -%}Paste an Instagram URL to show the embed{%- endif -%}</p>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    <!-- Default placeholders if no blocks added yet -->
+    {%- if section.blocks.size == 0 -%}
+      {%- for i in (1..4) -%}
+        <div class="insta-embed-wrap insta-placeholder-wrap">
+          <div class="insta-placeholder-card">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#5cc5cb" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <p>{%- if is_arabic -%}أضف رابط ريل من إنستجرام{%- else -%}Add an Instagram Reel block and paste the URL{%- endif -%}</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+
+  <!-- ── Watch More CTA ── -->
+  {%- if section.settings.show_watch_more and section.settings.profile_url != blank -%}
+    <div class="insta-cta-wrap">
+      <a href="{{ section.settings.profile_url }}" class="insta-cta-btn" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        {%- if is_arabic -%}
+          {{ section.settings.cta_label_ar | default: 'شاهد المزيد على إنستجرام' }}
+        {%- else -%}
+          {{ section.settings.cta_label_en | default: 'WATCH MORE ON INSTAGRAM' }}
+        {%- endif -%}
+      </a>
+    </div>
+  {%- endif -%}
+
+</section>
+
+<!-- ── Instagram Embed Script (load once) ── -->
+<script async src="//www.instagram.com/embed.js"></script>
+<script>
+  /* Re-process embeds if Shopify Theme Editor reloads section */
+  document.addEventListener('shopify:section:load', function (e) {
+    if (e.detail.sectionId === '{{ section.id }}') {
+      if (window.instgrm) {
+        window.instgrm.Embeds.process();
+      }
+    }
+  });
+</script>
+
+<style>
+  /* ═══════════════════════════════════════════════════
+     INSTAGRAM REELS SECTION — Desura De Sehr
+  ═══════════════════════════════════════════════════ */
+
+  .insta-reels-section {
+    width: 100%;
+    padding: 100px 48px;
+    background: #ffffff;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* ── Header ── */
+  .insta-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 56px;
+  }
+
+  .insta-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: #5cc5cb;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .insta-handle {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(38px, 5vw, 64px);
+    font-weight: 400;
+    color: #1a1a1a;
+    margin: 0 0 16px;
+    line-height: 1.1;
+  }
+
+  .insta-tag-line {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+    color: #777777;
+    margin: 0;
+  }
+
+  .insta-hashtag {
+    color: #5cc5cb;
+    font-weight: 500;
+  }
+
+  /* ── Embeds Grid ── */
+  .insta-embeds-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1320px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  /* ── Each Embed Wrapper ── */
+  .insta-embed-wrap {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  /* Force the Instagram blockquote / iframe to fill the column */
+  .insta-embed-wrap .instagram-media {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.09) !important;
+  }
+
+  /* ── Placeholder Card ── */
+  .insta-placeholder-wrap {
+    min-height: 400px;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .insta-placeholder-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: #f8fdfd;
+    border: 2px dashed rgba(92,197,203,0.4);
+    border-radius: 12px;
+    padding: 40px 20px;
+    min-height: 360px;
+  }
+
+  .insta-placeholder-card p {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+    color: #888888;
+    text-align: center;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* ── CTA Button ── */
+  .insta-cta-wrap {
+    text-align: center;
+    margin-top: 56px;
+  }
+
+  .insta-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #5cc5cb;
+    text-decoration: none;
+    padding: 13px 32px;
+    border: 1px solid #5cc5cb;
+    border-radius: 6px;
+    transition: all 0.28s ease;
+    background: transparent;
+  }
+
+  .insta-cta-btn:hover {
+    background: #5cc5cb;
+    color: #ffffff;
+    border-color: #5cc5cb;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1100px) {
+    .insta-embeds-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 800px) {
+    .insta-embeds-grid { grid-template-columns: repeat(2, 1fr); }
+    .insta-reels-section { padding: 72px 28px; }
+  }
+
+  @media (max-width: 520px) {
+    .insta-embeds-grid { grid-template-columns: 1fr; }
+    .insta-reels-section { padding: 56px 20px; }
+    .insta-handle { font-size: 38px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Instagram Reels",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Instagram Account"
+    },
+    {
+      "type": "text",
+      "id": "instagram_handle",
+      "label": "Instagram Handle (large headline)",
+      "default": "@sehrcosmetics",
+      "info": "e.g. @sehrcosmetics — shown as the big heading"
+    },
+    {
+      "type": "url",
+      "id": "profile_url",
+      "label": "Instagram Profile URL",
+      "info": "e.g. https://www.instagram.com/sehrcosmetics — used for the Watch More button"
+    },
+    {
+      "type": "text",
+      "id": "hashtag",
+      "label": "Hashtag",
+      "default": "#SehrCosmetics"
+    },
+    {
+      "type": "header",
+      "content": "Header Text (English)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_en",
+      "label": "Eyebrow",
+      "default": "REELS · FOLLOW THE RITUAL"
+    },
+    {
+      "type": "text",
+      "id": "tagline_en",
+      "label": "Tagline Prefix",
+      "default": "Tag"
+    },
+    {
+      "type": "text",
+      "id": "tagline_suffix_en",
+      "label": "Tagline Suffix",
+      "default": "for a chance to be featured"
+    },
+    {
+      "type": "text",
+      "id": "cta_label_en",
+      "label": "Watch More Button Label",
+      "default": "WATCH MORE ON INSTAGRAM"
+    },
+    {
+      "type": "header",
+      "content": "Header Text (Arabic)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_ar",
+      "label": "Eyebrow (Arabic)",
+      "default": "ريلز · تابع الطقوس"
+    },
+    {
+      "type": "text",
+      "id": "tagline_ar",
+      "label": "Tagline Prefix (Arabic)",
+      "default": "شارك صورتك مع"
+    },
+    {
+      "type": "text",
+      "id": "tagline_suffix_ar",
+      "label": "Tagline Suffix (Arabic)",
+      "default": "لفرصة الظهور معنا"
+    },
+    {
+      "type": "text",
+      "id": "cta_label_ar",
+      "label": "Watch More Button Label (Arabic)",
+      "default": "شاهد المزيد على إنستجرام"
+    },
+    {
+      "type": "header",
+      "content": "Watch More Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_watch_more",
+      "label": "Show Watch More Button",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "reel",
+      "name": "Instagram Reel / Post",
+      "settings": [
+        {
+          "type": "text",
+          "id": "post_url",
+          "label": "Instagram Post / Reel URL",
+          "info": "Paste the full Instagram URL here. e.g. https://www.instagram.com/reel/DP_inMjCPPt/ — The video, caption, profile and likes will load automatically."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram Reels",
+      "blocks": [
+        {
+          "type": "reel",
+          "settings": {
+            "post_url": "https://www.instagram.com/reel/DP_inMjCPPt/"
+          }
+        },
+        {
+          "type": "reel",
+          "settings": {
+            "post_url": "https://www.instagram.com/reels/DQCZD8MCB1V/"
+          }
+        },
+        {
+          "type": "reel",
+          "settings": {
+            "post_url": "https://www.instagram.com/reels/DSM3UbWDROD/"
+          }
+        },
+        {
+          "type": "reel",
+          "settings": {
+            "post_url": "https://www.instagram.com/reels/DRtZX7AiE4d/"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

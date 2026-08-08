@@ -1,0 +1,571 @@
+{%- assign is_arabic = false -%}
+{%- if request.locale.iso_code == 'ar' or request.locale.root_url contains '/ar' -%}
+  {%- assign is_arabic = true -%}
+{%- endif -%}
+
+<section class="main-shipping-section" id="main-shipping-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="shipping-container">
+
+    <!-- ── Page Header Area ── -->
+    <div class="shipping-header">
+      <h1 class="shipping-title">
+        {% if is_arabic %}{{ section.settings.title_ar | default: 'الشحن والتوصيل' }}{% else %}{{ section.settings.title_en | default: 'Shipping & Delivery' }}{% endif %}
+      </h1>
+      <div class="shipping-title-line"></div>
+      <p class="shipping-subtitle">
+        {% if is_arabic %}
+          نحن ملتزمون بتوصيل منتجات العناية بالبشرة المفضلة لديك بأمان وسرعة وموثوقية عالية.
+        {% else %}
+          We are committed to delivering your favorite skincare products safely, quickly, and reliably.
+        {% endif %}
+      </p>
+    </div>
+
+    <!-- ── Top Guarantees Bar (4 items in a row) ── -->
+    <div class="shipping-top-bar">
+      <div class="shipping-top-grid">
+        
+        <div class="top-item">
+          <div class="top-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div class="top-text">
+            <h3>{% if is_arabic %}معالجة سريعة{% else %}Fast Processing{% endif %}</h3>
+            <p>{% if is_arabic %}يتم تجهيز الطلبات خلال 1-2 يوم عمل.{% else %}Orders are processed within 1-2 business days.{% endif %}</p>
+          </div>
+        </div>
+
+        <div class="top-item">
+          <div class="top-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <div class="top-text">
+            <h3>{% if is_arabic %}توصيل موثوق{% else %}Reliable Delivery{% endif %}</h3>
+            <p>{% if is_arabic %}نتعاون مع أفضل شركات الشحن لضمان السلامة.{% else %}We partner with trusted carriers to ensure safe delivery.{% endif %}</p>
+          </div>
+        </div>
+
+        <div class="top-item">
+          <div class="top-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="top-text">
+            <h3>{% if is_arabic %}تغليف آمن محكم{% else %}Secure Packaging{% endif %}</h3>
+            <p>{% if is_arabic %}يتم تغليف منتجاتك بعناية لتصل بحالة ممتازة.{% else %}Your products are carefully packed to arrive in perfect condition.{% endif %}</p>
+          </div>
+        </div>
+
+        <div class="top-item">
+          <div class="top-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="top-text">
+            <h3>{% if is_arabic %}تغطية شاملة لجميع المحافظات{% else %}Nationwide Coverage{% endif %}</h3>
+            <p>{% if is_arabic %}نوصل لجميع مدن ومحافظات مصر.{% else %}We deliver to all cities and governorates across Egypt.{% endif %}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── DELIVERY INFORMATION SECTION ── -->
+    <div class="shipping-section-block">
+      <div class="section-divider-header">
+        <span class="divider-line"></span>
+        <h2 class="divider-title">
+          {% if is_arabic %}{{ section.settings.deliv_info_ar | default: 'معلومات التوصيل' }}{% else %}{{ section.settings.deliv_info_en | default: 'DELIVERY INFORMATION' }}{% endif %}
+        </h2>
+        <span class="divider-line"></span>
+      </div>
+
+      <div class="info-cards-4col">
+        
+        <!-- Card 1 -->
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>{% if is_arabic %}مناطق التوصيل{% else %}Delivery Areas{% endif %}</h3>
+          <p>{% if is_arabic %}نوصل إلى جميع المدن والمحافظات الرئيسية في مصر، بما في ذلك المناطق النائية.{% else %}We deliver to all major cities and governorates across Egypt, including remote areas.{% endif %}</p>
+          <a href="/pages/contact" class="card-link">{% if is_arabic %}عرض جميع المناطق{% else %}View All Areas{% endif %} →</a>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h3>{% if is_arabic %}وقت المعالجة والتجهيز{% else %}Processing Time{% endif %}</h3>
+          <p>{% if is_arabic %}يتم تجهيز الطلبات خلال 1-2 يوم عمل (باستثناء عطلات نهاية الأسبوع والعطلات الرسمية).{% else %}Orders are processed within 1-2 business days (excluding weekends and public holidays).{% endif %}</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>{% if is_arabic %}مدو التوصيل المتوقعة{% else %}Delivery Time{% endif %}</h3>
+          <p>{% if is_arabic %}يستغرق التوصيل القياسي عادةً من 2-5 أيام عمل حسب موقعك الجغرافي.{% else %}Standard delivery typically takes 2-5 business days depending on your location.{% endif %}</p>
+          <a href="/pages/contact" class="card-link">{% if is_arabic %}معرفة المزيد{% else %}Learn More{% endif %} →</a>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <h3>{% if is_arabic %}تتبع طلبك{% else %}Tracking Your Order{% endif %}</h3>
+          <p>{% if is_arabic %}بمجرد شحن طلبك، ستتلقى رقم تتبع عبر البريد الإلكتروني أو الرسائل النصية القصيرة.{% else %}Once your order is shipped, you will receive a tracking number via email or SMS.{% endif %}</p>
+          <a href="/pages/contact" class="card-link">{% if is_arabic %}تتبع الطلب{% else %}Track Order{% endif %} →</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── RETURNS & EXCHANGES SECTION ── -->
+    <div class="shipping-section-block">
+      <div class="section-divider-header">
+        <span class="divider-line"></span>
+        <h2 class="divider-title">
+          {% if is_arabic %}{{ section.settings.returns_title_ar | default: 'الإرجاع والاستبدال' }}{% else %}{{ section.settings.returns_title_en | default: 'RETURNS & EXCHANGES' }}{% endif %}
+        </h2>
+        <span class="divider-line"></span>
+      </div>
+
+      <div class="returns-big-card">
+        <div class="returns-grid-4col">
+          
+          <!-- Item 1 -->
+          <div class="returns-item">
+            <div class="returns-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.87"/></svg>
+            </div>
+            <h3>{% if is_arabic %}إرجاع سهل وميسر{% else %}Easy Returns{% endif %}</h3>
+            <p>{% if is_arabic %}يمكنك إرجاع أو استبدال طلبك خلال 14 يوماً من التوصيل إذا كان المنتج غير مفتوح وفي حالته الأصلية.{% else %}You can return or exchange your order within 14 days of delivery if the product is unopened and in its original condition.{% endif %}</p>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="returns-item">
+            <div class="returns-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+            </div>
+            <h3>{% if is_arabic %}تواصل معنا{% else %}Contact Us{% endif %}</h3>
+            <p>{% if is_arabic %}تواصل مع فريق الدعم لدينا عبر البريد الإلكتروني أو الهاتف لبدء طلب الإرجاع أو الاستبدال.{% else %}Reach out to our support team via email or phone to initiate your return or exchange.{% endif %}</p>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="returns-item">
+            <div class="returns-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+            </div>
+            <h3>{% if is_arabic %}خطوات استرداد الأموال{% else %}Refund Process{% endif %}</h3>
+            <p>{% if is_arabic %}بمجرد استلام شحنة الإرجاع، ستتم معالجة المبلغ المسترد خلال 5-7 أيام عمل.{% else %}Once we receive your return, your refund will be processed within 5-7 business days.{% endif %}</p>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="returns-item">
+            <div class="returns-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3>{% if is_arabic %}منتج تالف أو خاطئ؟{% else %}Damaged or Wrong Item?{% endif %}</h3>
+            <p>{% if is_arabic %}إذا استلمت منتجاً تالفاً أو غير صحيح، يرجى التواصل معنا خلال 48 ساعة من الاستلام.{% else %}If you receive a damaged or incorrect item, please contact us within 48 hours of delivery.{% endif %}</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ── NEED HELP BAR ── -->
+    <div class="need-help-card">
+      <div class="need-help-grid">
+        <div class="need-help-title-wrap">
+          <div class="need-help-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+          </div>
+          <div class="need-help-text">
+            <h2>{% if is_arabic %}تحتاج إلى مساعدة؟{% else %}Need Help?{% endif %}</h2>
+            <p>{% if is_arabic %}فريق الدعم لدينا هنا دائماً من أجلك.{% else %}Our support team is here for you.{% endif %}</p>
+          </div>
+        </div>
+
+        <div class="need-help-contacts">
+          <a href="mailto:sehrcosmetics@gmail.com" class="help-contact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>sehrcosmetics@gmail.com</span>
+          </a>
+
+          <a href="tel:+201288247928" class="help-contact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5CC5CB" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+20 128 824 7928</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ═══════════════════════════════════════════════════
+     MAIN SHIPPING SECTION STYLES — #000000 & #5CC5CB
+  ═══════════════════════════════════════════════════ */
+
+  .main-shipping-section {
+    width: 100%;
+    padding: 120px 48px 100px;
+    background-color: #FFFFFF;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #000000;
+  }
+
+  .shipping-container {
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .shipping-header {
+    text-align: left;
+    margin-bottom: 56px;
+  }
+
+  [dir="rtl"] .shipping-header {
+    text-align: right;
+  }
+
+  .shipping-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(48px, 6vw, 76px);
+    font-weight: 500;
+    color: #000000;
+    margin: 0 0 16px 0;
+    line-height: 1.05;
+  }
+
+  .shipping-title-line {
+    width: 60px;
+    height: 1.5px;
+    background: #5CC5CB;
+    margin-bottom: 24px;
+  }
+
+  .shipping-subtitle {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #555555;
+    max-width: 640px;
+    margin: 0;
+  }
+
+  /* Top Bar (4 Guarantees in a row) */
+  .shipping-top-bar {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 32px 40px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.03);
+    border: 1px solid #E0D8CE;
+    margin-bottom: 80px;
+  }
+
+  .shipping-top-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+
+  .top-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .top-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .top-text h3 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 4px 0;
+  }
+
+  .top-text p {
+    font-size: 11px;
+    line-height: 1.4;
+    color: #666666;
+    margin: 0;
+  }
+
+  /* Section Dividers */
+  .shipping-section-block {
+    margin-bottom: 80px;
+  }
+
+  .section-divider-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: #D9EFEF;
+    max-width: 240px;
+  }
+
+  .divider-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: #000000;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  /* 4 Column Info Cards */
+  .info-cards-4col {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .info-card {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 36px 28px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    border: 1px solid #E0D8CE;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .info-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .info-card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .info-card h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #000000;
+    margin: 0 0 12px 0;
+  }
+
+  .info-card p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #666666;
+    margin: 0 0 20px 0;
+    flex: 1;
+  }
+
+  .card-link {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #5CC5CB;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .card-link:hover {
+    color: #000000;
+  }
+
+  /* Returns Big Card */
+  .returns-big-card {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 48px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.03);
+    border: 1px solid #E0D8CE;
+  }
+
+  .returns-grid-4col {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 36px;
+  }
+
+  .returns-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .returns-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .returns-item h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: #000000;
+    margin: 0;
+  }
+
+  .returns-item p {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #666666;
+    margin: 0;
+  }
+
+  /* Need Help Bar */
+  .need-help-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 32px 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    border: 1px solid #E0D8CE;
+  }
+
+  .need-help-grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .need-help-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .need-help-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .need-help-text h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: #000000;
+    margin: 0 0 2px 0;
+  }
+
+  .need-help-text p {
+    font-size: 12px;
+    color: #777777;
+    margin: 0;
+  }
+
+  .need-help-contacts {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+
+  .help-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #000000;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .help-contact-item:hover {
+    color: #5CC5CB;
+  }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .info-cards-4col,
+    .returns-grid-4col,
+    .shipping-top-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .need-help-grid {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .need-help-contacts {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .main-shipping-section {
+      padding: 90px 20px 60px;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .info-cards-4col,
+    .returns-grid-4col,
+    .shipping-top-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Main Shipping",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Page Header"
+    },
+    {
+      "type": "text",
+      "id": "title_en",
+      "label": "Title (English)",
+      "default": "Shipping & Delivery"
+    },
+    {
+      "type": "text",
+      "id": "title_ar",
+      "label": "Title (Arabic)",
+      "default": "الشحن والتوصيل"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,319 @@
+{%- assign is_arabic = false -%}
+{%- if request.locale.iso_code == 'ar' or request.locale.root_url contains '/ar' -%}
+  {%- assign is_arabic = true -%}
+{%- endif -%}
+
+<section class="trust-bar-section" id="trust-bar-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="trust-bar-divider-top"></div>
+
+  <div class="trust-bar-grid">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'trust_item' -%}
+        <div class="trust-item" {{ block.shopify_attributes }}>
+          <div class="trust-icon-circle">
+            {%- case block.settings.icon -%}
+              {%- when 'delivery' -%}
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              {%- when 'returns' -%}
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.87"/></svg>
+              {%- when 'derma' -%}
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+              {%- when 'natural' -%}
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22c1.25-.987 2.27-1.975 3.9-2.2a5.56 5.56 0 0 1 3.8 1.5 4 4 0 0 0 6.187-2.353 3.5 3.5 0 0 0 3.69-5.116A3.5 3.5 0 0 0 20.95 8 3.5 3.5 0 1 0 16 3.05a3.5 3.5 0 0 0-5.831 1.373 3.5 3.5 0 0 0-5.116 3.69 4 4 0 0 0-2.348 6.155C3.499 15.42 3 17.621 2 22z"/></svg>
+              {%- when 'authentic' -%}
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+              {%- when 'secure' -%}
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              {%- when 'star' -%}
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              {%- when 'gift' -%}
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+              {%- else -%}
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            {%- endcase -%}
+          </div>
+
+          <div class="trust-item-text">
+            <h4 class="trust-item-title">
+              {%- if is_arabic -%}
+                {{ block.settings.title_ar | default: block.settings.title_en }}
+              {%- else -%}
+                {{ block.settings.title_en }}
+              {%- endif -%}
+            </h4>
+            <p class="trust-item-sub">
+              {%- if is_arabic -%}
+                {{ block.settings.subtitle_ar | default: block.settings.subtitle_en }}
+              {%- else -%}
+                {{ block.settings.subtitle_en }}
+              {%- endif -%}
+            </p>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    <!-- Default items if no blocks added yet -->
+    {%- if section.blocks.size == 0 -%}
+      {% assign defaults = "delivery|FREE DELIVERY|On orders over 1000 EGP,returns|EASY RETURNS|14-day return policy,derma|DERMATOLOGICALLY TESTED|Safe & gentle formulas,natural|NATURAL INGREDIENTS|Ethically sourced,authentic|AUTHENTIC PRODUCTS|100% genuine guarantee,secure|SECURE CHECKOUT|Encrypted transactions" | split: "," %}
+      {%- for item in defaults -%}
+        {%- assign parts = item | split: "|" -%}
+        <div class="trust-item">
+          <div class="trust-icon-circle">
+            {%- case parts[0] -%}
+              {%- when 'delivery' -%}<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              {%- when 'returns' -%}<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.87"/></svg>
+              {%- when 'derma' -%}<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+              {%- when 'natural' -%}<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22c1.25-.987 2.27-1.975 3.9-2.2a5.56 5.56 0 0 1 3.8 1.5 4 4 0 0 0 6.187-2.353 3.5 3.5 0 0 0 3.69-5.116A3.5 3.5 0 0 0 20.95 8 3.5 3.5 0 1 0 16 3.05a3.5 3.5 0 0 0-5.831 1.373 3.5 3.5 0 0 0-5.116 3.69 4 4 0 0 0-2.348 6.155C3.499 15.42 3 17.621 2 22z"/></svg>
+              {%- when 'authentic' -%}<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+              {%- else -%}<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            {%- endcase -%}
+          </div>
+          <div class="trust-item-text">
+            <h4 class="trust-item-title">{{ parts[1] }}</h4>
+            <p class="trust-item-sub">{{ parts[2] }}</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+
+  <div class="trust-bar-divider-bottom"></div>
+</section>
+
+<style>
+  /* ═══════════════════════════════════════════════════
+     TRUST BAR SECTION — Desura De Sehr
+  ═══════════════════════════════════════════════════ */
+
+  .trust-bar-section {
+    width: 100%;
+    background: #ffffff;
+    font-family: 'Inter', system-ui, sans-serif;
+    padding: 56px 48px;
+  }
+
+  .trust-bar-divider-top,
+  .trust-bar-divider-bottom {
+    max-width: 1320px;
+    margin: 0 auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, #e0f5f6 20%, #bde9ea 50%, #e0f5f6 80%, transparent 100%);
+  }
+
+  .trust-bar-divider-top {
+    margin-bottom: 52px;
+  }
+
+  .trust-bar-divider-bottom {
+    margin-top: 52px;
+  }
+
+  .trust-bar-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
+    max-width: 1320px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  /* ── Each Item ── */
+  .trust-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    transition: transform 0.3s ease;
+  }
+
+  .trust-item:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Icon Circle */
+  .trust-icon-circle {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    border: 1.5px solid #5cc5cb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5cc5cb;
+    background: transparent;
+    transition: background 0.3s ease, color 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .trust-item:hover .trust-icon-circle {
+    background: #5cc5cb;
+    color: #ffffff;
+  }
+
+  /* Text */
+  .trust-item-text {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .trust-item-title {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .trust-item-sub {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #888888;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .trust-bar-grid { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .trust-bar-section { padding: 48px 36px; }
+  }
+
+  @media (max-width: 680px) {
+    .trust-bar-grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    .trust-bar-section { padding: 40px 24px; }
+  }
+
+  @media (max-width: 420px) {
+    .trust-bar-grid { grid-template-columns: 1fr; gap: 24px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Trust Bar",
+  "max_blocks": 8,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "delivery", "label": "🚚 Free Delivery" },
+            { "value": "returns", "label": "↩️ Easy Returns" },
+            { "value": "derma", "label": "🛡️ Dermatologically Tested" },
+            { "value": "natural", "label": "🌿 Natural Ingredients" },
+            { "value": "authentic", "label": "🏅 Authentic Products" },
+            { "value": "secure", "label": "🔒 Secure Checkout" },
+            { "value": "star", "label": "⭐ Star / Award" },
+            { "value": "gift", "label": "🎁 Gift" }
+          ],
+          "default": "delivery"
+        },
+        {
+          "type": "text",
+          "id": "title_en",
+          "label": "Title (English)",
+          "default": "FREE DELIVERY"
+        },
+        {
+          "type": "text",
+          "id": "title_ar",
+          "label": "Title (Arabic)",
+          "default": "توصيل مجاني"
+        },
+        {
+          "type": "text",
+          "id": "subtitle_en",
+          "label": "Subtitle (English)",
+          "default": "On orders over 1000 EGP"
+        },
+        {
+          "type": "text",
+          "id": "subtitle_ar",
+          "label": "Subtitle (Arabic)",
+          "default": "على الطلبات فوق 1000 جنيه"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Bar",
+      "blocks": [
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "delivery",
+            "title_en": "FREE DELIVERY",
+            "title_ar": "توصيل مجاني",
+            "subtitle_en": "On orders over 1000 EGP",
+            "subtitle_ar": "على الطلبات فوق 1000 جنيه"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "returns",
+            "title_en": "EASY RETURNS",
+            "title_ar": "إرجاع سهل",
+            "subtitle_en": "14-day return policy",
+            "subtitle_ar": "سياسة إرجاع 14 يوم"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "derma",
+            "title_en": "DERMATOLOGICALLY TESTED",
+            "title_ar": "مختبر جلدياً",
+            "subtitle_en": "Safe & gentle formulas",
+            "subtitle_ar": "تركيبات آمنة وملطفة"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "natural",
+            "title_en": "NATURAL INGREDIENTS",
+            "title_ar": "مكونات طبيعية",
+            "subtitle_en": "Ethically sourced",
+            "subtitle_ar": "مصادر أخلاقية"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "authentic",
+            "title_en": "AUTHENTIC PRODUCTS",
+            "title_ar": "منتجات أصيلة",
+            "subtitle_en": "100% genuine guarantee",
+            "subtitle_ar": "ضمان أصالة 100%"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "secure",
+            "title_en": "SECURE CHECKOUT",
+            "title_ar": "دفع آمن",
+            "subtitle_en": "Encrypted transactions",
+            "subtitle_ar": "معاملات مشفرة"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

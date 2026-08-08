@@ -1,0 +1,413 @@
+{%- assign is_arabic = false -%}
+{%- if request.locale.iso_code == 'ar' or request.locale.root_url contains '/ar' -%}
+  {%- assign is_arabic = true -%}
+{%- endif -%}
+
+<section class="brand-story-section" id="brand-story-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="brand-story-container">
+
+    <!-- ── Left: Text Content ── -->
+    <div class="brand-story-text">
+      <span class="brand-story-eyebrow">
+        {%- if is_arabic -%}
+          {{ section.settings.eyebrow_ar | default: 'قصتنا' }}
+        {%- else -%}
+          {{ section.settings.eyebrow_en | default: 'OUR STORY' }}
+        {%- endif -%}
+      </span>
+
+      <h2 class="brand-story-title">
+        {%- if is_arabic -%}
+          <span class="bst-line">{{ section.settings.heading_line1_ar | default: 'متجذرون في' }} <span class="bst-accent">{{ section.settings.heading_accent1_ar | default: 'الطبيعة.' }}</span></span>
+          <span class="bst-line">{{ section.settings.heading_line2_ar | default: 'مدفوعون بـ' }} <span class="bst-accent">{{ section.settings.heading_accent2_ar | default: 'العلم.' }}</span></span>
+        {%- else -%}
+          <span class="bst-line">{{ section.settings.heading_line1_en | default: 'Rooted in' }} <span class="bst-accent">{{ section.settings.heading_accent1_en | default: 'Nature.' }}</span></span>
+          <span class="bst-line">{{ section.settings.heading_line2_en | default: 'Driven by' }} <span class="bst-accent">{{ section.settings.heading_accent2_en | default: 'Science.' }}</span></span>
+        {%- endif -%}
+      </h2>
+
+      <div class="brand-story-body">
+        <p>
+          {%- if is_arabic -%}
+            {{ section.settings.body_para1_ar | default: 'تأسست Desura De Sehr عام 2024 على يد رائدة أعمال مصرية شابة برؤية واضحة: تقديم منتجات عناية شخصية فعّالة بجودة دولية — تُضاهي المعايير الكورية والفرنسية — بسعر يناسب السوق المحلي.' }}
+          {%- else -%}
+            {{ section.settings.body_para1_en | default: 'Desura De Sehr was founded in 2024 by a young Egyptian entrepreneur with a clear mission: to deliver powerful personal care products with international quality—like Korean and French standards—at a price that fits the local market.' }}
+          {%- endif -%}
+        </p>
+        <p>
+          {%- if is_arabic -%}
+            {{ section.settings.body_para2_ar | default: 'من أول سيروم لنمو الشعر إلى مجموعة كاملة من سيرومات الرموش والأظافر والعيون — كل تركيبة تُصنع بعناية وشفافية وهدف.' }}
+          {%- else -%}
+            {{ section.settings.body_para2_en | default: 'From our first hair growth serum to a full range of Lash & Brow, Nail, and Under Eye serums—every formula is crafted with care, transparency, and purpose.' }}
+          {%- endif -%}
+        </p>
+      </div>
+
+      {%- if section.settings.cta_link != blank -%}
+        <a href="{{ section.settings.cta_link }}" class="brand-story-cta">
+          {%- if is_arabic -%}
+            {{ section.settings.cta_label_ar | default: 'تعرف علينا أكثر' }}
+          {%- else -%}
+            {{ section.settings.cta_label_en | default: 'LEARN MORE ABOUT US' }}
+          {%- endif -%}
+          <span class="brand-story-cta-arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <!-- ── Right: Image ── -->
+    <div class="brand-story-media">
+      {%- if section.settings.story_image != blank -%}
+        <img
+          src="{{ section.settings.story_image | img_url: '900x900' }}"
+          alt="{{ section.settings.image_alt | default: 'Desura De Sehr — Our Story' | escape }}"
+          class="brand-story-img"
+          loading="lazy"
+          width="900"
+          height="900"
+        />
+      {%- else -%}
+        <div class="brand-story-img-placeholder">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#5cc5cb" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <p>Upload your brand story image</p>
+        </div>
+      {%- endif -%}
+      <div class="brand-story-img-glow"></div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ═══════════════════════════════════════════════════
+     BRAND STORY SECTION — Desura De Sehr
+  ═══════════════════════════════════════════════════ */
+
+  .brand-story-section {
+    width: 100%;
+    padding: 100px 48px;
+    background: #ffffff;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .brand-story-container {
+    max-width: 1320px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  /* ── Text Side ── */
+  .brand-story-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .brand-story-eyebrow {
+    display: block;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: #5cc5cb;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+
+  .brand-story-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(40px, 5vw, 62px);
+    font-weight: 500;
+    line-height: 1.1;
+    color: #1a1a1a;
+    margin: 0 0 30px;
+  }
+
+  .bst-line {
+    display: block;
+  }
+
+  .bst-accent {
+    font-style: italic;
+    color: #5cc5cb;
+    font-weight: 400;
+  }
+
+  .brand-story-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .brand-story-body p {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #555555;
+    margin: 0;
+  }
+
+  /* ── CTA Button ── */
+  .brand-story-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-decoration: none;
+    background: #5cc5cb;
+    padding: 14px 28px;
+    border-radius: 100px;
+    align-self: flex-start;
+    transition: all 0.28s ease;
+    border: 1.5px solid #5cc5cb;
+  }
+
+  .brand-story-cta:hover {
+    background: transparent;
+    color: #5cc5cb;
+  }
+
+  .brand-story-cta-arrow {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.25s ease;
+  }
+
+  .brand-story-cta:hover .brand-story-cta-arrow {
+    background: rgba(92,197,203,0.15);
+  }
+
+  /* ── Image Side ── */
+  .brand-story-media {
+    position: relative;
+  }
+
+  .brand-story-img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 4 / 3.2;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.12);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .brand-story-media:hover .brand-story-img {
+    transform: scale(1.015);
+  }
+
+  .brand-story-img-glow {
+    position: absolute;
+    bottom: -30px;
+    left: 10%;
+    right: 10%;
+    height: 80px;
+    background: radial-gradient(ellipse, rgba(92,197,203,0.18) 0%, transparent 70%);
+    filter: blur(24px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .brand-story-img-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3.2;
+    border-radius: 20px;
+    background: #f5fdfd;
+    border: 2px dashed rgba(92,197,203,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .brand-story-img-placeholder p {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+    color: #aaaaaa;
+    margin: 0;
+  }
+
+  /* RTL */
+  [dir="rtl"] .brand-story-cta {
+    align-self: flex-start;
+  }
+
+  [dir="rtl"] .brand-story-container {
+    direction: rtl;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .brand-story-container {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .brand-story-media {
+      order: -1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .brand-story-section { padding: 64px 24px; }
+    .brand-story-title { font-size: 38px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Brand Story",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Text (English)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_en",
+      "label": "Eyebrow (English)",
+      "default": "OUR STORY"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1_en",
+      "label": "Headline Line 1 (English)",
+      "default": "Rooted in"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent1_en",
+      "label": "Headline Line 1 Accent (italic teal)",
+      "default": "Nature."
+    },
+    {
+      "type": "text",
+      "id": "heading_line2_en",
+      "label": "Headline Line 2 (English)",
+      "default": "Driven by"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent2_en",
+      "label": "Headline Line 2 Accent (italic teal)",
+      "default": "Science."
+    },
+    {
+      "type": "textarea",
+      "id": "body_para1_en",
+      "label": "Body Paragraph 1 (English)",
+      "default": "Desura De Sehr was founded in 2024 by a young Egyptian entrepreneur with a clear mission: to deliver powerful personal care products with international quality—like Korean and French standards—at a price that fits the local market."
+    },
+    {
+      "type": "textarea",
+      "id": "body_para2_en",
+      "label": "Body Paragraph 2 (English)",
+      "default": "From our first hair growth serum to a full range of Lash & Brow, Nail, and Under Eye serums—every formula is crafted with care, transparency, and purpose."
+    },
+    {
+      "type": "text",
+      "id": "cta_label_en",
+      "label": "Button Label (English)",
+      "default": "LEARN MORE ABOUT US"
+    },
+    {
+      "type": "header",
+      "content": "Section Text (Arabic)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_ar",
+      "label": "Eyebrow (Arabic)",
+      "default": "قصتنا"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1_ar",
+      "label": "Headline Line 1 (Arabic)",
+      "default": "متجذرون في"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent1_ar",
+      "label": "Headline Line 1 Accent (Arabic)",
+      "default": "الطبيعة."
+    },
+    {
+      "type": "text",
+      "id": "heading_line2_ar",
+      "label": "Headline Line 2 (Arabic)",
+      "default": "مدفوعون بـ"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent2_ar",
+      "label": "Headline Line 2 Accent (Arabic)",
+      "default": "العلم."
+    },
+    {
+      "type": "textarea",
+      "id": "body_para1_ar",
+      "label": "Body Paragraph 1 (Arabic)",
+      "default": "تأسست Desura De Sehr عام 2024 على يد رائدة أعمال مصرية شابة برؤية واضحة: تقديم منتجات عناية شخصية فعّالة بجودة دولية — تُضاهي المعايير الكورية والفرنسية — بسعر يناسب السوق المحلي."
+    },
+    {
+      "type": "textarea",
+      "id": "body_para2_ar",
+      "label": "Body Paragraph 2 (Arabic)",
+      "default": "من أول سيروم لنمو الشعر إلى مجموعة كاملة من سيرومات الرموش والأظافر والعيون — كل تركيبة تُصنع بعناية وشفافية وهدف."
+    },
+    {
+      "type": "text",
+      "id": "cta_label_ar",
+      "label": "Button Label (Arabic)",
+      "default": "تعرف علينا أكثر"
+    },
+    {
+      "type": "header",
+      "content": "Button & Image"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button Link (e.g. /pages/about)"
+    },
+    {
+      "type": "image_picker",
+      "id": "story_image",
+      "label": "Brand Story Image (right side)",
+      "info": "Upload your brand image — warm/golden toned works beautifully"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image Alt Text",
+      "default": "Desura De Sehr — Our Story"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Story"
+    }
+  ]
+}
+{% endschema %}
