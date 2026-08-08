@@ -12,6 +12,69 @@
     "hero": {
       "type": "hero-desura-sehr",
       "blocks": {
+        "product_item_tyqc4x": {
+          "type": "product_item",
+          "settings": {
+            "product_name": "",
+            "compounds_sub": "",
+            "glb_url": "",
+            "product_image": "shopify://shop_images/untitled2.png",
+            "land_x": 29,
+            "land_y": 10,
+            "land_z": 0,
+            "from_y": -900,
+            "rot_x": 0,
+            "rot_y": 0,
+            "rot_z": -3,
+            "scale_size": 200,
+            "start_scroll": 3,
+            "dur_scroll": 22,
+            "accent_color": "#c93b7a",
+            "accent_dark_color": "#8f2456"
+          }
+        },
+        "product_item_DxUKCc": {
+          "type": "product_item",
+          "settings": {
+            "product_name": "",
+            "compounds_sub": "",
+            "glb_url": "",
+            "product_image": "shopify://shop_images/untitled3_b26fd3b7-4392-4485-8bab-8072db8e05cf.png",
+            "land_x": 15,
+            "land_y": 10,
+            "land_z": 0,
+            "from_y": -900,
+            "rot_x": 0,
+            "rot_y": 0,
+            "rot_z": -3,
+            "scale_size": 200,
+            "start_scroll": 3,
+            "dur_scroll": 22,
+            "accent_color": "#c93b7a",
+            "accent_dark_color": "#8f2456"
+          }
+        },
+        "product_item_YLwmMz": {
+          "type": "product_item",
+          "settings": {
+            "product_name": "",
+            "compounds_sub": "",
+            "glb_url": "",
+            "product_image": "shopify://shop_images/untitled3_cf85d3c1-5036-4187-b2c4-52937f3f3f72.png",
+            "land_x": 3,
+            "land_y": 10,
+            "land_z": 0,
+            "from_y": -900,
+            "rot_x": 0,
+            "rot_y": 0,
+            "rot_z": -3,
+            "scale_size": 200,
+            "start_scroll": 3,
+            "dur_scroll": 22,
+            "accent_color": "#c93b7a",
+            "accent_dark_color": "#8f2456"
+          }
+        },
         "product_item_THggyp": {
           "type": "product_item",
           "settings": {
@@ -26,7 +89,7 @@
             "rot_x": 0,
             "rot_y": 0,
             "rot_z": 0,
-            "scale_size": 180,
+            "scale_size": 200,
             "start_scroll": 3,
             "dur_scroll": 22,
             "accent_color": "#c93b7a",
@@ -35,6 +98,9 @@
         }
       },
       "block_order": [
+        "product_item_tyqc4x",
+        "product_item_DxUKCc",
+        "product_item_YLwmMz",
         "product_item_THggyp"
       ],
       "settings": {
@@ -207,6 +273,7 @@
         "body_para2_ar": "من أول سيروم لنمو الشعر إلى مجموعة كاملة من سيرومات الرموش والأظافر والعيون — كل تركيبة تُصنع بعناية وشفافية وهدف.",
         "cta_label_ar": "تعرف علينا أكثر",
         "cta_link": "",
+        "story_image": "shopify://shop_images/ChatGPT_Image_Aug_8_2026_03_26_42_PM.png",
         "image_alt": "Desura De Sehr — Our Story"
       }
     }
