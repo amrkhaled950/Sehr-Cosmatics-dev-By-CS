@@ -90,9 +90,9 @@
               </li>
             {%- endfor -%}
           {%- else -%}
-            <li><a href="/pages/about" class="ds-footer-link">{%- if is_arabic -%}من نحن{%- else -%}About Us{%- endif -%}</a></li>
-            <li><a href="/pages/faqs" class="ds-footer-link">FAQs</a></li>
-            <li><a href="/pages/contact" class="ds-footer-link">{%- if is_arabic -%}تواصل معنا{%- else -%}Contact Us{%- endif -%}</a></li>
+            <li><a href="{{ section.settings.about_url | default: '/pages/about' }}" class="ds-footer-link">{%- if is_arabic -%}{{ section.settings.about_label_ar | default: 'من نحن' }}{%- else -%}{{ section.settings.about_label_en | default: 'About Us' }}{%- endif -%}</a></li>
+            <li><a href="{{ section.settings.faq_url | default: '/pages/faqs' }}" class="ds-footer-link">{%- if is_arabic -%}{{ section.settings.faq_label_ar | default: 'الأسئلة الشائعة' }}{%- else -%}{{ section.settings.faq_label_en | default: 'FAQs' }}{%- endif -%}</a></li>
+            <li><a href="{{ section.settings.contact_url | default: '/pages/contact' }}" class="ds-footer-link">{%- if is_arabic -%}{{ section.settings.contact_label_ar | default: 'تواصل معنا' }}{%- else -%}{{ section.settings.contact_label_en | default: 'Contact Us' }}{%- endif -%}</a></li>
           {%- endif -%}
         </ul>
       </div>
@@ -181,6 +181,11 @@
       </p>
 
       <ul class="ds-footer-legal-links">
+        <li>
+          <a href="{{ section.settings.faq_url | default: '/pages/faqs' }}">
+            {%- if is_arabic -%}{{ section.settings.faq_label_ar | default: 'الأسئلة الشائعة' }}{%- else -%}{{ section.settings.faq_label_en | default: 'FAQs' }}{%- endif -%}
+          </a>
+        </li>
         <li>
           <a href="{{ section.settings.shipping_url | default: '/pages/shipping' }}">
             {%- if is_arabic -%}{{ section.settings.shipping_label_ar | default: 'الشحن والتوصيل' }}{%- else -%}{{ section.settings.shipping_label_en | default: 'Shipping & Delivery' }}{%- endif -%}
@@ -606,6 +611,23 @@
     {
       "type": "header",
       "content": "Legal & Policy Page Links"
+    },
+    {
+      "type": "text",
+      "id": "faq_label_en",
+      "label": "FAQ Label (English)",
+      "default": "FAQs"
+    },
+    {
+      "type": "text",
+      "id": "faq_label_ar",
+      "label": "FAQ Label (Arabic)",
+      "default": "الأسئلة الشائعة"
+    },
+    {
+      "type": "url",
+      "id": "faq_url",
+      "label": "FAQ Page Link URL"
     },
     {
       "type": "text",
