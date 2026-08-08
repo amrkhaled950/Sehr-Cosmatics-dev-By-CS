@@ -1,101 +1,54 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "name": "Home page",
   "sections": {
     "hero": {
       "type": "hero-desura-sehr",
       "blocks": {
-        "product_1": {
+        "product_item_AENnUc": {
           "type": "product_item",
           "settings": {
             "product_name": "EYE CONTOUR",
             "compounds_sub": "VITAMIN C AND K",
+            "glb_url": "",
+            "product_image": "shopify://shop_images/p4_8d3f3f17-052c-42fc-a87b-6cd8524df028.webp",
             "land_x": -22,
             "land_y": 18,
-            "land_x_ar": -32,
-            "land_y_ar": 18,
-            "land_x_mb": -20,
-            "land_y_mb": -15,
             "land_z": 0,
             "from_y": -900,
+            "rot_x": 0,
+            "rot_y": 0,
             "rot_z": -3,
-            "accent_color": "#c93b7a",
-            "accent_dark_color": "#8f2456",
+            "scale_size": 100,
             "start_scroll": 3,
-            "dur_scroll": 22
-          }
-        },
-        "product_2": {
-          "type": "product_item",
-          "settings": {
-            "product_name": "NAIL SERUM",
-            "compounds_sub": "BIOTIN AND COLLAGEN",
-            "land_x": -6,
-            "land_y": 8,
-            "land_x_ar": -16,
-            "land_y_ar": 8,
-            "land_x_mb": 18,
-            "land_y_mb": -10,
-            "land_z": 50,
-            "from_y": -1100,
-            "rot_z": 2,
-            "accent_color": "#d16a5e",
-            "accent_dark_color": "#8f4038",
-            "start_scroll": 10,
-            "dur_scroll": 22
-          }
-        },
-        "product_3": {
-          "type": "product_item",
-          "settings": {
-            "product_name": "LASH AND BROW",
-            "compounds_sub": "PEPTIDE SERUM",
-            "land_x": 12,
-            "land_y": 12,
-            "land_x_ar": -30,
-            "land_y_ar": -12,
-            "land_x_mb": -18,
-            "land_y_mb": 18,
-            "land_z": -30,
-            "from_y": -1000,
-            "rot_z": -2,
-            "accent_color": "#3fb8a8",
-            "accent_dark_color": "#237567",
-            "start_scroll": 18,
-            "dur_scroll": 22
-          }
-        },
-        "product_4": {
-          "type": "product_item",
-          "settings": {
-            "product_name": "HAIR OIL",
-            "compounds_sub": "ROSEMARY AND MINT",
-            "land_x": 28,
-            "land_y": 14,
-            "land_x_ar": -14,
-            "land_y_ar": -14,
-            "land_x_mb": 18,
-            "land_y_mb": 24,
-            "land_z": 20,
-            "from_y": -1200,
-            "rot_z": 4,
-            "accent_color": "#c9a24a",
-            "accent_dark_color": "#8a6d2a",
-            "start_scroll": 26,
-            "dur_scroll": 24
+            "dur_scroll": 22,
+            "accent_color": "#c93b7a",
+            "accent_dark_color": "#8f2456"
           }
         }
       },
       "block_order": [
-        "product_1",
-        "product_2",
-        "product_3",
-        "product_4"
+        "product_item_AENnUc"
       ],
       "settings": {
+        "eyebrow_en": "PREMIUM CARE. POWERED BY NATURE.",
         "heading_line1": "Beauty",
         "heading_line2": "Elevated.",
         "body_text": "Science-backed formulas with natural ingredients for radiant, healthy, and confident you.",
-        "cta_label": "SHOP NOW"
+        "cta_label": "SHOP NOW",
+        "eyebrow_ar": "عناية فائقة. بقوة الطبيعة.",
+        "heading_line1_ar": "سِحر",
+        "heading_line2_ar": "الجمال.",
+        "body_text_ar": "تركيبات مدعومة بالعلم بمكونات طبيعية مئة بالمئة لتمنحكِ إشراقة وصحة مفعمة بالثقة.",
+        "cta_label_ar": "تسوق الآن",
+        "cta_link": ""
       }
     },
     "science_ingredients": {
@@ -174,15 +127,57 @@
     },
     "featured_collection": {
       "type": "featured-collection",
-      "settings": {}
+      "settings": {
+        "eyebrow_en": "OUR COLLECTION",
+        "heading_main_en": "Targeted Care. Visible",
+        "heading_accent_en": "Results.",
+        "body_en": "From hair to skin, lashes to nails — our science-backed formulas are designed to solve real concerns and reveal your natural best.",
+        "eyebrow_ar": "مجموعتنا",
+        "heading_main_ar": "عناية دقيقة. نتائج",
+        "heading_accent_ar": "مرئية.",
+        "body_ar": "من الشعر للبشرة والرموش للأظافر — تركيباتنا العلمية مصممة لحل المشكلات الحقيقية وإبراز جمالك الطبيعي.",
+        "collection": "",
+        "products_to_show": 4,
+        "accent_dot_color": "#c9a24a",
+        "show_view_all": true,
+        "view_all_link": ""
+      }
     },
     "bundles_collection": {
       "type": "bundles-collection",
-      "settings": {}
+      "settings": {
+        "eyebrow_en": "CURATED SETS",
+        "heading_main_en": "Save More With",
+        "heading_accent_en": "Bundles.",
+        "body_en": "Curated combinations of our bestsellers — designed to work together and priced to save.",
+        "badge_label_en": "BUNDLE",
+        "eyebrow_ar": "مجموعات منتقاة",
+        "heading_main_ar": "وفّر أكثر مع",
+        "heading_accent_ar": "الباندلز.",
+        "body_ar": "تركيبات مختارة من أفضل منتجاتنا — صُمِّمت لتعمل معاً وبسعر يستحق.",
+        "badge_label_ar": "باندل",
+        "collection": "",
+        "products_to_show": 4,
+        "show_view_all": true,
+        "view_all_link": ""
+      }
     },
     "instagram_reels": {
       "type": "instagram-reels",
-      "settings": {}
+      "settings": {
+        "instagram_handle": "@sehrcosmetics",
+        "profile_url": "",
+        "hashtag": "#SehrCosmetics",
+        "eyebrow_en": "REELS · FOLLOW THE RITUAL",
+        "tagline_en": "Tag",
+        "tagline_suffix_en": "for a chance to be featured",
+        "cta_label_en": "WATCH MORE ON INSTAGRAM",
+        "eyebrow_ar": "ريلز · تابع الطقوس",
+        "tagline_ar": "شارك صورتك مع",
+        "tagline_suffix_ar": "لفرصة الظهور معنا",
+        "cta_label_ar": "شاهد المزيد على إنستجرام",
+        "show_watch_more": true
+      }
     },
     "trust_bar": {
       "type": "trust-bar",
@@ -190,7 +185,26 @@
     },
     "brand_story": {
       "type": "brand-story",
-      "settings": {}
+      "settings": {
+        "eyebrow_en": "OUR STORY",
+        "heading_line1_en": "Rooted in",
+        "heading_accent1_en": "Nature.",
+        "heading_line2_en": "Driven by",
+        "heading_accent2_en": "Science.",
+        "body_para1_en": "Desura De Sehr was founded in 2024 by a young Egyptian entrepreneur with a clear mission: to deliver powerful personal care products with international quality—like Korean and French standards—at a price that fits the local market.",
+        "body_para2_en": "From our first hair growth serum to a full range of Lash & Brow, Nail, and Under Eye serums—every formula is crafted with care, transparency, and purpose.",
+        "cta_label_en": "LEARN MORE ABOUT US",
+        "eyebrow_ar": "قصتنا",
+        "heading_line1_ar": "متجذرون في",
+        "heading_accent1_ar": "الطبيعة.",
+        "heading_line2_ar": "مدفوعون بـ",
+        "heading_accent2_ar": "العلم.",
+        "body_para1_ar": "تأسست Desura De Sehr عام 2024 على يد رائدة أعمال مصرية شابة برؤية واضحة: تقديم منتجات عناية شخصية فعّالة بجودة دولية — تُضاهي المعايير الكورية والفرنسية — بسعر يناسب السوق المحلي.",
+        "body_para2_ar": "من أول سيروم لنمو الشعر إلى مجموعة كاملة من سيرومات الرموش والأظافر والعيون — كل تركيبة تُصنع بعناية وشفافية وهدف.",
+        "cta_label_ar": "تعرف علينا أكثر",
+        "cta_link": "",
+        "image_alt": "Desura De Sehr — Our Story"
+      }
     }
   },
   "order": [

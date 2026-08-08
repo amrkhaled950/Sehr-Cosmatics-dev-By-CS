@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "brand_color": "#63c9cf",
@@ -5,18 +14,6 @@
     "sections": {
       "science-ingredients": {
         "type": "science-ingredients",
-        "settings": {
-          "eyebrow_en": "THE SCIENCE WITHIN",
-          "heading_line1_en": "Nature's Best.",
-          "heading_line2_en": "Backed by",
-          "heading_accent_en": "Science.",
-          "body_en": "We combine powerful natural ingredients with advanced science to deliver visible, lasting results.",
-          "eyebrow_ar": "العلم والطبيعة",
-          "heading_line1_ar": "أفضل ما في الطبيعة.",
-          "heading_line2_ar": "مدعوم بـ",
-          "heading_accent_ar": "العلم.",
-          "body_ar": "نجمع بين المكونات الطبيعية القوية والعلم المتقدم لتقديم نتائج ملحوظة وتدوم طويلاً."
-        },
         "blocks": {
           "ing_1": {
             "type": "ingredient",
@@ -69,8 +66,132 @@
             }
           }
         },
-        "block_order": ["ing_1", "ing_2", "ing_3", "ing_4", "ing_5"]
+        "block_order": [
+          "ing_1",
+          "ing_2",
+          "ing_3",
+          "ing_4",
+          "ing_5"
+        ],
+        "settings": {
+          "eyebrow_en": "THE SCIENCE WITHIN",
+          "heading_line1_en": "Nature's Best.",
+          "heading_line2_en": "Backed by",
+          "heading_accent_en": "Science.",
+          "body_en": "We combine powerful natural ingredients with advanced science to deliver visible, lasting results.",
+          "eyebrow_ar": "العلم والطبيعة",
+          "heading_line1_ar": "أفضل ما في الطبيعة.",
+          "heading_line2_ar": "مدعوم بـ",
+          "heading_accent_ar": "العلم.",
+          "body_ar": "نجمع بين المكونات الطبيعية القوية والعلم المتقدم لتقديم نتائج ملحوظة وتدوم طويلاً."
+        }
+      },
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "show_announcement": true,
+          "autorotate_speed": 4,
+          "enable_glass_shine": true
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo_width": 140
+        }
+      },
+      "main-about": {
+        "type": "main-about",
+        "settings": {
+          "eyebrow_en": "ABOUT US",
+          "title_en": "Our Story",
+          "tagline_en": "Rooted in Nature. Driven by Science.",
+          "eyebrow_ar": "من نحن",
+          "title_ar": "قصتنا",
+          "tagline_ar": "متجذرون في الطبيعة. مدفوعون بالعلم."
+        }
+      },
+      "main-cart": {
+        "type": "main-cart",
+        "settings": {}
+      },
+      "main-contact": {
+        "type": "main-contact",
+        "settings": {
+          "eyebrow_en": "CONTACT US",
+          "title_en": "We'd Love to Hear From You",
+          "phone": "+20 128 824 7928",
+          "email": "sehrcosmetics@gmail.com",
+          "address": "Cairo, Egypt"
+        }
+      },
+      "main-shipping": {
+        "type": "main-shipping",
+        "settings": {
+          "title_en": "Shipping & Delivery",
+          "title_ar": "الشحن والتوصيل"
+        }
+      },
+      "main-privacy": {
+        "type": "main-privacy",
+        "settings": {
+          "title_en": "Privacy Policy",
+          "title_ar": "سياسة الخصوصية"
+        }
+      },
+      "main-wishlist": {
+        "type": "main-wishlist",
+        "settings": {}
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "brand_name": "Desura De Sehr",
+          "social_instagram": "",
+          "social_tiktok": "",
+          "social_facebook": "",
+          "social_pinterest": "",
+          "shop_title_en": "SHOP",
+          "info_title_en": "INFORMATION",
+          "care_title_en": "CUSTOMER CARE",
+          "shop_title_ar": "المتجر",
+          "info_title_ar": "معلومات",
+          "care_title_ar": "خدمة العملاء",
+          "shipping_label_en": "Shipping & Delivery",
+          "shipping_label_ar": "الشحن والتوصيل",
+          "shipping_url": "",
+          "returns_label_en": "Returns & Refunds",
+          "returns_label_ar": "الإرجاع والاستبدال",
+          "returns_url": "shopify://pages/returns-refunds",
+          "privacy_label_en": "Privacy Policy",
+          "privacy_label_ar": "سياسة الخصوصية",
+          "privacy_url": "",
+          "terms_label_en": "Terms & Conditions",
+          "terms_label_ar": "الشروط والأحكام",
+          "terms_url": "",
+          "cat1_label_en": "Hair Care",
+          "cat1_label_ar": "العناية بالشعر",
+          "cat1_url": "",
+          "cat2_label_en": "Skin Care",
+          "cat2_label_ar": "العناية بالبشرة",
+          "cat2_url": "",
+          "cat3_label_en": "Nail Care",
+          "cat3_label_ar": "العناية بالأظافر",
+          "cat3_url": "",
+          "cat4_label_en": "Lash & Brow Care",
+          "cat4_label_ar": "الرموش والحواجب",
+          "cat4_url": "",
+          "newsletter_eyebrow_en": "STAY BEAUTIFULLY INFORMED",
+          "newsletter_body_en": "Be the first to know about new arrivals, offers, and beauty tips.",
+          "subscribe_label_en": "SUBSCRIBE",
+          "newsletter_eyebrow_ar": "ابقَ على اطلاع",
+          "newsletter_body_ar": "كن أول من يعلم بالوصولات الجديدة والعروض ونصائح الجمال.",
+          "subscribe_label_ar": "اشترك",
+          "copyright_en": "All Rights Reserved.",
+          "copyright_ar": "جميع الحقوق محفوظة."
+        }
       }
-    }
+    },
+    "content_for_index": []
   }
 }
