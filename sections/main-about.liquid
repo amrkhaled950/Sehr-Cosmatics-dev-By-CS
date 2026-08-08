@@ -82,8 +82,34 @@
             {% if is_arabic %}{{ section.settings.m4_desc_ar | default: 'مع نمونا، اتبعنا الطريق الصحيح: الحصول على موافقات هيئة الدواء المصرية، والتوافق مع المواصفات القياسية المصرية والمعايير الدولية للجودة لضمان أن منتجاتنا آمنة، فعالة، وموثوقة.' }}{% else %}{{ section.settings.m4_desc_en | default: 'As we grew, we followed the right path: obtaining Egyptian Drug Authority approvals, meeting Egyptian Standard Specifications, and aligning with international quality standards to ensure our products are safe, effective, and trustworthy.' }}{% endif %}
           </p>
         </div>
-      </div>
+    </div>
 
+    <!-- ── Interactive Stats Bar ── -->
+    <div class="about-stats-grid">
+      <div class="stat-card" data-reveal="fade-up" data-delay="0">
+        <div class="stat-number-wrap">
+          <span class="stat-number" data-target="1">0</span><span class="stat-suffix">M+</span>
+        </div>
+        <div class="stat-label">{% if is_arabic %}هدف المبيعات (قطعة){% else %}Sales Target (Pieces){% endif %}</div>
+      </div>
+      <div class="stat-card" data-reveal="fade-up" data-delay="100">
+        <div class="stat-number-wrap">
+          <span class="stat-number" data-target="100">0</span><span class="stat-suffix">+</span>
+        </div>
+        <div class="stat-label">{% if is_arabic %}منتج عناية شخصية{% else %}Care Products{% endif %}</div>
+      </div>
+      <div class="stat-card" data-reveal="fade-up" data-delay="200">
+        <div class="stat-number-wrap">
+          <span class="stat-number" data-target="2024">0</span>
+        </div>
+        <div class="stat-label">{% if is_arabic %}سنة التأسيس{% else %}Founded Year{% endif %}</div>
+      </div>
+      <div class="stat-card" data-reveal="fade-up" data-delay="300">
+        <div class="stat-number-wrap">
+          <span class="stat-number" data-target="100">0</span><span class="stat-suffix">%</span>
+        </div>
+        <div class="stat-label">{% if is_arabic %}معايير جودة دولية{% else %}Quality Standard{% endif %}</div>
+      </div>
     </div>
 
     <!-- ── Mission Section ── -->
@@ -527,6 +553,78 @@
     opacity: 1;
     box-shadow: 0 20px 50px rgba(92, 197, 203, 0.12);
   }
+
+  /* ── Interactive Stats Grid ── */
+  .about-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 100px;
+  }
+
+  .stat-card {
+    background: linear-gradient(135deg, #FFFFFF 0%, #F4FCFC 100%);
+    border: 1px solid #D2F2F4;
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(92, 197, 203, 0.06);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #5CC5CB, transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 16px 36px rgba(92, 197, 203, 0.2);
+    border-color: #5CC5CB;
+  }
+
+  .stat-card:hover::before {
+    opacity: 1;
+  }
+
+  .stat-number-wrap {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(36px, 4vw, 54px);
+    font-weight: 600;
+    color: #000000;
+    line-height: 1;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+  }
+
+  .stat-suffix {
+    color: #5CC5CB;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #666666;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 768px) {
+    .about-stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 </style>
 
 <script>
@@ -551,6 +649,52 @@
     });
 
     revealElements.forEach(el => observer.observe(el));
+
+    /* Animated Counter Observer */
+    const counterElements = document.querySelectorAll('#main-about-{{ section.id }} .stat-number');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.getAttribute('data-target'), 10);
+          let start = 0;
+          const duration = 1800;
+          const startTime = performance.now();
+
+          function updateCounter(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const currentVal = Math.floor(progress * (2 - progress) * target);
+            el.textContent = currentVal.toLocaleString();
+            if (progress < 1) {
+              requestAnimationFrame(updateCounter);
+            } else {
+              el.textContent = target.toLocaleString();
+            }
+          }
+
+          requestAnimationFrame(updateCounter);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    counterElements.forEach(el => counterObserver.observe(el));
+
+    /* 3D Tilt Effect on Cards */
+    const tiltCards = document.querySelectorAll('#main-about-{{ section.id }} .mission-card, #main-about-{{ section.id }} .stat-card');
+    tiltCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        card.style.transform = `perspective(1000px) rotateX(${-y / 18}deg) rotateY(${x / 18}deg) translateY(-6px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
   });
 </script>
 
