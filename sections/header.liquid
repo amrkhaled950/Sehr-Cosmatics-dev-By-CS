@@ -2,23 +2,47 @@
 <nav class="site-nav" aria-label="Main navigation">
   <div class="nav-inner">
     
+    {%- assign is_arabic = false -%}
+    {%- if request.locale.iso_code contains 'ar' or request.locale.root_url contains '/ar' or request.path contains '/ar' -%}
+      {%- assign is_arabic = true -%}
+    {%- endif -%}
+
     <!-- Left: Navigation Links -->
     <ul class="nav-links">
-      {%- for link in linklists['main-menu'].links -%}
-        {%- assign nav_title = link.title | upcase -%}
-        {%- assign nav_url = link.url -%}
-        {%- if nav_title == 'CATALOG' or nav_title == 'SHOP' or nav_url contains '/collections' -%}
-          {%- assign nav_title = 'SHOP' -%}
-          {%- if request.locale.iso_code == 'ar' -%}{%- assign nav_title = 'تسوق' -%}{%- endif -%}
-          {%- assign nav_url = '/#our-collection' -%}
-        {%- endif -%}
-        <li><a href="{{ nav_url }}" class="{% if link.active or forloop.first %}active{% endif %}">{{ nav_title }}</a></li>
+      {%- if linklists['main-menu'].links.size > 0 -%}
+        {%- for link in linklists['main-menu'].links -%}
+          {%- assign raw_title = link.title | strip | downcase -%}
+          {%- assign nav_url = link.url -%}
+          
+          {%- if raw_title contains 'home' or raw_title contains 'الرئيسية' or nav_url == '/' or nav_url == routes.root_url -%}
+            {%- assign nav_title = 'HOME' -%}
+            {%- if is_arabic -%}{%- assign nav_title = 'الرئيسية' -%}{%- endif -%}
+          {%- elsif raw_title contains 'shop' or raw_title contains 'catalog' or raw_title contains 'منتجات' or raw_title contains 'تسوق' or nav_url contains '/collections' -%}
+            {%- assign nav_title = 'SHOP' -%}
+            {%- if is_arabic -%}{%- assign nav_title = 'تسوق' -%}{%- endif -%}
+            {%- assign nav_url = '/#our-collection' -%}
+          {%- elsif raw_title contains 'about' or raw_title contains 'من نحن' -%}
+            {%- assign nav_title = 'ABOUT US' -%}
+            {%- if is_arabic -%}{%- assign nav_title = 'من نحن' -%}{%- endif -%}
+          {%- elsif raw_title contains 'contact' or raw_title contains 'تواصل' -%}
+            {%- assign nav_title = 'CONTACT' -%}
+            {%- if is_arabic -%}{%- assign nav_title = 'تواصل معنا' -%}{%- endif -%}
+          {%- elsif raw_title contains 'faq' or raw_title contains 'أسئلة' -%}
+            {%- assign nav_title = 'FAQS' -%}
+            {%- if is_arabic -%}{%- assign nav_title = 'الأسئلة الشائعة' -%}{%- endif -%}
+          {%- else -%}
+            {%- assign nav_title = link.title -%}
+          {%- endif -%}
+
+          <li><a href="{{ nav_url }}" class="{% if link.active or forloop.first %}active{% endif %}">{{ nav_title }}</a></li>
+        {%- endfor -%}
       {%- else -%}
-        <li><a href="{{ routes.root_url }}" class="active">{% if request.locale.iso_code == 'ar' %}الرئيسية{% else %}HOME{% endif %}</a></li>
-        <li><a href="/#our-collection">{% if request.locale.iso_code == 'ar' %}تسوق{% else %}SHOP{% endif %}</a></li>
-        <li><a href="/pages/about">{% if request.locale.iso_code == 'ar' %}من نحن{% else %}ABOUT US{% endif %}</a></li>
-        <li><a href="/pages/contact">{% if request.locale.iso_code == 'ar' %}تواصل معنا{% else %}CONTACT{% endif %}</a></li>
-      {%- endfor -%}
+        <li><a href="{{ routes.root_url }}" class="active">{% if is_arabic %}الرئيسية{% else %}HOME{% endif %}</a></li>
+        <li><a href="/#our-collection">{% if is_arabic %}تسوق{% else %}SHOP{% endif %}</a></li>
+        <li><a href="/pages/about">{% if is_arabic %}من نحن{% else %}ABOUT US{% endif %}</a></li>
+        <li><a href="/pages/contact">{% if is_arabic %}تواصل معنا{% else %}CONTACT{% endif %}</a></li>
+        <li><a href="/pages/faqs">{% if is_arabic %}الأسئلة الشائعة{% else %}FAQS{% endif %}</a></li>
+      {%- endif -%}
     </ul>
 
     <!-- Center: Brand Logo -->
