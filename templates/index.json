@@ -12,21 +12,21 @@
     "hero": {
       "type": "hero-desura-sehr",
       "blocks": {
-        "product_item_AENnUc": {
+        "product_item_THggyp": {
           "type": "product_item",
           "settings": {
-            "product_name": "EYE CONTOUR",
-            "compounds_sub": "VITAMIN C AND K",
+            "product_name": "",
+            "compounds_sub": "",
             "glb_url": "",
-            "product_image": "shopify://shop_images/p4_8d3f3f17-052c-42fc-a87b-6cd8524df028.webp",
-            "land_x": -22,
-            "land_y": 18,
-            "land_z": 0,
+            "product_image": "shopify://shop_images/untitled3.png",
+            "land_x": -15,
+            "land_y": 16,
+            "land_z": 70,
             "from_y": -900,
             "rot_x": 0,
             "rot_y": 0,
-            "rot_z": -3,
-            "scale_size": 100,
+            "rot_z": 0,
+            "scale_size": 180,
             "start_scroll": 3,
             "dur_scroll": 22,
             "accent_color": "#c93b7a",
@@ -35,7 +35,7 @@
         }
       },
       "block_order": [
-        "product_item_AENnUc"
+        "product_item_THggyp"
       ],
       "settings": {
         "eyebrow_en": "PREMIUM CARE. POWERED BY NATURE.",
@@ -57,30 +57,33 @@
         "ing_1": {
           "type": "ingredient",
           "settings": {
-            "title_en": "TEA TREE OIL",
-            "title_ar": "زيت شجرة الشاي",
-            "subtitle_en": "Purifies & soothes the skin",
-            "subtitle_ar": "ينقي ويهدئ البشرة",
+            "image": "shopify://shop_images/ChatGPT_Image_Aug_8_2026_05_28_51_PM.png",
+            "title_en": "Rosemary Oil",
+            "title_ar": "زيت الروزماري",
+            "subtitle_en": "Stimulates Hair Growth",
+            "subtitle_ar": "يحفز نمو الشعر",
             "glow_color": "#48a375"
           }
         },
         "ing_2": {
           "type": "ingredient",
           "settings": {
-            "title_en": "VITAMIN C",
-            "title_ar": "فيتامين سي",
-            "subtitle_en": "Brightens & boosts radiance",
-            "subtitle_ar": "يضيء ويعزز إشراق البشرة",
+            "image": "shopify://shop_images/ChatGPT_Image_Aug_8_2026_05_28_55_PM.png",
+            "title_en": "Peppermint Oil",
+            "title_ar": "زيت النعناع",
+            "subtitle_en": "Cools & Refreshes The Skin",
+            "subtitle_ar": "يبرد وينعش البشرة",
             "glow_color": "#e09f3e"
           }
         },
         "ing_3": {
           "type": "ingredient",
           "settings": {
-            "title_en": "SALICYLIC ACID",
-            "title_ar": "حمض الساليسيليك",
-            "subtitle_en": "Exfoliates & unclogs pores",
-            "subtitle_ar": "يقشر وينظف المسام العميق",
+            "image": "shopify://shop_images/ChatGPT_Image_Aug_8_2026_05_28_43_PM.png",
+            "title_en": "RCP COMPLEX",
+            "title_ar": "RCP COMPLEX",
+            "subtitle_en": "Redensyl® • Capixyl™ • Procapil® • Peptides",
+            "subtitle_ar": "ريدينسيل® • كابيكسيل™ • بروكابيل® • الببتيدات",
             "glow_color": "#60a5fa"
           }
         },
