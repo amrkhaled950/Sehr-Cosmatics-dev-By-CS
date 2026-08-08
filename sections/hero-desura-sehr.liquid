@@ -128,12 +128,19 @@
       {% if section.blocks.size > 0 %}
         {% for block in section.blocks %}
           {% assign idx = forloop.index0 %}
-          {% assign land_x_en = block.settings.land_x | default: 0 %}
-          {% assign land_y_en = block.settings.land_y | default: 0 %}
-          {% assign land_x_ar = block.settings.land_x_ar | default: land_x_en %}
-          {% assign land_y_ar = block.settings.land_y_ar | default: land_y_en %}
-          {% assign land_x_mb = block.settings.land_x_mb | default: land_x_en %}
-          {% assign land_y_mb = block.settings.land_y_mb | default: land_y_en %}
+          {% assign land_x_en = block.settings.land_x %}
+          {% assign land_y_en = block.settings.land_y %}
+          {% assign land_x_ar = block.settings.land_x_ar %}
+          {% assign land_y_ar = block.settings.land_y_ar %}
+          {% assign land_x_mb = block.settings.land_x_mb %}
+          {% assign land_y_mb = block.settings.land_y_mb %}
+
+          {% if land_x_en == blank %}{% assign land_x_en = 0 %}{% endif %}
+          {% if land_y_en == blank %}{% assign land_y_en = 0 %}{% endif %}
+          {% if land_x_ar == blank %}{% assign land_x_ar = land_x_en %}{% endif %}
+          {% if land_y_ar == blank %}{% assign land_y_ar = land_y_en %}{% endif %}
+          {% if land_x_mb == blank %}{% assign land_x_mb = land_x_en %}{% endif %}
+          {% if land_y_mb == blank %}{% assign land_y_mb = land_y_en %}{% endif %}
           {% assign land_z    = block.settings.land_z | default: 0 %}
           {% assign from_y = block.settings.from_y | default: -900 %}
           {% assign rot_x = block.settings.rot_x | default: 0 %}

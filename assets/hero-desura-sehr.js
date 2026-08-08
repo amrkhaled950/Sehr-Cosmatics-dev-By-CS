@@ -164,6 +164,28 @@ function initHero() {
   blocksData.forEach((bd) => {
     const wrap = bd.wrap;
     if (!wrap) return;
+
+    const isArabic = document.documentElement.dir === 'rtl' || 
+                     (document.documentElement.lang && document.documentElement.lang.toLowerCase().startsWith('ar')) ||
+                     document.body.classList.contains('rtl') || 
+                     window.location.pathname.includes('/ar') || 
+                     window.location.search.includes('lang=ar');
+    const isMobile = window.innerWidth <= 768;
+
+    let curLandX = bd.landX_en;
+    let curLandY = bd.landY_en;
+
+    if (isMobile) {
+      curLandX = bd.landX_mb;
+      curLandY = bd.landY_mb;
+    } else if (isArabic) {
+      curLandX = bd.landX_ar;
+      curLandY = bd.landY_ar;
+    }
+
+    wrap.style.left = `calc(50% + ${curLandX}%)`;
+    wrap.style.top  = `calc(50% + ${curLandY}%)`;
+
     if (reducedMotion) {
       /* Jump straight to landed position */
       wrap.style.opacity   = '1';
@@ -197,7 +219,11 @@ function initHero() {
       setRibbonProgress(1);
     }
 
-    const isArabic = document.documentElement.dir === 'rtl' || document.documentElement.lang === 'ar' || window.location.pathname.includes('/ar');
+    const isArabic = document.documentElement.dir === 'rtl' || 
+                     (document.documentElement.lang && document.documentElement.lang.toLowerCase().startsWith('ar')) ||
+                     document.body.classList.contains('rtl') || 
+                     window.location.pathname.includes('/ar') || 
+                     window.location.search.includes('lang=ar');
     const isMobile = window.innerWidth <= 768;
 
     /* Boxes */
