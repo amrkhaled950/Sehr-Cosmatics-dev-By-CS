@@ -42,8 +42,14 @@
         "id": "text_direction",
         "label": "Text direction",
         "options": [
-          { "value": "ltr", "label": "Left to right (LTR)" },
-          { "value": "rtl", "label": "Right to left (RTL)" }
+          {
+            "value": "ltr",
+            "label": "Left to right (LTR)"
+          },
+          {
+            "value": "rtl",
+            "label": "Right to left (RTL)"
+          }
         ],
         "default": "ltr"
       }
