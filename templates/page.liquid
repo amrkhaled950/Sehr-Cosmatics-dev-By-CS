@@ -6,7 +6,9 @@
   {% section 'main-wishlist' %}
 {%- elsif handle_down contains 'contact' or title_down contains 'contact' or path_down contains 'contact' -%}
   {% section 'main-contact' %}
-{%- elsif handle_down contains 'shipping' or handle_down contains 'return' or handle_down contains 'refund' or title_down contains 'shipping' or path_down contains 'shipping' or path_down contains 'return' -%}
+{%- elsif handle_down contains 'return' or handle_down contains 'refund' or title_down contains 'return' or title_down contains 'refund' or path_down contains 'return' or path_down contains 'refund' -%}
+  {% section 'main-returns' %}
+{%- elsif handle_down contains 'shipping' or handle_down contains 'delivery' or title_down contains 'shipping' or path_down contains 'shipping' -%}
   {% section 'main-shipping' %}
 {%- elsif handle_down contains 'privacy' or title_down contains 'privacy' or path_down contains 'privacy' -%}
   {% section 'main-privacy' %}
