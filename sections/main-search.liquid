@@ -1,0 +1,706 @@
+{%- assign is_arabic = false -%}
+{%- if request.locale.iso_code == 'ar' or request.locale.root_url contains '/ar' or request.path contains '/ar' -%}
+  {%- assign is_arabic = true -%}
+{%- endif -%}
+
+<section class="main-search-section" id="main-search-root" data-section-id="{{ section.id }}">
+  <div class="search-container">
+
+    <!-- ── 1. Search Glass Hero Header ── -->
+    <div class="search-hero-card" data-scroll="fade-up">
+      <span class="search-eyebrow">
+        {%- if is_arabic -%}
+          {{ section.settings.eyebrow_ar | default: 'نتائج البحث' }}
+        {%- else -%}
+          {{ section.settings.eyebrow_en | default: 'SEARCH OUR RITUALS' }}
+        {%- endif -%}
+      </span>
+
+      <h1 class="search-title">
+        {%- if search.performed -%}
+          {%- if is_arabic -%}
+            نتائج البحث عن: <span class="search-query-text">"{{ search.terms | escape }}"</span>
+          {%- else -%}
+            Results for <span class="search-query-text">"{{ search.terms | escape }}"</span>
+          {%- endif -%}
+        {%- else -%}
+          {%- if is_arabic -%}
+            عما تبحثين اليوم؟
+          {%- else -%}
+            What are you looking for?
+          {%- endif -%}
+        {%- endif -%}
+      </h1>
+
+      <!-- ── Search Form Bar ── -->
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search-form-bar">
+        <div class="search-input-wrapper">
+          <svg class="search-icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="search"
+            name="q"
+            id="SearchInputMain"
+            value="{{ search.terms | escape }}"
+            placeholder="{% if is_arabic %}ابحثي عن منتج، زيت روزماري، سيروم رموش...{% else %}Search products, rosemary oil, lash serum...{% endif %}"
+            aria-label="Search"
+            autocomplete="off"
+            class="search-main-input"
+          />
+          {%- if search.terms != blank -%}
+            <a href="{{ routes.search_url }}" class="search-clear-btn" aria-label="Clear search">✕</a>
+          {%- endif -%}
+          <button type="submit" class="search-submit-btn">
+            {%- if is_arabic -%}بحث{%- else -%}SEARCH{%- endif -%}
+          </button>
+        </div>
+      </form>
+
+      <!-- ── Popular Quick Search Tags ── -->
+      <div class="search-popular-tags">
+        <span class="tags-label">{% if is_arabic %}الأكثر بحثاً:{% else %}Popular:{% endif %}</span>
+        <div class="tags-list">
+          <a href="{{ routes.search_url }}?q=Rosemary" class="search-tag-chip">{% if is_arabic %}زيت الروزماري{% else %}Rosemary Oil{% endif %}</a>
+          <a href="{{ routes.search_url }}?q=Eye" class="search-tag-chip">{% if is_arabic %}سيروم العيون{% else %}Eye Contour{% endif %}</a>
+          <a href="{{ routes.search_url }}?q=Nail" class="search-tag-chip">{% if is_arabic %}سيروم الأظافر{% else %}Nail Serum{% endif %}</a>
+          <a href="{{ routes.search_url }}?q=Lash" class="search-tag-chip">{% if is_arabic %}سيروم الرموش{% else %}Lash &amp; Brow{% endif %}</a>
+          <a href="{{ routes.search_url }}?q=Hair" class="search-tag-chip">{% if is_arabic %}زيت الشعر{% else %}Hair Oil{% endif %}</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 2. Search Results Metadata & Filter Tabs ── -->
+    {%- if search.performed -%}
+      <div class="search-meta-bar" data-scroll="fade-up">
+        <div class="search-count-badge">
+          {%- if is_arabic -%}
+            تم العثور على <strong>{{ search.results_count }}</strong> {%- if search.results_count == 1 -%}نتيجة{%- else -%}نتائج{%- endif -%}
+          {%- else -%}
+            Found <strong>{{ search.results_count }}</strong> {%- if search.results_count == 1 -%}result{%- else -%}results{%- endif -%}
+          {%- endif -%}
+        </div>
+
+        {%- if search.results_count > 0 -%}
+          <div class="search-filter-tabs" role="tablist">
+            <button class="search-tab-btn active" data-filter="all">
+              {% if is_arabic %}الكل ({{ search.results_count }}){% else %}All ({{ search.results_count }}){% endif %}
+            </button>
+            {%- assign product_count = 0 -%}
+            {%- assign article_count = 0 -%}
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}{%- assign product_count = product_count | plus: 1 -%}{%- endif -%}
+              {%- if item.object_type == 'article' or item.object_type == 'page' -%}{%- assign article_count = article_count | plus: 1 -%}{%- endif -%}
+            {%- endfor -%}
+            {%- if product_count > 0 -%}
+              <button class="search-tab-btn" data-filter="product">
+                {% if is_arabic %}المنتجات ({{ product_count }}){% else %}Products ({{ product_count }}){% endif %}
+              </button>
+            {%- endif -%}
+            {%- if article_count > 0 -%}
+              <button class="search-tab-btn" data-filter="page">
+                {% if is_arabic %}الصفحات والمقالات ({{ article_count }}){% else %}Pages &amp; Articles ({{ article_count }}){% endif %}
+              </button>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <!-- ── 3. Results Content Grid ── -->
+    {%- if search.performed -%}
+      {%- if search.results_count > 0 -%}
+        <div class="search-results-grid" id="SearchResultsGrid">
+          {%- for item in search.results -%}
+            {%- assign delay = forloop.index0 | modulo: 4 | times: 100 -%}
+            
+            {%- if item.object_type == 'product' -%}
+              <!-- Product Card -->
+              <div class="search-card search-card-product" data-type="product" data-scroll="fade-up" data-scroll-delay="{{ delay }}">
+                <div class="sc-badge-wrap">
+                  {%- if item.compare_at_price > item.price -%}
+                    <span class="sc-badge sc-badge-sale">{% if is_arabic %}خصم{% else %}SALE{% endif %}</span>
+                  {%- endif -%}
+                </div>
+
+                <button class="fc-wishlist-btn" aria-label="Add to wishlist" data-product-id="{{ item.id }}">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  </svg>
+                </button>
+
+                <a href="{{ item.url }}" class="sc-img-link" aria-label="{{ item.title | escape }}">
+                  <div class="sc-img-wrap">
+                    {%- if item.featured_image != blank -%}
+                      <img src="{{ item.featured_image | img_url: '600x600', crop: 'center' }}" alt="{{ item.featured_image.alt | default: item.title | escape }}" class="sc-img" loading="lazy" width="600" height="600" />
+                      {%- if item.images[1] != blank -%}
+                        <img src="{{ item.images[1] | img_url: '600x600', crop: 'center' }}" alt="{{ item.images[1].alt | default: item.title | escape }}" class="sc-img sc-img-hover" loading="lazy" width="600" height="600" />
+                      {%- endif -%}
+                    {%- else -%}
+                      <div class="sc-placeholder-img">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </a>
+
+                <div class="sc-content">
+                  <div class="sc-vendor">{{ item.vendor | default: 'DESURA DE SEHR' }}</div>
+                  <h3 class="sc-title">
+                    <a href="{{ item.url }}">
+                      {%- if is_arabic and item.metafields.custom.title_ar != blank -%}
+                        {{ item.metafields.custom.title_ar }}
+                      {%- else -%}
+                        {{ item.title }}
+                      {%- endif -%}
+                    </a>
+                  </h3>
+
+                  <div class="sc-price-row">
+                    {%- if item.compare_at_price > item.price -%}
+                      <span class="sc-price-compare">{{ item.compare_at_price | money }}</span>
+                    {%- endif -%}
+                    <span class="sc-price-current">{{ item.price | money }}</span>
+                  </div>
+
+                  <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="sc-add-form">
+                    <input type="hidden" name="id" value="{{ item.selected_or_first_available_variant.id }}" />
+                    <button type="submit" class="sc-add-btn" {% unless item.available %}disabled{% endunless %}>
+                      {%- if item.available -%}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                        <span>{% if is_arabic %}إضافة للسلة{% else %}ADD TO CART{% endif %}</span>
+                      {%- else -%}
+                        <span>{% if is_arabic %}نفذت الكمية{% else %}OUT OF STOCK{% endif %}</span>
+                      {%- endif -%}
+                    </button>
+                  </form>
+                </div>
+              </div>
+
+            {%- else -%}
+
+              <!-- Page / Article Card -->
+              <div class="search-card search-card-page" data-type="page" data-scroll="fade-up" data-scroll-delay="{{ delay }}">
+                <div class="sc-page-badge">{% if item.object_type == 'article' %}{% if is_arabic %}مقال{% else %}ARTICLE{% endif %}{% else %}{% if is_arabic %}صفحة{% else %}PAGE{% endif %}{% endif %}</div>
+                <h3 class="sc-title">
+                  <a href="{{ item.url }}">{{ item.title }}</a>
+                </h3>
+                <p class="sc-excerpt">{{ item.content | strip_html | truncatewords: 22 }}</p>
+                <a href="{{ item.url }}" class="sc-read-more">
+                  <span>{% if is_arabic %}اقرئي المزيد{% else %}Read More{% endif %}</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+              </div>
+            {%- endif -%}
+
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        
+        <!-- No Results State -->
+        <div class="search-empty-card" data-scroll="fade-up">
+          <div class="empty-icon-wrap">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+          </div>
+          <h2 class="empty-title">
+            {% if is_arabic %}لم نجد أي نتائج لـ "{{ search.terms }}"{% else %}No results found for "{{ search.terms }}"{% endif %}
+          </h2>
+          <p class="empty-subtitle">
+            {% if is_arabic %}تأكدي من صحة الكلمات المكتوبة أو جربي البحث بكلمات عامة مثل "سيروم" أو "زيت".{% else %}Check the spelling or try searching for general terms like "serum" or "oil".{% endif %}
+          </p>
+          <a href="/#our-collection" class="empty-cta-btn">
+            {% if is_arabic %}استكشفي جميع المنتجات{% else %}EXPLORE ALL PRODUCTS{% endif %}
+          </a>
+        </div>
+      {%- endif -%}
+
+    {%- else -%}
+
+      <!-- Initial State (Before searching) -->
+      <div class="search-initial-suggestions" data-scroll="fade-up">
+        <h2 class="suggestions-title">
+          {% if is_arabic %}المجموعات الأكثر طلباً{% else %}OUR BESTSELLERS{% endif %}
+        </h2>
+        
+        <div class="search-results-grid">
+          {%- assign featured = collections['frontpage'] | default: collections.first -%}
+          {%- if featured != blank and featured.products_count > 0 -%}
+            {%- for product in featured.products limit: 4 -%}
+              <div class="search-card search-card-product" data-type="product">
+                <a href="{{ product.url }}" class="sc-img-link">
+                  <div class="sc-img-wrap">
+                    {%- if product.featured_image != blank -%}
+                      <img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" alt="{{ product.title | escape }}" class="sc-img" loading="lazy" width="600" height="600" />
+                    {%- endif -%}
+                  </div>
+                </a>
+                <div class="sc-content">
+                  <h3 class="sc-title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+                  <div class="sc-price-row">
+                    <span class="sc-price-current">{{ product.price | money }}</span>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<!-- ── Luxury Search Page Styles ── -->
+<style>
+  .main-search-section {
+    padding: 120px 24px 80px;
+    background: linear-gradient(180deg, #f7fafb 0%, #ffffff 100%);
+    min-height: 85vh;
+    font-family: var(--font-sans, system-ui, sans-serif);
+  }
+  .search-container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  
+  /* Hero Card */
+  .search-hero-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(201, 162, 74, 0.2);
+    border-radius: 24px;
+    padding: 48px 36px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.04);
+    margin-bottom: 40px;
+  }
+  .search-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #c9a24a;
+    display: block;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .search-title {
+    font-family: var(--font-serif, Georgia, serif);
+    font-size: 34px;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-bottom: 28px;
+  }
+  .search-query-text {
+    color: #3fb8a8;
+    font-style: italic;
+  }
+
+  /* Search Input Bar */
+  .search-form-bar {
+    max-width: 680px;
+    margin: 0 auto 24px;
+  }
+  .search-input-wrapper {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border: 2px solid rgba(63, 184, 168, 0.3);
+    border-radius: 50px;
+    padding: 6px 8px 6px 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+  }
+  .search-input-wrapper:focus-within {
+    border-color: #3fb8a8;
+    box-shadow: 0 12px 32px rgba(63, 184, 168, 0.2);
+  }
+  .search-icon-svg {
+    color: #888888;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+  [dir="rtl"] .search-icon-svg {
+    margin-right: 0;
+    margin-left: 12px;
+  }
+  .search-main-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    color: #1a1a1a;
+    padding: 8px 0;
+  }
+  .search-clear-btn {
+    text-decoration: none;
+    color: #999999;
+    font-size: 16px;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .search-clear-btn:hover { color: #333333; }
+  .search-submit-btn {
+    background: linear-gradient(135deg, #3fb8a8 0%, #237567 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 40px;
+    padding: 12px 28px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    flex-shrink: 0;
+  }
+  .search-submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(63, 184, 168, 0.35);
+  }
+
+  /* Quick Tags */
+  .search-popular-tags {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 13px;
+  }
+  .tags-label { color: #777777; font-weight: 500; }
+  .tags-list { display: flex; gap: 8px; flex-wrap: wrap; }
+  .search-tag-chip {
+    text-decoration: none;
+    background: rgba(63, 184, 168, 0.08);
+    color: #237567;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .search-tag-chip:hover {
+    background: #3fb8a8;
+    color: #ffffff;
+  }
+
+  /* Meta Bar & Tabs */
+  .search-meta-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .search-count-badge {
+    font-size: 15px;
+    color: #555555;
+  }
+  .search-filter-tabs {
+    display: flex;
+    gap: 8px;
+  }
+  .search-tab-btn {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #666666;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .search-tab-btn.active, .search-tab-btn:hover {
+    background: #1a1a1a;
+    color: #ffffff;
+    border-color: #1a1a1a;
+  }
+
+  /* Results Grid */
+  .search-results-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 1024px) {
+    .search-results-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .search-results-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  }
+  @media (max-width: 480px) {
+    .search-results-grid { grid-template-columns: repeat(1, 1fr); }
+  }
+
+  /* Product Card */
+  .search-card {
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .search-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  }
+  .sc-badge-wrap {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 3;
+  }
+  [dir="rtl"] .sc-badge-wrap { left: auto; right: 12px; }
+  .sc-badge-sale {
+    background: #c93b7a;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .fc-wishlist-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 4;
+    background: rgba(255, 255, 255, 0.85);
+    border: none;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #555;
+    transition: all 0.2s;
+  }
+  [dir="rtl"] .fc-wishlist-btn { right: auto; left: 12px; }
+  .fc-wishlist-btn:hover { background: #ffffff; color: #c93b7a; transform: scale(1.1); }
+
+  .sc-img-wrap {
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    position: relative;
+    background: #fdfdfd;
+  }
+  .sc-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .sc-card:hover .sc-img { transform: scale(1.06); }
+  .sc-img-hover {
+    position: absolute;
+    top: 0; left: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .sc-card:hover .sc-img-hover { opacity: 1; }
+
+  .sc-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  .sc-vendor {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #c9a24a;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .sc-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .sc-title a { text-decoration: none; color: inherit; transition: color 0.2s; }
+  .sc-title a:hover { color: #3fb8a8; }
+  .sc-price-row {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sc-price-current {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+  .sc-price-compare {
+    font-size: 14px;
+    color: #999;
+    text-decoration: line-through;
+  }
+
+  .sc-add-btn {
+    width: 100%;
+    background: #1a1a1a;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .sc-add-btn:hover:not(:disabled) {
+    background: #3fb8a8;
+  }
+  .sc-add-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+
+  /* Page/Article Card */
+  .search-card-page {
+    padding: 24px;
+  }
+  .sc-page-badge {
+    display: inline-block;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+  }
+  .sc-excerpt {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .sc-read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #3fb8a8;
+    text-decoration: none;
+    transition: gap 0.2s;
+  }
+  .sc-read-more:hover { gap: 10px; }
+
+  /* Empty State */
+  .search-empty-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 64px 32px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    max-width: 600px;
+    margin: 40px auto;
+  }
+  .empty-icon-wrap {
+    width: 80px;
+    height: 80px;
+    background: rgba(63, 184, 168, 0.08);
+    color: #3fb8a8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+  }
+  .empty-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+  }
+  .empty-subtitle {
+    font-size: 14px;
+    color: #777777;
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+  .empty-cta-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 14px 32px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: transform 0.2s;
+  }
+  .empty-cta-btn:hover { transform: translateY(-2px); }
+</style>
+
+<!-- ── Search Page Filter JS ── -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabBtns = document.querySelectorAll('.search-tab-btn');
+    const cards = document.querySelectorAll('.search-card');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        const filter = this.getAttribute('data-filter');
+        cards.forEach(card => {
+          const type = card.getAttribute('data-type');
+          if (filter === 'all' || filter === type) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Main Search Page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow_en",
+      "label": "Eyebrow (English)",
+      "default": "SEARCH OUR RITUALS"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_ar",
+      "label": "Eyebrow (Arabic)",
+      "default": "نتائج البحث"
+    }
+  ]
+}
+{% endschema %}
